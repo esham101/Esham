@@ -1,0 +1,158 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: rgba(33, 89, 85, 1);
+    color: #fff;
+    padding: 1rem 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.logo h1 {
+    margin: 0;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s;
+}
+
+.nav-links li a:hover {
+    background-color: #2a665f;
+    border-radius: 5px;
+}
+
+main {
+    padding: 2rem;
+}
+
+.results-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.property-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Property Item Styles */
+.property-item {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+.property-item:hover {
+    background-color: rgba(33, 89, 85, 1);
+    color: #fff;
+    transform: scale(1.05); /* Slightly grows in size */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Adds a deeper shadow */
+}
+
+.property-item:hover h3,
+.property-item:hover .tags,
+.property-item:hover .location,
+.property-item:hover .owner span {
+    color: #fff; /* Change text color to white */
+}
+
+/* Button Style */
+.view-link {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.4rem 0.8rem; /* Slightly smaller size */
+    border: 2px solid rgba(33, 89, 85, 1);
+    border-radius: 5px;
+    background-color: rgba(33, 89, 85, 1);
+    color: #fff;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+/* Button synchronized with container hover */
+.property-item:hover .view-link {
+    background-color: #fff; /* Button background turns white */
+    color: rgba(33, 89, 85, 1); /* Button text turns green */
+    border-color: #fff; /* Button border matches background */
+    transform: scale(1.1); /* Button grows slightly */
+}
+
+/* Image and Details */
+.property-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+}
+
+.property-details {
+    padding: 1rem;
+}
+
+.property-details h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: rgba(33, 89, 85, 1);
+    transition: color 0.3s;
+}
+
+.property-details .tags {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: #777;
+    transition: color 0.3s;
+}
+
+.property-details .location {
+    font-size: 0.9rem;
+    color: #555;
+    transition: color 0.3s;
+}
+
+.owner {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.owner img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.owner span {
+    flex-grow: 1;
+    font-size: 0.9rem;
+    color: #333;
+    transition: color 0.3s;
+}

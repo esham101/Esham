@@ -1,0 +1,78 @@
+/* Filter Container */
+.filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 1rem;
+}
+
+/* Filter Buttons */
+.filter-button {
+    font-size: 1.2rem; /* Larger text for visibility */
+    font-weight: 500; /* Semi-bold for emphasis */
+    color: #000; /* Default black text */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    position: relative; /* Needed for underline positioning */
+    padding-bottom: 4px; /* Add space for the hover underline */
+    margin-right: 1rem; /* Add spacing between buttons */
+    transition: color 0.3s ease-in-out;
+}
+
+/* Hover Effect: Underline */
+.filter-button:hover {
+    color: rgba(33, 89, 85, 1); /* Change text color to green on hover */
+}
+
+.filter-button:hover::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px; /* Underline thickness */
+    background-color: rgba(33, 89, 85, 1); /* Green underline color */
+    width: 100%; /* Match underline to text width */
+    transition: width 0.3s ease-in-out;
+}
+
+/* Active Button */
+.filter-button.active {
+    color: rgba(33, 89, 85, 1); /* Green text for active button */
+}
+
+.filter-button.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px; /* Underline thickness */
+    background-color: rgba(33, 89, 85, 1); /* Green underline for active button */
+    width: 100%; /* Full underline for active button */
+}
+
+/* Sort By Section */
+.sort-by {
+    font-size: 1.2rem; /* Same size as filter buttons */
+    font-weight: 500; /* Match filter buttons' weight */
+    color: #000; /* Default black text */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Space between text and arrow */
+}
+
+.sort-by:hover {
+    color: rgba(33, 89, 85, 1); /* Change text color to green on hover */
+}
+
+.sort-by .dropdown-icon {
+    font-size: 1rem; /* Slightly smaller arrow */
+    transition: transform 0.3s ease;
+}
+
+.sort-by:hover .dropdown-icon {
+    transform: rotate(180deg); /* Rotate arrow on hover */
+}

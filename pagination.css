@@ -1,0 +1,46 @@
+/* Pagination Container */
+#pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 0.5rem; /* Spacing between elements */
+}
+
+/* Pagination Buttons */
+#pagination button {
+    border: 1px solid rgba(33, 89, 85, 1); /* Green border */
+    background-color: #fff; /* White background */
+    color: rgba(33, 89, 85, 1); /* Green text */
+    padding: 0.3rem 0.7rem; /* Smaller padding */
+    font-size: 0.9rem; /* Slightly smaller font */
+    border-radius: 4px; /* Slightly rounded edges */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+
+/* Active Button Style */
+#pagination button.active {
+    background-color: rgba(33, 89, 85, 1); /* Green background */
+    color: #fff; /* White text */
+    pointer-events: none; /* Disable click on the active button */
+}
+
+/* Arrow Styling */
+#pagination .arrow {
+    background: none;
+    border: none;
+    color: rgba(33, 89, 85, 1); /* Green color */
+    font-size: 1.5rem; /* Slightly larger arrows for visibility */
+    cursor: pointer;
+    padding: 0; /* Remove padding */
+    transition: color 0.3s;
+}
+
+
+/* Disable Arrow on Edge Cases */
+#pagination .arrow.disabled {
+    color: #ccc; /* Grey color for disabled arrows */
+    cursor: not-allowed; /* Change cursor to indicate it's disabled */
+}
