@@ -86,15 +86,21 @@ nav {
 .register button {
     background-color: #215955;
     border-radius: 25px;
-    width: 130px;
-    height: 50px;
+    width: 130px; /* Fixed width */
+    height: 50px; /* Fixed height */
     font-size: 16px;
     font-weight: 500;
     font-family: 'Inter', sans-serif;
     color: #fff;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: 0; /* Removes extra padding to fit text properly */
     cursor: pointer;
+    display: flex; /* Ensures text alignment using flexbox */
+    justify-content: center; /* Centers text horizontally */
+    align-items: center; /* Centers text vertically */
+    text-align: center; /* Aligns the text in the middle */
+    white-space: nowrap; /* Prevents text wrapping to the next line */
+    overflow: hidden; /* Ensures any overflow is hidden */
 }
 
 .logo h1 {
@@ -124,7 +130,7 @@ nav {
 }
 
 footer {
-    background-color: #333;
+    background-color: #215955;
     color: #fff;
     text-align: center;
     padding: 1rem 0;
