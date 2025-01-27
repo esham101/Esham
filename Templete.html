@@ -11,7 +11,7 @@
     <header>
         <nav>
             <div class="logo">
-                <h1>Esham</h1>
+                <img src="images/logonav.jpg" alt="Esham Logo" />
             </div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
@@ -75,6 +75,7 @@
               Sunday to Thursday: 9:00 AM to 4:00 PM
             </p>
           </div>
+          
         </div>
       
         <!-- Footer Description -->
@@ -152,8 +153,11 @@ nav {
     overflow: hidden; /* Ensures any overflow is hidden */
 }
 
-.logo h1 {
+.logo img {
     margin: 0;
+    width: 100px;
+    height: 70px;
+    
 }
 
 .nav-links {
@@ -178,7 +182,6 @@ nav {
     border-radius: 5px;
 }
 
-/* General Footer Styling */
 .footer {
   background-color: #253732; /* Dark green background */
   color: #FAFAFA;
@@ -214,7 +217,6 @@ nav {
 .footer-links {
   list-style: none;
   padding: 0;
-  
 }
 
 .footer-links li {
@@ -233,24 +235,27 @@ nav {
 }
 
 .contact-number {
-    text-decoration: none;
   font-size: 18px;
-  margin-left: 5px;
   font-weight: 800;
   margin-bottom: 10px;
 }
 
 .working-hours {
   font-size: 11px;
-  text-align: center;
   font-weight: 300;
   line-height: 1.5;
+  margin-top: 5px; /* Ensure spacing between the contact number and working hours */
+  text-align: center;
+  margin-right: 20rem;
 }
 
 .footer-description {
   padding-top: 20px;
   font-size: 10px;
   line-height: 1.8;
+  text-align: left;
+  margin-left: 20rem;
+  margin-right: 20rem;
 }
 
 .footer-description p {
@@ -261,6 +266,7 @@ nav {
   font-weight: 300;
   font-size: 10px;
 }
+
 </style>
 
 </body>
