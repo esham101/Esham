@@ -80,16 +80,32 @@ nav {
     margin: 0;
 }
 
+/* Navigation Links - Hover Underline Effect */
 .nav-links a {
     color: #333;
     text-decoration: none;
     padding: 0.5rem 1rem;
-    transition: background-color 0.3s;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 1px;
+    background-color: #215955; /* Underline color */
+    transition: width 0.3s ease-in-out;
 }
 
 .nav-links a:hover {
-    background-color: #575757;
-    border-radius: 5px;
+    color: #215955;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 /* Footer */
@@ -128,7 +144,7 @@ nav {
     margin-bottom: 15px;
 }
 
-/* Footer Links */
+/* Footer Links - Hover Underline Effect */
 .footer-links {
     list-style: none;
     padding: 0;
@@ -143,10 +159,27 @@ nav {
     font-size: 14px;
     font-weight: 300;
     text-decoration: none;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.footer-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #FAFAFA; /* White underline */
+    transition: width 0.3s ease-in-out;
 }
 
 .footer-links a:hover {
-    text-decoration: underline;
+    color: #fff;
+}
+
+.footer-links a:hover::after {
+    width: 100%;
 }
 
 /* Contact Number */
