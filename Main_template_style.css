@@ -1,4 +1,3 @@
-/* General Styles */
 body {
     font-family: 'Inter', sans-serif;
     margin: 0;
@@ -6,14 +5,13 @@ body {
     box-sizing: border-box;
 }
 
-/* Header */
 header {
     background-color: #fff;
     color: #fff;
     padding: 1rem 0;
+    font-family: 'Inter', sans-serif;
 }
 
-/* Navigation */
 nav {
     display: flex;
     justify-content: center; /* Centers the content horizontally */
@@ -23,26 +21,25 @@ nav {
     padding: 0 1rem;
 }
 
-/* Registration */
 .registeration {
     list-style: none;
     display: flex;
     gap: 1rem;
 }
 
-/* Login Button */
 .login button {
     background-color: #ffffff;
     color: #333;
-    font-weight: 600;
+    font-weight: 450;
+    font-family: Inter;
     font-size: 16px;
     border: none;
     padding: 0.9rem 1rem;
+    font-family: 'Inter', sans-serif;
     border-radius: 5px;
     cursor: pointer;
 }
 
-/* Register Button */
 .register button {
     background-color: #215955;
     border-radius: 25px;
@@ -50,26 +47,26 @@ nav {
     height: 50px; /* Fixed height */
     font-size: 16px;
     font-weight: 500;
+    font-family: 'Inter', sans-serif;
     color: #fff;
     border: none;
-    padding: 0;
+    padding: 0; /* Removes extra padding to fit text properly */
     cursor: pointer;
     display: flex; /* Ensures text alignment using flexbox */
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    white-space: nowrap; /* Prevents text wrapping */
-    overflow: hidden; /* Hides overflow */
+    justify-content: center; /* Centers text horizontally */
+    align-items: center; /* Centers text vertically */
+    text-align: center; /* Aligns the text in the middle */
+    white-space: nowrap; /* Prevents text wrapping to the next line */
+    overflow: hidden; /* Ensures any overflow is hidden */
 }
 
-/* Logo */
 .logo img {
     margin: 0;
     width: 100px;
     height: 70px;
+    
 }
 
-/* Navigation Links */
 .nav-links {
     list-style: none;
     display: flex;
@@ -80,141 +77,107 @@ nav {
     margin: 0;
 }
 
-/* Navigation Links - Hover Underline Effect */
 .nav-links a {
     color: #333;
     text-decoration: none;
     padding: 0.5rem 1rem;
-    position: relative;
-    transition: color 0.3s;
-}
-
-.nav-links a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0%;
-    height: 1px;
-    background-color: #215955; /* Underline color */
-    transition: width 0.3s ease-in-out;
+    transition: background-color 0.3s;
 }
 
 .nav-links a:hover {
-    color: #215955;
+    background-color: #575757;
+    border-radius: 5px;
 }
 
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-/* Footer */
 .footer {
-    background-color: #253732; /* Dark green background */
-    color: #FAFAFA;
-    padding: 40px 20px;
+  background-color: #253732; /* Dark green background */
+  color: #FAFAFA;
+  padding: 40px 20px;
+  font-family: 'Inter', sans-serif;
 }
 
-/* Footer Container */
 .footer-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 40px;
+  margin-top: 25px;
 }
 
-/* Footer Columns */
 .footer-column {
-    flex: 1;
-    min-width: 200px;
+  flex: 1;
+  min-width: 200px;
 }
 
-/* Footer Logo */
 .footer-logo img {
-    max-width: 120px;
-    margin-bottom: 10px;
-    margin-left: 160px;
+  max-width: 120px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  margin-left: 160px;
 }
 
-/* Footer Titles */
 .footer-title {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
 }
 
-/* Footer Links - Hover Underline Effect */
 .footer-links {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 .footer-links li {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .footer-links a {
-    color: #FAFAFA;
-    font-size: 14px;
-    font-weight: 300;
-    text-decoration: none;
-    position: relative;
-    transition: color 0.3s;
-}
-
-.footer-links a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0%;
-    height: 2px;
-    background-color: #FAFAFA; /* White underline */
-    transition: width 0.3s ease-in-out;
+  color: #FAFAFA;
+  font-size: 14px;
+  font-weight: 300;
+  text-decoration: none;
 }
 
 .footer-links a:hover {
-    color: #fff;
+  text-decoration: underline;
 }
 
-.footer-links a:hover::after {
-    width: 100%;
-}
-
-/* Contact Number */
 .contact-number {
-    font-size: 18px;
-    font-weight: 800;
-    margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 800;
+  margin-left: 5px;
+  margin-bottom: 10px;
 }
 
-/* Working Hours */
+.contact-number a {
+  color: white; /* Makes the text white */
+  text-decoration: none; /* Removes the underline */
+}
+
 .working-hours {
-    font-size: 11px;
-    font-weight: 300;
-    line-height: 1.5;
-    margin-top: 5px;
-    text-align: center;
-    margin-right: 20rem;
+  font-size: 11px;
+  font-weight: 300;
+  line-height: 1.5;
+  margin-top: 5px; /* Ensure spacing between the contact number and working hours */
+  text-align: center;
+  margin-right: 19.5rem;
 }
 
-/* Footer Description */
 .footer-description {
-    padding-top: 20px;
-    font-size: 10px;
-    line-height: 1.8;
-    text-align: left;
-    margin-left: 20rem;
-    margin-right: 20rem;
+  padding-top: 20px;
+  font-size: 10px;
+  line-height: 1.8;
+  text-align: left;
+  margin-left: 20rem;
+  margin-right: 20rem;
 }
 
 .footer-description p {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
-/* Footer Disclaimer */
 .footer-disclaimer {
-    font-weight: 300;
-    font-size: 10px;
+  font-weight: 300;
+  font-size: 10px;
 }
