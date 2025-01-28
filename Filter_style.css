@@ -10,8 +10,8 @@
 
 /* Filter Buttons */
 .filter-button {
-    font-size: 1.2rem; /* Larger text for visibility */
-    font-weight: 500; /* Semi-bold for emphasis */
+    font-size: 0.8rem; /* Larger text for visibility */
+    font-weight: 250; /* Semi-bold for emphasis */
     color: #000; /* Default black text */
     cursor: pointer; /* Pointer cursor for interactivity */
     position: relative; /* Needed for underline positioning */
@@ -31,7 +31,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 2px; /* Underline thickness */
+    height: 1px; /* Underline thickness */
     background-color: rgba(33, 89, 85, 1); /* Green underline color */
     width: 100%; /* Match underline to text width */
     transition: width 0.3s ease-in-out;
@@ -55,8 +55,8 @@
 
 /* Sort By Section */
 .sort-by {
-    font-size: 1.2rem; /* Same size as filter buttons */
-    font-weight: 500; /* Match filter buttons' weight */
+    font-size: 0.8rem; /* Same size as filter buttons */
+    font-weight: 250; /* Match filter buttons' weight */
     color: #000; /* Default black text */
     cursor: pointer;
     display: flex;
@@ -89,8 +89,8 @@
 
 /* Filter Buttons */
 .filter-button {
-    font-size: 1.2rem;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 250;
     color: #000;
     cursor: pointer;
     position: relative;
