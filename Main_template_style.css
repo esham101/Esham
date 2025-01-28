@@ -78,16 +78,32 @@ nav {
 }
 
 .nav-links a {
-    color: #333;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    transition: background-color 0.3s;
+  color: #333;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 1px;
+  background-color: #215955; /* Underline color */
+  transition: width 0.3s ease-in-out;
 }
 
 .nav-links a:hover {
-    background-color: #575757;
-    border-radius: 5px;
+  color: #215955;
 }
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
 
 .footer {
   background-color: #253732; /* Dark green background */
