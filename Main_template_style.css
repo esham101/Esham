@@ -29,7 +29,7 @@ nav {
 
 .login button {
     background-color: #ffffff;
-    color: #333;
+    color: #245056;
     font-weight: 500;
     font-family: Inter;
     font-size: 16px;
@@ -62,8 +62,8 @@ nav {
 
 .logo img {
     margin: 0;
-    width: 100px;
-    height: 70px;
+    width: 130px;
+    height: auto;
     background-color: transparent;
 }
 

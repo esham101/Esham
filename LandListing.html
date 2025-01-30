@@ -8,12 +8,13 @@
     <link rel="stylesheet" href="pagination.css">
     <link rel="stylesheet" href="Filter_style.css">
     <link rel="stylesheet" href="Main_template_style.css">
+    <link rel="stylesheet" href="SearchBar_Style.css">
 </head>
 <body>
-    <header>
+    <header class="header">
         <nav>
             <div class="logo">
-                <img src="images/logonav.jpg" alt="Esham Logo" />
+                <img src="images/logonav12.png" alt="Esham Logo" width="200" height="auto"/>
             </div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
@@ -22,7 +23,6 @@
                 <li><a href="#contact">FAQ</a></li>
                 <li><a href="#contact">Contact Us</a></li>
             </ul>
-
             <ul class="registeration">
                 <li class="login">
                     <button type="button">Sign in</button>
@@ -30,10 +30,21 @@
                 <li class="register">
                     <button type="button">Register Now</button>
                 </li>
-                
             </ul>
         </nav>
+    
+        <!-- Search bar with title -->
+        <div class="search__container">
+            <h1 class="search__title" style="font-size: 80px;">Land Listing</h1>
+            <div class="search__wrapper">
+                <input class="search__input" type="text" placeholder="Enter a Postal code, District, or Street">
+                <button class="search__button">
+                    <img src="images/search.png" alt="Search">
+                </button>
+            </div>
+        </div>
     </header>
+    
 
     <main>
       <section class="filter-container">

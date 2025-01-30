@@ -1,101 +1,228 @@
-/* Hero Section Background (One Full Image for Nav & Search) */
-.hero-section {
-    position: relative;
-    width: 100%;
-    height: 420px; /* Adjust height so it doesn't overlap */
-    background-image: url('https://www.cathaypacific.com/content/dam/focal-point/cx/inspiration/2024/06/A_guide_to_Riyadh_Saudi_Arabia_for_first_time_visitors-Riyadh_landmarks-MOHAMED_HUSSAIN_YOUNIS-Gettyimages-HERO.renditionimage.900.600.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
 
-/* Make Navbar Transparent & No Borders */
-header {
+/* Make sure navbar blends into the background */
+nav {
+    background: transparent; /* Ensure nav has no solid background */
+    padding: 15px 0;
     position: absolute;
     top: 0;
-    left: 0;
     width: 100%;
-    background: transparent !important;
-    color: #fff;
-    z-index: 100;
-    padding: 1rem 0;
-    border: none !important;
-    box-shadow: none !important;
 }
 
-/* Ensure Nav is Transparent */
-nav {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
+/* Adjust the search container to fit well */
+.search__container {
+    margin-top: 100px; /* Adjust spacing based on navbar height */
 }
 
-/* Adjust Hero Section Spacing */
-.hero-section {
-    margin-bottom: 10px; /* Adjust so it doesn’t overlap with filters */
+/* Ensure text is readable over the background */
+.search__title {
+    font-size: 100px;
+    font-weight: 700;
+    color: white; /* Ensure text is visible over background */
+    margin-bottom: 20px;
 }
 
-/* Land Listing Title */
-.hero-section h1 {
-    font-size: 4rem; /* Bigger than the search bar */
-    font-weight: bold;
-    color: #fff;
-    margin-bottom: 15px; /* Adds space between title & search */
-}
-
-/* Search Bar Styling */
-.search-bar {
+/* Search bar styling */
+.search__wrapper {
     display: flex;
     align-items: center;
-    width: 40%; /* Shorter search bar */
-    max-width: 450px; /* Set max width */
-    background: #fff;
+    background-color: rgba(255, 255, 255, 0.9); /* Light background for contrast */
     border-radius: 50px;
-    padding: 0.8rem 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ddd;
+    padding: 5px;
+    width: 500px;
+    position: relative;
 }
 
-/* Search Input */
-.search-bar input {
+/* Input styling */
+.search__input {
     flex: 1;
     border: none;
     outline: none;
-    font-size: 1rem;
-    color: #333;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 50px;
+    width: 100%;
+    background: transparent;
 }
 
-/* Search Button (With Icon) */
-.search-button {
-    background-color: #215955; /* Green button */
+/* Button inside input */
+.search__button {
+    background: none;
     border: none;
-    color: white;
-    padding: 0.6rem 1rem;
-    border-radius: 50%;
     cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    right: 15px;
+    font-size: 18px;
+    color: #026b5d;
+}
+
+/* Ensure the button does not shrink */
+.search__button img {
+    width: 20px;
+    height: 20px;
+}
+/* Header section with background */
+.header {
+    background: url('https://www.agoda.com/wp-content/uploads/2019/11/Kingdom-Tower-Riyadh-things-to-see-in-Saudi-Arabia.jpg') center/cover no-repeat; 
+    height: 350px; /* Adjust height based on design */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
+
+/* Make sure navbar blends into the background */
+nav {
+    background: transparent; /* Ensure nav has no solid background */
+    padding: 15px 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+/* Adjust the search container to fit well */
+.search__container {
+    margin-top: 100px; /* Adjust spacing based on navbar height */
+}
+
+/* Ensure text is readable over the background */
+.search__title {
+    font-size: 48px;
+    font-weight: 700;
+    color: white; /* Ensure text is visible over background */
+    margin-bottom: 20px;
+}
+
+/* Search bar styling */
+.search__button {
+    width: 50px; /* Make the button smaller */
+    height: 50px;
+    background-color: #026b5d; /* Same green color */
+    border: none;
+    border-radius: 50%; /* Keeps it circular */
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    right: 0px; /* Moves it closer to the right edge of the search bar */
+    top: 50%;
+    transform: translateY(-50%); /* Centers it vertically */
+    transition: background-color 0.3s ease-in-out;
 }
 
-/* Fix Search Icon */
-.search-button i {
-    font-size: 1.2rem;
-    color: white; /* Ensures icon is visible */
+/* Hover effect */
+.search__button:hover {
+    background-color: #014f43; /* Darker green */
 }
 
-/* Ensure Filter Buttons Don't Overlap */
-.filter-container {
-    margin-top: 20px !important; /* Keeps it from overlapping */
-    padding-top: 5px !important;
-    border: none !important;
+/* Adjust icon size */
+.search__button img {
+    width: 25px; /* Smaller icon */
+    height: 25px;
+    filter: invert(100%); /* Makes the icon white */
 }
 
-/* Adjustments to Ensure No White Space */
-body, header {
-    margin: 0 !important;
-    padding: 0 !important;
+/* Adjust the search bar wrapper to ensure alignment */
+.search__wrapper {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.95); /* Less transparency */
+    border-radius: 50px;
+    border: 2px solid #ddd;
+    padding: 5px;
+    width: 500px;
+    position: relative;
+    padding-right: 50px; /* Keeps space for the button */
+}
+
+
+/* Ensure input stays inside properly */
+.search__input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 50px;
+    width: 100%;
+    background: transparent;
+}
+
+/* Keep "Sign in" aligned in the same spot */
+.login {
+    display: flex;
+    align-items: center;
+}
+.login button{
+    background: none; /* Remove button background */
+    border: none; /* Remove border */
+    color: #245056; /* Match navbar text color */
+    font-size: 16px; /* Adjust font size */
+    cursor: pointer; /* Make it clickable */
+    padding: 0; /* Remove padding */
+    text-decoration: none; /* Remove underline */
+}
+
+/* Style "Sign in" as a clickable text (removes button styles) */
+.login a {
+    color: #245056; /* Same color as navbar text */
+    font-size: 16px;
+    text-decoration: none; /* No underline initially */
+    cursor: pointer;
+    padding: 10px 15px; /* Keep spacing similar to Register button */
+    display: inline-block; /* Ensures proper spacing */
+}
+
+/* Hover effect to indicate clickability */
+.login a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Register button remains styled */
+.register button {
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: none;
+    background-color: #026b5d;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+/* Hover effect for Register button */
+.register button:hover {
+    background-color: #014f43;
+}
+/* Ensure all navbar links are white */
+
+/* Ensure "Sign in" is styled correctly */
+.login a {
+    color: #245056 !important; /* Make "Sign in" white */
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 10px 15px;
+    display: inline-block;
+}
+
+/* Ensure all navbar links are white and remove forced underlines */
+.nav-links a,
+.registeration a {
+    color: white !important; /* Keep text white */
+    text-decoration: none !important; /* Remove default underlines */
+    font-size: 16px;
+}
+
+/* REMOVE the extra hover effect */
+.nav-links a:hover,
+.registeration a:hover {
+    text-decoration: none !important; /* Ensure no additional underline is applied */
+}
+.search__container {
+    margin-bottom: 30px; /* Adjust this value to increase spacing */
 }
