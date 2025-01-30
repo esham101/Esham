@@ -64,8 +64,8 @@ nav {
 }
 /* Header section with background */
 .header {
-    background: url('https://www.agoda.com/wp-content/uploads/2019/11/Kingdom-Tower-Riyadh-things-to-see-in-Saudi-Arabia.jpg') center/cover no-repeat; 
-    height: 350px; /* Adjust height based on design */
+    background: url('images/Riyadh.jpg') center/cover no-repeat; 
+    height: 500px; /* Adjust height based on design */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -162,10 +162,11 @@ nav {
     background: none; /* Remove button background */
     border: none; /* Remove border */
     color: #245056; /* Match navbar text color */
-    font-size: 16px; /* Adjust font size */
+    font-size: 20px; /* Adjust font size */
     cursor: pointer; /* Make it clickable */
     padding: 0; /* Remove padding */
     text-decoration: none; /* Remove underline */
+    font-weight: 600;
 }
 
 /* Style "Sign in" as a clickable text (removes button styles) */
