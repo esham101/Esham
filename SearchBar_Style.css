@@ -1,0 +1,101 @@
+/* Hero Section Background (One Full Image for Nav & Search) */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 420px; /* Adjust height so it doesn't overlap */
+    background-image: url('https://www.cathaypacific.com/content/dam/focal-point/cx/inspiration/2024/06/A_guide_to_Riyadh_Saudi_Arabia_for_first_time_visitors-Riyadh_landmarks-MOHAMED_HUSSAIN_YOUNIS-Gettyimages-HERO.renditionimage.900.600.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Make Navbar Transparent & No Borders */
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: transparent !important;
+    color: #fff;
+    z-index: 100;
+    padding: 1rem 0;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Ensure Nav is Transparent */
+nav {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Adjust Hero Section Spacing */
+.hero-section {
+    margin-bottom: 10px; /* Adjust so it doesn’t overlap with filters */
+}
+
+/* Land Listing Title */
+.hero-section h1 {
+    font-size: 4rem; /* Bigger than the search bar */
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 15px; /* Adds space between title & search */
+}
+
+/* Search Bar Styling */
+.search-bar {
+    display: flex;
+    align-items: center;
+    width: 40%; /* Shorter search bar */
+    max-width: 450px; /* Set max width */
+    background: #fff;
+    border-radius: 50px;
+    padding: 0.8rem 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Search Input */
+.search-bar input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Search Button (With Icon) */
+.search-button {
+    background-color: #215955; /* Green button */
+    border: none;
+    color: white;
+    padding: 0.6rem 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Fix Search Icon */
+.search-button i {
+    font-size: 1.2rem;
+    color: white; /* Ensures icon is visible */
+}
+
+/* Ensure Filter Buttons Don't Overlap */
+.filter-container {
+    margin-top: 20px !important; /* Keeps it from overlapping */
+    padding-top: 5px !important;
+    border: none !important;
+}
+
+/* Adjustments to Ensure No White Space */
+body, header {
+    margin: 0 !important;
+    padding: 0 !important;
+}

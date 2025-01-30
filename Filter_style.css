@@ -1,115 +1,67 @@
 /* Filter Container */
 .filter-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Align buttons & sort on opposite ends */
     align-items: center;
     padding: 1rem;
+    max-width: 1200px; /* Matches property grid width */
+    margin: 0 auto 1rem auto;
     border-bottom: 1px solid #ddd;
-    margin-bottom: 1rem;
 }
 
-/* Filter Buttons */
+/* Filter Buttons Group (Ensures Even Spacing) */
+.filter-buttons {
+    display: flex;
+    gap: 143px; /* Ensures even spacing between filter buttons */
+}
+
+/* Filter Button Styles */
 .filter-button {
-    font-size: 0.8rem; /* Larger text for visibility */
-    font-weight: 250; /* Semi-bold for emphasis */
-    color: #000; /* Default black text */
-    cursor: pointer; /* Pointer cursor for interactivity */
-    position: relative; /* Needed for underline positioning */
-    padding-bottom: 4px; /* Add space for the hover underline */
-    margin-right: 1rem; /* Add spacing between buttons */
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+    cursor: pointer;
+    position: relative;
+    padding-bottom: 4px;
     transition: color 0.3s ease-in-out;
 }
 
-/* Hover Effect: Underline */
+/* Underline Hover Effect (Shorter than Button Width) */
 .filter-button:hover {
-    color: rgba(33, 89, 85, 1); /* Change text color to green on hover */
+    color: rgba(33, 89, 85, 1);
 }
 
 .filter-button:hover::after {
     content: '';
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 1px; /* Underline thickness */
-    background-color: rgba(33, 89, 85, 1); /* Green underline color */
-    width: 100%; /* Match underline to text width */
+    left: 50%;
+    bottom: -2px;
+    height: 2px;
+    width: 50%; /* Ensures underline is shorter than text */
+    background-color: rgba(33, 89, 85, 1);
+    transform: translateX(-50%);
     transition: width 0.3s ease-in-out;
 }
 
-/* Active Button */
+/* Active Filter Button */
 .filter-button.active {
-    color: rgba(33, 89, 85, 1); /* Green text for active button */
+    color: rgba(33, 89, 85, 1);
 }
 
 .filter-button.active::after {
     content: '';
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 2px; /* Underline thickness */
-    background-color: rgba(33, 89, 85, 1); /* Green underline for active button */
-    width: 100%; /* Full underline for active button */
+    left: 50%;
+    bottom: -2px;
+    height: 2px;
+    width: 50%;
+    background-color: rgba(33, 89, 85, 1);
+    transform: translateX(-50%);
 }
 
 /* Sort By Section */
 .sort-by {
-    font-size: 0.8rem; /* Same size as filter buttons */
-    font-weight: 250; /* Match filter buttons' weight */
-    color: #000; /* Default black text */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem; /* Space between text and arrow */
-}
-
-.sort-by:hover {
-    color: rgba(33, 89, 85, 1); /* Change text color to green on hover */
-}
-
-.sort-by .dropdown-icon {
-    font-size: 1rem; /* Slightly smaller arrow */
-    transition: transform 0.3s ease;
-}
-
-.sort-by:hover .dropdown-icon {
-    transform: rotate(180deg); /* Rotate arrow on hover */
-}
-
-/* Filter Container */
-.filter-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 1rem;
-}
-
-/* Filter Buttons */
-.filter-button {
-    font-size: 16px;
-    font-weight: 250;
-    color: #000;
-    cursor: pointer;
-    position: relative;
-    padding-bottom: 4px;
-    margin-right: 1rem;
-    transition: color 0.3s ease-in-out;
-}
-
-.filter-button:hover {
-    color: rgba(33, 89, 85, 1);
-}
-
-.filter-button.active {
-    color: rgba(33, 89, 85, 1);
-}
-
-/* Sort By Section */
-.sort-by {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 500;
     color: #000;
     cursor: pointer;
@@ -117,17 +69,24 @@
     align-items: center;
     position: relative;
     gap: 0.5rem;
+    margin-left: auto; /* Pushes it to the right */
 }
 
+/* Sort By Hover Effect */
+.sort-by:hover {
+    color: rgba(33, 89, 85, 1);
+}
+
+/* Sort Dropdown */
 .sort-by:hover .dropdown-menu {
-    display: block; /* Show the dropdown when hovered */
+    display: block;
 }
 
 /* Dropdown Menu */
 .dropdown-menu {
-    display: none; /* Hidden by default */
+    display: none;
     position: absolute;
-    top: 100%; /* Position below the Sort by text */
+    top: 100%;
     left: 0;
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -137,7 +96,7 @@
     padding: 0.5rem 0;
     margin: 0;
     z-index: 1000;
-    width: 100px; /* Adjust dropdown width */
+    width: 100px;
 }
 
 /* Dropdown Item */
@@ -150,6 +109,6 @@
 }
 
 .dropdown-item:hover {
-    background-color: rgba(33, 89, 85, 1); /* Green background on hover */
-    color: #fff; /* White text on hover */
+    background-color: rgba(33, 89, 85, 1);
+    color: #fff;
 }
