@@ -142,6 +142,7 @@ main {
     margin-left: 150px;
 }
 
+\\Fix this part 
 .authorized-container p {
     text-align: left;
     color: #000;
@@ -150,7 +151,7 @@ main {
     margin-top: -70px;
     text-align: justify;
     margin-right: 550px;
-    font-size: 21px;
+    font-size: 20px;
     line-height: 1.7; 
 }
 
