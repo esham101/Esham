@@ -24,7 +24,7 @@ main {
 .welcome-container p {
     text-align: left;
     text-align: justify;
-    font-size: 16px;
+    font-size: 22px;
     line-height: 1.7;
     color: #4E4E4E;
     margin-left: 20px;
@@ -43,6 +43,7 @@ main {
 
 .what-container h2 {
     text-align: left;
+    font-size: 30px;
     color: #245056;
     margin-top: 70px;
     margin-bottom: 30px;
@@ -52,24 +53,39 @@ main {
 .offer-box {
     background: #ffffff;
     padding: 15px;
-    
     border-radius: 10px;
-    border: #000000 1px solid;
-    text-align: left;
     margin-bottom: 70px;
+}
+
+.offerland {
+    border: #000 0.5px solid;
+    border-radius: 20px;
+    font-size: 20px;
+    padding: 5px 10px;
+}
+
+.offerdev {
+    border: #000 0.5px solid;
+    font-size: 20px;
+    border-radius: 20px;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 5px 10px;
 }
 
 .board-container {
     background: white;
     padding: 20px;
     margin-bottom: 20px;
+    margin-top: 50px;
     border-radius: 8px;
 
 }
 
 .board-container h2 {
     text-align: left;
-    color: #253732;
+    color: #245056;
+    font-size: 30px;
 }
 
 .board-members {
@@ -79,7 +95,7 @@ main {
     gap: 15px;
 }
 
-.member-card {
+.member {
     background: #ffffff;
     padding: 20px;
     border-radius: 8px;
@@ -89,40 +105,52 @@ main {
     transition: transform 0.3s ease-in-out;
 }
 
-.member-card:hover {
+.member:hover {
     transform: scale(1.05);
 }
 
-.member-card h3 {
-    color: #2c3e50;
+.member h3 {
+    color: #245056;
     margin-bottom: 5px;
 }
 
-.member-card p {
+.member p {
     color: #7f8c8d;
 }
 
 
 .authorized-container {
     background: white;
-    padding: 20px;
+    padding: 20px 20px;
     margin-bottom: 20px;
     border-bottom: #b8b8b8 0.5px solid;
+    margin-left: 100px;
+    justify-content: center;
 }
 
 .authorized-container h2 {
     text-align: left;
     color: #253732;
+    margin-top: 100px;
+    margin-left: 150px;
+}
+.authorized-container img {
+    width: 300px;
+    height: auto;
+    border-radius: 5px;
+    margin-top: 25px;
+    margin-left: 150px;
 }
 
 .authorized-container p {
     text-align: left;
     color: #000;
-    font-weight: 300;
-    margin-left: 400px;
+    font-weight: 400;
+    margin-left: 650px;
+    margin-top: -70px;
     text-align: justify;
     margin-right: 550px;
-    font-size: 18px;
+    font-size: 21px;
     line-height: 1.7; 
 }
 
@@ -130,16 +158,16 @@ main {
     text-align: left;
     color: #000;
     font-weight: 300;
-    margin-left: 400px;
+    margin-left: 650px;
     text-align: justify;
-    margin-right: 550px;
-    margin-top: -20px;
+    margin-top: -50px;
     font-size: 15px;
 }
 
 .partners-container {
     background: white;
-    padding: 20px;
+    margin-left: 100px;
+    padding: 20px 20px;
     margin-bottom: 20px;
     border-radius: 8px;
 }
@@ -147,18 +175,19 @@ main {
 .partners-container h2 {
     text-align: left;
     color: #253732;
+    margin-left: 150px;
 }
 
 .partners-logos {
+    margin-top: 50px;
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 50px;
+    justify-items: center;
 }
 
 .partners-logos img {
-    width: 100px;
-    height: auto;
-    border-radius: 5px;
+justify-content: center;
 }
 
 @media (max-width: 768px) {
