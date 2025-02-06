@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esham</title>
+    <link rel="stylesheet" href="Main_template_style.css">
+    <link rel="stylesheet" href="signupRD.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logonav.jpg" alt="Esham Logo" />
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Land Listings</a></li>
+                <li><a href="#services">Who are we?</a></li>
+                <li><a href="#contact">FAQ</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+
+            <ul class="registeration">
+                <li class="login">
+                    <button type="button">Sign in</button>
+                </li>
+                <li class="register">
+                    <button type="button">Register Now</button>
+                </li>
+                
+            </ul>
+        </nav>
+        <script>
+          function validateForm(event) {
+              event.preventDefault();
+  
+              const email = document.getElementById("email").value.trim();
+              const phone = document.getElementById("phone").value.trim();
+              const password = document.getElementById("password").value.trim();
+  
+              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              const phoneRegex = /^5\d{8}$/;
+              const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*_=+~]).{10,15}$/;
+  
+              if (!emailRegex.test(email)) {
+                  alert("Please enter a valid email address.");
+                  return;
+              }
+  
+              if (!phoneRegex.test(phone)) {
+                  alert("Phone number must start with 5 and be 9 digits long.");
+                  return;
+              }
+  
+              if (!passwordRegex.test(password)) {
+                  alert("Password must be 10-15 characters long, include at least one uppercase letter, one lowercase letter, one digit, and one special character (!@#$%^&*_=+~).");
+                  return;
+              }
+  
+              alert("Sign Up successful! OTP will be sent to your email.");
+          }
+      </script>
+    </header>
+
+    <main>
+         <div class="container">
+        <h2>Sign Up</h2>
+        <form onsubmit="validateForm(event)">
+            <div class="form-group">
+                <label for="company">Company Name</label>
+                <input type="text" id="company" required>
+            </div>
+            <div class="form-group">
+                <label for="businessReg">Business Registration Number</label>
+                <input type="text" id="businessReg" required>
+            </div>
+            <div class="form-group">
+                <label for="taxId">Tax Number</label>
+                <input type="text" id="taxId" required>
+            </div>
+            <div class="form-group">
+                <label for="commercialReg">Commercial Registration</label>
+                <input type="text" id="commercialReg" required>
+            </div>
+            <div class="form-group">
+                <label for="realEstateLicense">Real Estate License</label>
+                <input type="text" id="realEstateLicense" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Company Address</label>
+                <input type="text" id="address" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number (+966 5XXXXXXXX)</label>
+                <input type="text" id="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" id="terms" required>
+                <label for="terms" class="terms">I accept the terms and agreement</label>
+            </div>
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
+        <button class="btn" onclick="window.location.href='landowner_signup.html'">Sign Up as Landowner</button>
+    </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+          <!-- Logo Section -->
+          <div class="footer-column">
+            <div class="footer-logo">
+                <img src="images/logo.jpg" alt="Esham Logo" />
+            </div>
+          </div>
+      
+          <!-- Esham Links -->
+          <div class="footer-column">
+            <h3 class="footer-title">Esham</h3>
+            <ul class="footer-links">
+              <li><a href="#">Shariah Committee</a></li>
+              <li><a href="#">Join Our Team</a></li>
+              <li><a href="#">Terms and Conditions</a></li>
+            </ul>
+          </div>
+      
+          <!-- Product Links -->
+          <div class="footer-column">
+            <h3 class="footer-title">Product</h3>
+            <ul class="footer-links">
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">FAQs</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+            </ul>
+          </div>
+      
+          <!-- Contact Section -->
+          <div class="footer-column">
+            <h3 class="footer-title">Contact Number</h3>
+            <p class="contact-number"><a href="tel:01123456708">011 234 56708</a></p>
+            <p class="working-hours">
+              Official Working Hours<br />
+              Sunday to Thursday: 9:00 AM to 4:00 PM
+            </p>
+          </div>
+          
+        </div>
+      
+        <!-- Footer Description -->
+        <div class="footer-description">
+          <p>
+            Esham is an innovative and authorized digital platform that connects landowners with real estate developers through an integrated system designed to simplify and accelerate the development of real estate projects. The platform empowers stakeholders to communicate effectively, submit proposals, and select the best opportunities for mutual benefit.
+          </p>
+          <p class="footer-disclaimer">
+            Disclaimer: Esham is not an investment website and does not offer any financing or direct investment services. Our role is limited to providing a digital platform that connects landowners with real estate developers, facilitating the process of submitting and reviewing development proposals. All transactions are conducted directly between the parties according to the agreed terms, and the platform assumes no responsibility for any risks associated with agreements between the parties.
+          </p>
+        </div>
+      </footer>
+
+</body>
+</html>

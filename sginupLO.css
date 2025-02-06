@@ -1,0 +1,95 @@
+/* General Page Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fff; /* Dark blue */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container Styling */
+.signup-container {
+    background-color: #22554A; /* Teal blue */
+    padding: 25px;
+    border-radius: 12px;
+    width: 400px;
+    text-align: center;
+    color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Title */
+.signup-container h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #22554A; /* Golden yellow */
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Labels */
+label {
+    text-align: left;
+    margin: 8px 0 4px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Input Fields */
+input {
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 2px solid #22554A; /* Light blue */
+    border-radius: 6px;
+    width: 100%;
+    background-color: #ffffff; /* Darker blue */
+    color: rgb(2, 2, 2);
+    font-size: 14px;
+}
+
+input::placeholder {
+    color: #000000; /* Light grey */
+}
+
+/* Terms & Conditions Checkbox */
+.terms {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 13px;
+}
+
+.terms input {
+    width: auto;
+    margin-right: 8px;
+}
+
+/* Buttons */
+button {
+    background-color: #1d463d; /* Golden yellow */
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    margin-top: 8px;
+}
+
+button:hover {
+    background-color: #22554A; /* Deep orange */
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .signup-container {
+        width: 90%;
+    }
+}
