@@ -122,8 +122,8 @@ nav {
 
 /* Adjust icon size */
 .search__button img {
-    width: 25px; /* Smaller icon */
-    height: 25px;
+    width: 40px; /* Smaller icon */
+    height: 35px;
     filter: invert(100%); /* Makes the icon white */
 }
 
@@ -162,7 +162,7 @@ nav {
     background: none; /* Remove button background */
     border: none; /* Remove border */
     color: #245056; /* Match navbar text color */
-    font-size: 20px; /* Adjust font size */
+    font-size: 17px; /* Adjust font size */
     cursor: pointer; /* Make it clickable */
     padding: 0; /* Remove padding */
     text-decoration: none; /* Remove underline */

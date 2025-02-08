@@ -1,0 +1,48 @@
+.form-container {
+    width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #253732; /* Updated to your desired color */
+    color: white; /* Ensures text is readable */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 142px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: white; /* Ensures visibility */
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    text-align: left;
+    color: white; /* Makes labels visible */
+}
+
+input {
+    width: 350px;;
+    padding: 15px 15px 15px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+button {
+    width: 100%;
+    padding: 15px 15px 15px;
+    background-color: white;
+    color: #253732;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #6e6e6e; /* Darker shade for hover effect */
+}
