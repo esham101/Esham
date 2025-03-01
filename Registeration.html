@@ -29,114 +29,115 @@
                 <li class="register">
                     <button type="button">Register Now</button>
                 </li>
-                
             </ul>
         </nav>
     </header>
 
     <main>
-        <!-- Sign-In Form -->
-        <div class="form-container login-box">
-            <h2>Sign in</h2>
-            <form>
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-                
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-                
-                <button type="submit">Login</button>
-            </form>
-            <button class="forgot-password">Forgot Password?</button>
-            <button class="register-btn">Register</button>
-        </div>
+        <div class="login-wrapper">
+          <div class="login-container">
+              <h2>Login</h2>
+              <form>
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" required>
+                  
+                  <label for="password">Password</label>
+                  <input type="password" id="password" name="password" required>
+                  
+                  <button type="submit" class="login-btn">Login</button>
+              </form>
 
-        <!-- Registration Selection (Hidden initially) -->
-        <div class="signup-selection" style="display: none;">
-            <h2>Select Registration Type</h2>
-            <button id="landowner-btn">Landowner</button>
-            <button id="realestate-btn">Real Estate</button>
-        </div>
+              <p class="forgot-password">Forget Password?</p>
 
-        <!-- Landowner Registration Form (Hidden initially) -->
-        <div class="form-container landownersignup-container" style="display: none;">
+              <div class="google-login">
+                <button class="google-btn" onclick="loginWithGoogle()">
+                    <img src="images/7123025_logo_google_g_icon.png"> Sign in with Google
+                </button>
+            </div>
+            
+
+              <p class="register-text">Or Register as:</p>
+              <div class="register-btn-container">
+                  <button class="register-btn" id="landowner-register">
+                      <img src="images/Screenshot 2025-02-22 160949.png" alt="Land Owner Icon"> Landowner
+                  </button>
+                  <button class="register-btn" id="realestate-register">
+                      <img src="images/Screenshot 2025-02-22 160816.png" alt="Real Estate Icon"> Real Estate
+                  </button>
+              </div>
+          </div>
+      </div>
+
+        <!-- Landowner Registration Form -->
+        <div class="form-container landownersignup-container" style="display: none; padding-right: 45px;">
             <h2>Landowner Sign Up</h2>
-            <form id="signup-form">
+            <form>
                 <label for="fullname">Full Name</label>
-                <input type="text" id="fullname" name="fullname" required pattern="^[a-zA-Z\s]+$" title="Only alphabets allowed">
-    
+                <input type="text" id="fullname" required>
+
                 <label for="idnumber">Saudi ID Number</label>
-                <input type="text" id="idnumber" name="idnumber" required pattern="\d{10}" title="10-digit Saudi ID required">
-    
+                <input type="text" id="idnumber" required>
+
                 <label for="phone">Phone Number (+966)</label>
-                <input type="text" id="phone" name="phone" required pattern="^5\d{8}$" title="9-digit phone number starting with 5">
-    
+                <input type="text" id="phone" required>
+
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-    
+                <input type="email" id="email" required>
+
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[\!\@\#\$\%\^\&\*\_\-\=\+\~]).{10,15}$" title="10-15 characters, at least 1 uppercase, 1 lowercase, 1 special character">
-    
-                <label for="otp">Enter OTP</label>
-                <input type="text" id="otp" name="otp" required>
-    
+                <input type="password" id="password" required>
+
                 <div class="terms">
                     <input type="checkbox" id="terms" required>
                     <label for="terms">I accept the terms and agreement</label>
                 </div>
-    
-                <button type="button" id="send-otp">Send OTP</button>
+
                 <button type="submit">Sign Up</button>
+                <button class="back-btn">Back</button>
             </form>
         </div>
 
-        <!-- Real Estate Registration Form (Hidden initially) -->
-        <div class="form-container Realestatesignup-container" style="display: none;">
+        <!-- Real Estate Registration Form -->
+        <div class="form-container Realestatesignup-container" style="display: none; padding-right: 45px;">
             <h2>Real Estate Sign Up</h2>
             <form>
                 <label for="company">Company Name</label>
                 <input type="text" id="company" required>
-    
+
                 <label for="businessReg">Business Registration Number</label>
                 <input type="text" id="businessReg" required>
-    
+
                 <label for="taxId">Tax Number</label>
                 <input type="text" id="taxId" required>
-    
-                <label for="commercialReg">Commercial Registration</label>
-                <input type="text" id="commercialReg" required>
-    
-                <label for="realEstateLicense">Real Estate License</label>
-                <input type="text" id="realEstateLicense" required>
-    
+
                 <label for="address">Company Address</label>
                 <input type="text" id="address" required>
-    
+
                 <label for="email">Email</label>
                 <input type="email" id="email" required>
-    
-                <label for="phone">Phone Number (+966 5XXXXXXXX)</label>
+
+                <label for="phone">Phone Number (+966)</label>
                 <input type="text" id="phone" required>
-    
+
                 <label for="password">Password</label>
                 <input type="password" id="password" required>
-    
+
                 <div class="terms">
                     <input type="checkbox" id="terms" required>
                     <label for="terms">I accept the terms and agreement</label>
                 </div>
-    
+
                 <button type="submit">Sign Up</button>
+                <button class="back-btn">Back</button>
             </form>
         </div>
     </main>
-
-    <footer class="footer">
-        <div class="footer-container">
+    <footer class="footer " >
+        <div class="footer-container "  >
           <!-- Logo Section -->
-          <div class="footer-column">
-            <div class="footer-logo">
-                <img src="images/logo.jpg" alt="Esham Logo" />
+          <div class="footer-column" >
+            <div class="footer-logo" >
+                <img src="images/logo.jpg"  alt="Esham Logo" />
             </div>
           </div>
       
@@ -182,6 +183,7 @@
           </p>
         </div>
       </footer>
+
 
 </body>
 </html>
