@@ -1,0 +1,39 @@
+.help-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+h1, h2 {
+    color: #215955;
+}
+
+p {
+    color: #666;
+    line-height: 1.6;
+}
+
+ul {
+    text-align: left;
+    color: #666;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #215955;
+    font-weight: 500;
+}
+
+ul li a:hover {
+    text-decoration: underline;
+}

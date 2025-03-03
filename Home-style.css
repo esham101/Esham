@@ -121,7 +121,7 @@ main {
 
 .authorized-container {
     background: white;
-    padding: 20px 20px;
+    padding: 20px;
     margin-bottom: 20px;
     border-bottom: #b8b8b8 0.5px solid;
     margin-left: 100px;
@@ -133,36 +133,40 @@ main {
     color: #253732;
     margin-top: 100px;
     margin-left: 150px;
+    margin-bottom: 0px;
 }
-.authorized-container img {
+
+.authorized-content {
+    display: flex;
+    align-items: center;
+    margin-left: 150px;
+    gap: 200px;
+}
+
+.authorized-content img {
     width: 300px;
     height: auto;
     border-radius: 5px;
-    margin-top: 25px;
-    margin-left: 150px;
 }
 
-\\Fix this part 
-.authorized-container p {
-    text-align: left;
+.authorized-text {
+    max-width: 500px;
+}
+
+.authorized-text p {
     color: #000;
     font-weight: 400;
-    margin-left: 650px;
-    margin-top: -70px;
-    text-align: justify;
-    margin-right: 550px;
     font-size: 20px;
-    line-height: 1.7; 
+    line-height: 1.7;
+    margin: 0;
 }
 
-.authorized-container a {
-    text-align: left;
+.authorized-text a {
+    display: block;
     color: #000;
     font-weight: 300;
-    margin-left: 650px;
-    text-align: justify;
-    margin-top: -50px;
     font-size: 15px;
+    margin-top: 10px;
 }
 
 .partners-container {
