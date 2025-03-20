@@ -64,7 +64,7 @@ nav {
 }
 /* Header section with background */
 .header {
-    background: url('images/Riyadh.jpg') center/cover no-repeat; 
+    background: url('../images/Riyadh.jpg') center/cover no-repeat;
     height: 500px; /* Adjust height based on design */
     display: flex;
     flex-direction: column;

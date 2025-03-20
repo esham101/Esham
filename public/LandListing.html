@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esham - Real Estate Listings</title>
+    <link rel="stylesheet" href="css/listing_style.CSS">
+    <link rel="stylesheet" href="css/pagination.css">
+    <link rel="stylesheet" href="css/Filter_style.css">
+    <link rel="stylesheet" href="css/Main_template_style.css">
+    <link rel="stylesheet" href="css/SearchBar_Style.css">
+</head>
+<body>
+    <header class="header">
+        <nav>
+            <div class="logo">
+                <img src="images/logonav12.png" alt="Esham Logo" width="200" height="auto"/>
+            </div>
+            <ul class="nav-links">
+              <li><a href="Home.html">Home</a></li>
+              <li><a href="LandListing.html">Land Listings</a></li>
+              <li><a href="Who.html">Who are we?</a></li>
+              <li><a href="FAQ.html">FAQ</a></li>
+              <li><a href="Contact.html">Contact Us</a></li>
+            </ul>
+            <ul class="registeration">
+              <li class="login">
+                  <button type="button" onclick="window.location.href='Registeration.html'">Sign in</button>
+              </li>
+              <li class="register">
+                  <button type="button" onclick="window.location.href='Registeration.html'">Register Now</button>
+              </li>
+          </ul>
+        </nav>
+    
+        <!-- Search bar with title -->
+        <div class="search__container">
+            <h1 class="search__title" style="font-size: 80px;">Land Listing</h1>
+            <div class="search__wrapper">
+                <input class="search__input" type="text" placeholder="Enter a Postal code, District, or Street">
+                <button class="search__button">
+                    <img src="images/search.png" alt="Search">
+                </button>
+            </div>
+        </div>
+    </header>
+    
+
+    <main>
+      <!-- Add Land button -->
+      <button id="addLandButton">Add Land</button> 
+
+      <!-- Popup form -->
+      <div id="popupForm" class="popup">
+          <div class="popup-content">
+              <span class="close-btn" id="closePopup">&times;</span>
+              <h2>Add Land</h2>
+              <form id="addLandForm">
+                  <label for="landName">Land Name:</label>
+                  <input type="text" id="landName" name="landName" required>
+
+                  <label for="landDescription">Description:</label>
+                  <textarea id="landDescription" name="landDescription" required></textarea>
+
+                  <label for="landPrice">Price:</label>
+                  <input type="number" id="landPrice" name="landPrice" required>
+
+                  <label for="landLocation">Location:</label>
+                  <input type="text" id="landLocation" name="landLocation" required>
+
+                  <label for="landSize">Size (in sq.m.):</label>
+                  <input type="number" id="landSize" name="landSize" required>
+
+                  <label for="landImage">Image:</label>
+                  <input type="file" id="landImage" name="landImage" accept="image/*" required>
+
+
+                  <div>
+                      <input type="checkbox" id="agreeTerms" required>
+                      <label for="agreeTerms">I agree to the <a href="terms.html">terms and conditions</a></label>
+                  </div>
+
+                  <button type="submit">Add Land</button>
+              </form>
+          </div>
+      </div>
+
+      <!-- Filter Buttons -->
+      <section class="filter-container">
+          <div class="filter-buttons">
+              <span class="filter-button active">All</span>
+              <span class="filter-button">North</span>
+              <span class="filter-button">South</span>
+              <span class="filter-button">West</span>
+              <span class="filter-button">East</span>
+          </div>
+          <div class="sort-by">
+              Sort by 
+              <span class="dropdown-icon">▼</span>
+              <ul class="dropdown-menu">
+                  <li class="dropdown-item">Price</li>
+                  <li class="dropdown-item">Size</li>
+              </ul>
+          </div>
+      </section>
+
+      <!-- Land Listings -->
+      <section class="results-container" id="property-list">
+          <div class="property-grid">
+              <!-- Property Items will appear here -->
+          </div>
+      </section>
+
+      <div class="pagination" id="pagination"></div>
+  </main>
+
+    
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-column">
+            <div class="footer-logo">
+                <img src="images/logo.jpg" alt="Esham Logo" />
+            </div>
+        </div>
+        <div class="footer-column">
+            <h3 class="footer-title">Esham</h3>
+            <ul class="footer-links">
+              <li><a href="Committee.html">Shariah Committee</a></li>
+              <li><a href="Join.html">Join Our Team</a></li>
+              <li><a href="Terms.html">Terms and Conditions</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3 class="footer-title">Product</h3>
+            <ul class="footer-links">
+              <li><a href="Help.html">Help Center</a></li>
+              <li><a href="FAQ.html">FAQs</a></li>
+              <li><a href="Privacy& Policy.html">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer-column contact-info">
+            <h3 class="footer-title">Contact Number</h3>
+            <p class="contact-number"><a href="tel:01123456708">011 234 56708</a></p>
+            <p class="working-hours">
+                Official Working Hours<br />
+                Sunday to Thursday: 9:00 AM to 4:00 PM
+            </p>
+        </div>
+      </div>
+
+      <div class="footer-description">
+        <p>
+          Esham is an innovative and authorized digital platform that connects landowners with real estate developers through an integrated system designed to simplify and accelerate the development of real estate projects.
+        </p>
+        <p class="footer-disclaimer">
+          Disclaimer: Esham is not an investment website and does not offer any financing or direct investment services. Our role is limited to providing a digital platform that connects landowners with real estate developers.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Firebase and JavaScript -->
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/landlisting.js"></script>
+    <script src="js/pagination.js"></script>
+
+    <script>
+      // Open the popup when the "Add Land" button is clicked
+      document.getElementById('addLandButton').addEventListener('click', () => {
+          document.getElementById('popupForm').style.display = 'block';
+      });
+
+      // Close the popup when the close button is clicked
+      document.getElementById('closePopup').addEventListener('click', () => {
+          document.getElementById('popupForm').style.display = 'none';
+      });
+
+      // Close the popup if the user clicks outside the popup content
+      window.addEventListener('click', (event) => {
+          if (event.target === document.getElementById('popupForm')) {
+              document.getElementById('popupForm').style.display = 'none';
+          }
+      });
+  </script>
+
+</body>
+</html>
