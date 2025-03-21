@@ -6,8 +6,10 @@
     <title>Esham</title>
     <link rel="stylesheet" href="css/Main_template_style.css">
     <link rel="stylesheet" href="css/Dashboard-Real-estate.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <script src="js/Dashboard-Real-estate.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   
 
 </head>
 <body>
@@ -23,16 +25,33 @@
               <li><a href="FAQ.html">FAQ</a></li>
               <li><a href="Contact.html">Contact Us</a></li>
             </ul>
-
-            <ul class="registeration">
-              <li class="login">
-                  <button type="button" onclick="window.location.href='Registeration.html'">Sign in</button>
-              </li>
-              <li class="register">
-                  <button type="button" onclick="window.location.href='Registeration.html'">Register Now</button>
-              </li>
-          </ul>
+            <div class="profile">
+                <div class="profile-menu">
+                  <i class="fa fa-envelope" style="font-size:24px;color: black;"></i>
+                    <a href="Notfications.html">Notifications</a>
+                    <a href="Login.html">Logout</a>
+                </div>
         </nav>
+
+        
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+        <aside class="sidebar">
+            <h2>Developer Dashboard</h2>
+            <nav>
+                <a href="#"><span>Dashboard Overview</span></a>
+                <a href="#"></i> <span>Project Management</span></a>
+                <a href="#"></i> <span>Proposal Management</span></a>
+                <a href="#"></i> <span>Financial Reports</span></a>
+                <a href="#"></i> <span>Messages</span></a>
+                <a href="#"></i> <span>Notifications</span></a>
+                <a href="#"></i> <span>Settings</span></a>
+            </nav>
+        </aside>
+        
+        
+
+
     </header>
 
     <main class="dashboard-container">
