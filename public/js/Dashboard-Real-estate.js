@@ -113,7 +113,7 @@ var ctx = document.getElementById("revenueChart").getContext("2d");
       data: {
         labels: ["M", "T", "W", "T", "F", "S", "S"],
         datasets: [{
-          label: "Views",
+          label: "revenue",
           tension: 0.4,
           borderWidth: 0,
           borderRadius: 4,
@@ -187,7 +187,7 @@ var ctx = document.getElementById("revenueChart").getContext("2d");
       data: {
         labels: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
         datasets: [{
-          label: "Sales",
+          label: "Sent",
           tension: 0,
           borderWidth: 2,
           pointRadius: 3,
@@ -270,7 +270,7 @@ var ctx = document.getElementById("revenueChart").getContext("2d");
       data: {
         labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [{
-          label: "Tasks",
+          label: "Accepted",
           tension: 0,
           borderWidth: 2,
           pointRadius: 3,
