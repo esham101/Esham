@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/Filter_style.css">
     <link rel="stylesheet" href="css/Main_template_style.css">
     <link rel="stylesheet" href="css/SearchBar_Style.css">
+    <link rel="stylesheet" href="css/popup_style.css">
 </head>
 <body>
     <header class="header">
@@ -33,7 +34,6 @@
           </ul>
         </nav>
     
-        <!-- Search bar with title -->
         <div class="search__container">
             <h1 class="search__title" style="font-size: 80px;">Land Listing</h1>
             <div class="search__wrapper">
@@ -45,47 +45,65 @@
         </div>
     </header>
     
-
     <main>
-      <!-- Add Land button -->
-      <button id="addLandButton">Add Land</button> 
+      <button id="openPopup" class="add-land-btn">Add Land</button>
 
-      <!-- Popup form -->
-      <div id="popupForm" class="popup">
+      <div id="popupOverlay" class="popup-overlay"></div>
+
+      <div id="popup" class="popup">
+          <button id="closePopup">X</button> 
           <div class="popup-content">
-              <span class="close-btn" id="closePopup">&times;</span>
               <h2>Add Land</h2>
               <form id="addLandForm">
-                  <label for="landName">Land Name:</label>
-                  <input type="text" id="landName" name="landName" required>
-
-                  <label for="landDescription">Description:</label>
-                  <textarea id="landDescription" name="landDescription" required></textarea>
-
-                  <label for="landPrice">Price:</label>
-                  <input type="number" id="landPrice" name="landPrice" required>
-
-                  <label for="landLocation">Location:</label>
-                  <input type="text" id="landLocation" name="landLocation" required>
-
+                  
+                 <label for="pricePerMeter">Price per meter:</label>
+                 <input type="number" id="pricePerMeter" name="pricePerMeter" required>
+              
                   <label for="landSize">Size (in sq.m.):</label>
                   <input type="number" id="landSize" name="landSize" required>
 
-                  <label for="landImage">Image:</label>
-                  <input type="file" id="landImage" name="landImage" accept="image/*" required>
+                  <label for="landLocation">Location:</label>
+                  <input type="text" id="landLocation" name="landLocation" required>
+              
+                  <label for="buildingExists">Building on land:</label>
+                  <select id="landPurpose" name="landPurpose" required>
+                    <option value="it Exists">Yes</option>
+                    <option value="it doesn't Exists">No</option>
+                </select>
+              
+                  <label for="landPurpose">Purpose of Land:</label>
+                  <select id="landPurpose" name="landPurpose" required>
+                      <option value="commercial">Commercial</option>
+                      <option value="residential">Residential</option>
+                  </select>
+              
+                  <label for="landFacing">Land Facing:</label>
+                  <select id="landFacing" name="landFacing" required>
+                      <option value="north">North</option>
+                      <option value="south">South</option>
+                      <option value="east">East</option>
+                      <option value="west">West</option>
+                  </select>
+              
+                  <!-- File input for Title Deed -->
+                <label for="titleDeed">Upload Title Deed (Proof of Ownership)</label>
+                <input type="file" id="titleDeed" name="titleDeed" accept="image/*" required>
 
+<!-- File input for Land Image -->
+                <label for="landImage">Land Image</label>
+                <input type="file" id="landImage" name="landImage" accept="image/*" required>
 
+              
                   <div>
                       <input type="checkbox" id="agreeTerms" required>
                       <label for="agreeTerms">I agree to the <a href="terms.html">terms and conditions</a></label>
                   </div>
-
-                  <button type="submit">Add Land</button>
+              
+                  <button type="submit" class="submit-btn">Add Land</button>
               </form>
           </div>
       </div>
 
-      <!-- Filter Buttons -->
       <section class="filter-container">
           <div class="filter-buttons">
               <span class="filter-button active">All</span>
@@ -104,7 +122,6 @@
           </div>
       </section>
 
-      <!-- Land Listings -->
       <section class="results-container" id="property-list">
           <div class="property-grid">
               <!-- Property Items will appear here -->
@@ -114,7 +131,6 @@
       <div class="pagination" id="pagination"></div>
   </main>
 
-    
     <footer class="footer">
       <div class="footer-container">
         <div class="footer-column">
@@ -158,31 +174,25 @@
       </div>
     </footer>
 
-    <!-- Firebase and JavaScript -->
-    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
-    <script type="module" src="js/firebase.js"></script>
     <script type="module" src="js/landlisting.js"></script>
     <script src="js/pagination.js"></script>
+    <script src="js/popup_script.js"></script>
 
     <script>
-      // Open the popup when the "Add Land" button is clicked
-      document.getElementById('addLandButton').addEventListener('click', () => {
+        document.getElementById('addLandButton').addEventListener('click', () => {
           document.getElementById('popupForm').style.display = 'block';
       });
 
-      // Close the popup when the close button is clicked
       document.getElementById('closePopup').addEventListener('click', () => {
           document.getElementById('popupForm').style.display = 'none';
       });
 
-      // Close the popup if the user clicks outside the popup content
       window.addEventListener('click', (event) => {
           if (event.target === document.getElementById('popupForm')) {
               document.getElementById('popupForm').style.display = 'none';
           }
       });
-  </script>
+    </script>
 
 </body>
 </html>
