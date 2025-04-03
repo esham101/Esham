@@ -4,10 +4,11 @@ const mysql = require("mysql2");
 const session = require("express-session");
 const path = require("path");
 const bcrypt = require("bcrypt");
+const multer = require("multer");
+const fs = require("fs");
 const saltRounds = 10;
 
 const app = express();
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -18,6 +19,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
 }));
+
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -26,9 +28,9 @@ const db = mysql.createConnection({
 });
 
 db.connect((err) => {
-    if (err) throw err;    console.log(" Connected to MySQL Database");
+    if (err) throw err;
+    console.log(" Connected to MySQL Database");
 });
-
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "Home.html"));
@@ -41,7 +43,6 @@ app.get("/register", (req, res) => {
 app.get("/login", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "Registeration.html"));
 });
-
 
 app.post("/register/landowner", (req, res) => {
     const { fullname, idnumber, phone, email, password } = req.body;
@@ -69,7 +70,6 @@ app.post("/register/landowner", (req, res) => {
         });
     });
 });
-
 
 app.post("/register/realestate", (req, res) => {
     const { company, businessReg, taxId, address, email, phone, password } = req.body;
@@ -141,6 +141,60 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
 });
 
+// ✅ Multer setup for image uploads
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "public/uploads/");
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + "-" + file.originalname);
+    }
+});
+const upload = multer({ storage: storage });
+
+// ✅ Route to insert land data into the database
+app.post("/add-land", upload.fields([{ name: "titleDeed" }, { name: "landImage" }]), (req, res) => {
+    const {
+        streetName,
+        neighborhood,
+        city,
+        landSize,
+        height,
+        width,
+        streetWidth,
+        hasBuilding,
+        pricePerMeter,
+        purpose,
+        facing
+    } = req.body;
+
+    const titleDeedPath = "/uploads/" + req.files["titleDeed"][0].filename;
+    const landImagePath = "/uploads/" + req.files["landImage"][0].filename;
+    const landownerId = req.session.user?.id || null;
+
+    const sql = `INSERT INTO lands 
+        (street_name, neighborhood, city, land_size, height, width, street_width, has_building, price_per_meter, purpose, facing, title_deed, land_image, landowner_id)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+    db.query(sql, [
+        streetName, neighborhood, city, landSize, height, width, streetWidth,
+        hasBuilding === "yes", pricePerMeter, purpose, facing, titleDeedPath, landImagePath, landownerId
+    ], (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Failed to save land.");
+        }
+        res.redirect("/LandListing.html");
+    });
+});
+
+// ✅ Route to get all lands and send to frontend
+app.get("/api/lands", (req, res) => {
+    db.query("SELECT * FROM lands ORDER BY id DESC", (err, results) => {
+        if (err) return res.status(500).send("Database error");
+        res.json(results);
+    });
+});
 
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
