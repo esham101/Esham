@@ -90,3 +90,149 @@ canvas {
         flex-direction: column;
     }
 }
+
+/* Sidebar */
+.sidebar {
+    width: 60px; /* Starts collapsed */
+    height: 100vh;
+    background: #253732; /* Updated background color */
+    color: white;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: width 0.3s ease-in-out;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Expanded sidebar */
+.sidebar.expanded {
+    width: 200px; /* Expanded width */
+    align-items: flex-start;
+}
+
+/* Sidebar Title */
+.sidebar h2 {
+    font-size: 18px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    margin-bottom: 30px; /* Increased space between title and nav */
+    margin-top: 50px; /* Lowered text position */
+}
+
+/* Show title when expanded */
+.sidebar.expanded h2 {
+    opacity: 1;
+}
+
+/* Navigation Links */
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Increased space between links */
+    width: 100%;
+    margin-top: 30px; /* Lowered navbar text */
+}
+
+.sidebar nav a {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    padding: 20px;
+    border-radius: 5px;
+    transition: background 0.3s, padding-left 0.3s;
+    width: 100%;
+    overflow: hidden;
+    margin-left: -50px;
+}
+
+/* Icons for links */
+.sidebar nav a i {
+    width: 30px; /* Consistent icon spacing */
+    text-align: center;
+}
+
+/* Hide text when collapsed */
+.sidebar:not(.expanded) nav a span {
+    display: none;
+}
+
+.sidebar.expanded nav a span {
+    display: inline;
+}
+
+/* Hover Effect */
+.sidebar nav a:hover {
+    background: #1e2e29;
+}
+
+/* Toggle Button */
+.toggle-btn {
+    position: fixed;
+    left: 10px;
+    top: 10px;
+    background: #1e2e29;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+    z-index: 1000;
+}
+
+.toggle-btn:hover {
+    background: #14221d;
+}
+
+.profile {
+    display: flex;
+    justify-content: center; /* Centers the content horizontally */
+    align-items: center; /* Aligns items vertically */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.profile-menu {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+.profile-menu li {
+    margin: 0;
+}
+
+.profile-menu a {
+  color: #333;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.profile-menu a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 1px;
+  background-color: #215955; /* Underline color */
+  transition: width 0.3s ease-in-out;
+}
+
+.profile-menu a:hover {
+  color: #215955;
+}
+
+.profile-menu a:hover::after {
+  width: 100%;
+}
