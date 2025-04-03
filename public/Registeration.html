@@ -37,14 +37,15 @@
         <div class="login-wrapper">
           <div class="login-container">
               <h2>Login</h2>
-              <form>
-                  <label for="email">Email</label>
-                  <input type="email" id="email" name="email" required>
-                  
-                  <label for="password">Password</label>
-                  <input type="password" id="password" name="password" required>
-                  
-                  <button type="submit" class="login-btn">Login</button>
+              <div id="login-error" style="color:red; font-weight: bold;"></div>
+              <form method="POST" action="/login">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit" class="login-btn">Login</button>
               </form>
 
               <p class="forgot-password">Forget Password?</p>
@@ -53,8 +54,7 @@
                 <button class="google-btn" onclick="loginWithGoogle()">
                     <img src="images/7123025_logo_google_g_icon.png"> Sign in with Google
                 </button>
-            </div>
-            
+              </div>
 
               <p class="register-text">Or Register as:</p>
               <div class="register-btn-container">
@@ -71,77 +71,123 @@
         <!-- Landowner Registration Form -->
         <div class="form-container landownersignup-container" style="display: none; padding-right: 45px;">
             <h2>Landowner Sign Up</h2>
-            <form>
-                <label for="fullname">Full Name</label>
-                <input type="text" id="fullname" required>
+            <div id="register-error" style="color:red; font-weight: bold;"></div>
+            <form method="POST" action="/register/landowner">
+              <label for="fullname">Full Name</label>
+              <input type="text" id="fullname" name="fullname" required>
 
-                <label for="idnumber">Saudi ID Number</label>
-                <input type="text" id="idnumber" required>
+              <label for="idnumber">Saudi ID Number</label>
+              <input type="text" id="idnumber" name="idnumber" required>
 
-                <label for="phone">Phone Number (+966)</label>
-                <input type="text" id="phone" required>
+              <label for="phone">Phone Number (+966)</label>
+              <input type="text" id="phone" name="phone" required>
 
-                <label for="email">Email</label>
-                <input type="email" id="email" required>
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
 
-                <label for="password">Password</label>
-                <input type="password" id="password" required>
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" required>
 
-                <div class="terms">
-                    <input type="checkbox" id="terms" required>
-                    <label for="terms">I accept the terms and agreement</label>
-                </div>
+              <div class="terms">
+                  <input type="checkbox" id="terms" required>
+                  <label for="terms">I accept the terms and agreement</label>
+              </div>
 
-                <button type="submit">Sign Up</button>
-                <button class="back-btn">Back</button>
-            </form>
+              <button type="submit">Sign Up</button>
+              <button class="back-btn">Back</button>
+          </form>
         </div>
 
         <!-- Real Estate Registration Form -->
         <div class="form-container Realestatesignup-container" style="display: none; padding-right: 45px;">
             <h2>Real Estate Sign Up</h2>
-            <form>
-                <label for="company">Company Name</label>
-                <input type="text" id="company" required>
+            <div id="register-error" style="color:red; font-weight: bold;"></div>
+            <form method="POST" action="/register/realestate">
+              <label for="company">Company Name</label>
+              <input type="text" id="company" name="company" required>
 
-                <label for="businessReg">Business Registration Number</label>
-                <input type="text" id="businessReg" required>
+              <label for="businessReg">Business Registration Number</label>
+              <input type="text" id="businessReg" name="businessReg" required>
 
-                <label for="taxId">Tax Number</label>
-                <input type="text" id="taxId" required>
+              <label for="taxId">Tax Number</label>
+              <input type="text" id="taxId" name="taxId" required>
 
-                <label for="address">Company Address</label>
-                <input type="text" id="address" required>
+              <label for="address">Company Address</label>
+              <input type="text" id="address" name="address" required>
 
-                <label for="email">Email</label>
-                <input type="email" id="email" required>
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
 
-                <label for="phone">Phone Number (+966)</label>
-                <input type="text" id="phone" required>
+              <label for="phone">Phone Number (+966)</label>
+              <input type="text" id="phone" name="phone" required>
 
-                <label for="password">Password</label>
-                <input type="password" id="password" required>
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" required>
 
-                <div class="terms">
-                    <input type="checkbox" id="terms" required>
-                    <label for="terms">I accept the terms and agreement</label>
-                </div>
+              <div class="terms">
+                  <input type="checkbox" id="terms" required>
+                  <label for="terms">I accept the terms and agreement</label>
+              </div>
 
-                <button type="submit">Sign Up</button>
-                <button class="back-btn">Back</button>
-            </form>
+              <button type="submit">Sign Up</button>
+              <button class="back-btn">Back</button>
+          </form>
         </div>
     </main>
+
+    <script>
+      const loginParams = new URLSearchParams(window.location.search);
+      const loginError = loginParams.get("error");
+      if (loginError) {
+        const loginDiv = document.getElementById("login-error");
+        if (loginDiv) loginDiv.innerText = decodeURIComponent(loginError);
+      }
+
+      const regParams = new URLSearchParams(window.location.search);
+      const regError = regParams.get("error");
+      if (regError) {
+        const regDiv = document.getElementById("register-error");
+        if (regDiv) regDiv.innerText = decodeURIComponent(regError);
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const landBtn = document.getElementById("landowner-register");
+        const realBtn = document.getElementById("realestate-register");
+        const landForm = document.querySelector(".landownersignup-container");
+        const realForm = document.querySelector(".Realestatesignup-container");
+        const loginForm = document.querySelector(".login-wrapper");
+
+        landBtn.addEventListener("click", () => {
+          loginForm.style.display = "none";
+          realForm.style.display = "none";
+          landForm.style.display = "block";
+        });
+
+        realBtn.addEventListener("click", () => {
+          loginForm.style.display = "none";
+          landForm.style.display = "none";
+          realForm.style.display = "block";
+        });
+
+        document.querySelectorAll(".back-btn").forEach(btn => {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            landForm.style.display = "none";
+            realForm.style.display = "none";
+            loginForm.style.display = "block";
+          });
+        });
+      });
+    </script>
+
     <footer class="footer">
       <div class="footer-container">
-        <!-- Logo Section -->
         <div class="footer-column">
           <div class="footer-logo">
               <img src="images/logo.jpg" alt="Esham Logo" />
           </div>
         </div>
-    
-        <!-- Esham Links -->
+
         <div class="footer-column">
           <h3 class="footer-title">Esham</h3>
           <ul class="footer-links">
@@ -150,8 +196,7 @@
             <li><a href="Terms.html">Terms and Conditions</a></li>
           </ul>
         </div>
-    
-        <!-- Product Links -->
+
         <div class="footer-column">
           <h3 class="footer-title">Product</h3>
           <ul class="footer-links">
@@ -160,8 +205,7 @@
             <li><a href="Privacy& Policy.html">Privacy Policy</a></li>
           </ul>
         </div>
-    
-        <!-- Contact Section -->
+
         <div class="footer-column contact-info">
           <h3 class="footer-title">Contact Number</h3>
           <p class="contact-number"><a href="tel:01123456708">011 234 56708</a></p>
@@ -171,18 +215,25 @@
           </p>
         </div>
       </div>
-    
-      <!-- Footer Description -->
+
       <div class="footer-description">
         <p>
-          Esham is an innovative and authorized digital platform that connects landowners with real estate developers through an integrated system designed to simplify and accelerate the development of real estate projects. The platform empowers stakeholders to communicate effectively, submit proposals, and select the best opportunities for mutual benefit.
+          Esham is an innovative and authorized digital platform that connects landowners with real estate developers through an integrated system designed to simplify and accelerate the development of real estate projects.
         </p>
         <p class="footer-disclaimer">
-          Disclaimer: Esham is not an investment website and does not offer any financing or direct investment services. Our role is limited to providing a digital platform that connects landowners with real estate developers, facilitating the process of submitting and reviewing development proposals. All transactions are conducted directly between the parties according to the agreed terms, and the platform assumes no responsibility for any risks associated with agreements between the parties.
+          Disclaimer: Esham is not an investment website and does not offer any financing or direct investment services. Our role is limited to providing a digital platform that connects landowners with real estate developers.
         </p>
       </div>
     </footer>
 
-
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const error = params.get("error");
+      if (error) {
+        const errorDiv = document.getElementById("login-error");
+        if (errorDiv) errorDiv.innerText = decodeURIComponent(error);
+      }
+    </script>
+    
 </body>
 </html>
