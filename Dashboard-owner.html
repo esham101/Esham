@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esham</title>
+    <link rel="stylesheet" href="css/Main_template_style.css">
+    <link rel="stylesheet" href="css/Dashboard-Real-estate.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src="js/Dashboard-Real-estate.js" defer></script>
+   
+
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logonav.jpg" alt="Esham Logo" />
+            </div>
+            <ul class="nav-links">
+              <li><a href="Home.html">Home</a></li>
+              <li><a href="LandListing.html">Land Listings</a></li>
+              <li><a href="Who.html">Who are we?</a></li>
+              <li><a href="FAQ.html">FAQ</a></li>
+              <li><a href="Contact.html">Contact Us</a></li>
+            </ul>
+            <div class="profile">
+                <div class="profile-menu">
+                  <i class="fa fa-envelope" style="font-size:24px;color: black;"></i>
+                    <a href="Notfications.html">Notifications</a>
+                    <a href="Login.html">Logout</a>
+                </div>
+        </nav>
+
+        
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+        <aside class="sidebar">
+            <h2>Developer Dashboard</h2>
+            <nav>
+                <a href="#"><span>Dashboard Overview</span></a>
+                <a href="#"></i> <span>Project Management</span></a>
+                <a href="#"></i> <span>Proposal Management</span></a>
+                <a href="#"></i> <span>Financial Reports</span></a>
+                <a href="#"></i> <span>Messages</span></a>
+                <a href="#"></i> <span>Notifications</span></a>
+                <a href="#"></i> <span>Settings</span></a>
+            </nav>
+        </aside>
+        
+        
+
+
+    </header>
+
+    <main class="dashboard-container">
+      <!-- Header -->
+      <section class="dashboard-header">
+          <h1>Welcome Nasser! 👋</h1>
+      </section>
+
+        <!-- Dashboard Row: Revenue, Proposals Sent, Proposals Accepted -->
+        <section class="dashboard-row">
+          <div class="dashboard-box">
+              <h2>Revenue</h2>
+              <table>
+                  <thead>
+                      <tr><th>Project</th><th>Date</th><th>Revenue ($)</th></tr>
+                  </thead>
+                  <tbody id="revenueData"></tbody>
+              </table>
+          </div>
+
+          <div class="dashboard-box">
+              <h2>Proposals Sent</h2>
+              <table>
+                  <thead>
+                      <tr><th>Name</th><th>Date</th><th>Status</th></tr>
+                  </thead>
+                  <tbody id="proposalsSentData"></tbody>
+              </table>
+          </div>
+
+          <div class="dashboard-box">
+              <h2>Proposals Accepted</h2>
+              <table>
+                  <thead>
+                      <tr><th>Name</th><th>Date</th><th>Status</th></tr>
+                  </thead>
+                  <tbody id="proposalsAcceptedData"></tbody>
+              </table>
+          </div>
+      </section>
+
+      <!-- Graphs Section -->
+      <section class="graphs">
+          <div class="graph-box">
+              <h3>Revenue Graph</h3>
+              <canvas id="revenueChart"></canvas>
+          </div>
+          <div class="graph-box">
+              <h3>Proposals Sent Graph</h3>
+              <canvas id="proposalsSentChart"></canvas>
+          </div>
+          <div class="graph-box">
+              <h3>Proposals Accepted Graph</h3>
+              <canvas id="proposalsAcceptedChart"></canvas>
+          </div>
+      </section>
+
+      <!-- Project Progression -->
+      <div class="dashboard-box">
+          <h2>Project Progression</h2>
+          <p class="under-construction">UNDER CONSTRUCTION</p>
+      </div>
+
+  </main>
+
+
+    <footer class="footer">
+      <div class="footer-container">
+        <!-- Logo Section -->
+        <div class="footer-column">
+          <div class="footer-logo">
+              <img src="images/logo.jpg" alt="Esham Logo" />
+          </div>
+        </div>
+    
+        <!-- Esham Links -->
+        <div class="footer-column">
+          <h3 class="footer-title">Esham</h3>
+          <ul class="footer-links">
+            <li><a href="Committee.html">Shariah Committee</a></li>
+            <li><a href="Join.html">Join Our Team</a></li>
+            <li><a href="Terms.html">Terms and Conditions</a></li>
+          </ul>
+        </div>
+    
+        <!-- Product Links -->
+        <div class="footer-column">
+          <h3 class="footer-title">Product</h3>
+          <ul class="footer-links">
+            <li><a href="Help.html">Help Center</a></li>
+            <li><a href="FAQ.html">FAQs</a></li>
+            <li><a href="Privacy& Policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+    
+        <!-- Contact Section -->
+        <div class="footer-column contact-info">
+          <h3 class="footer-title">Contact Number</h3>
+          <p class="contact-number"><a href="tel:01123456708">011 234 56708</a></p>
+          <p class="working-hours">
+            Official Working Hours<br />
+            Sunday to Thursday: 9:00 AM to 4:00 PM
+          </p>
+        </div>
+      </div>
+    
+      <!-- Footer Description -->
+      <div class="footer-description">
+        <p>
+          Esham is an innovative and authorized digital platform that connects landowners with real estate developers through an integrated system designed to simplify and accelerate the development of real estate projects. The platform empowers stakeholders to communicate effectively, submit proposals, and select the best opportunities for mutual benefit.
+        </p>
+        <p class="footer-disclaimer">
+          Disclaimer: Esham is not an investment website and does not offer any financing or direct investment services. Our role is limited to providing a digital platform that connects landowners with real estate developers, facilitating the process of submitting and reviewing development proposals. All transactions are conducted directly between the parties according to the agreed terms, and the platform assumes no responsibility for any risks associated with agreements between the parties.
+        </p>
+      </div>
+    </footer>
+</body>
+</html>

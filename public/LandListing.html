@@ -46,63 +46,81 @@
     </header>
     
     <main>
-      <button id="openPopup" class="add-land-btn">Add Land</button>
+      <!-- Open Button -->
+<button id="openPopup" class="add-land-btn">Add Land</button>
 
-      <div id="popupOverlay" class="popup-overlay"></div>
+<!-- Popup Overlay -->
+<div id="popupOverlay" class="popup-overlay"></div>
 
-      <div id="popup" class="popup">
-          <button id="closePopup">X</button> 
-          <div class="popup-content">
-              <h2>Add Land</h2>
-              <form id="addLandForm">
-                  
-                 <label for="pricePerMeter">Price per meter:</label>
-                 <input type="number" id="pricePerMeter" name="pricePerMeter" required>
-              
-                  <label for="landSize">Size (in sq.m.):</label>
-                  <input type="number" id="landSize" name="landSize" required>
+<!-- Popup Box -->
+<div id="popup" class="popup">
+    <button id="closePopup">X</button> 
 
-                  <label for="landLocation">Location:</label>
-                  <input type="text" id="landLocation" name="landLocation" required>
-              
-                  <label for="buildingExists">Building on land:</label>
-                  <select id="landPurpose" name="landPurpose" required>
-                    <option value="it Exists">Yes</option>
-                    <option value="it doesn't Exists">No</option>
-                </select>
-              
-                  <label for="landPurpose">Purpose of Land:</label>
-                  <select id="landPurpose" name="landPurpose" required>
-                      <option value="commercial">Commercial</option>
-                      <option value="residential">Residential</option>
-                  </select>
-              
-                  <label for="landFacing">Land Facing:</label>
-                  <select id="landFacing" name="landFacing" required>
-                      <option value="north">North</option>
-                      <option value="south">South</option>
-                      <option value="east">East</option>
-                      <option value="west">West</option>
-                  </select>
-              
-                  <!-- File input for Title Deed -->
-                <label for="titleDeed">Upload Title Deed (Proof of Ownership)</label>
-                <input type="file" id="titleDeed" name="titleDeed" accept="image/*" required>
+    <div class="popup-content">
+        <h2>Add Land</h2>
 
-<!-- File input for Land Image -->
-                <label for="landImage">Land Image</label>
-                <input type="file" id="landImage" name="landImage" accept="image/*" required>
+        <form id="addLandForm" action="/add-land" method="POST" enctype="multipart/form-data">
 
-              
-                  <div>
-                      <input type="checkbox" id="agreeTerms" required>
-                      <label for="agreeTerms">I agree to the <a href="terms.html">terms and conditions</a></label>
-                  </div>
-              
-                  <button type="submit" class="submit-btn">Add Land</button>
-              </form>
-          </div>
-      </div>
+            <label for="pricePerMeter">Price per meter:</label>
+            <input type="number" id="pricePerMeter" name="pricePerMeter" required>
+
+            <label for="landSize">Size (in sq.m.):</label>
+            <input type="number" id="landSize" name="landSize" required>
+
+            <label for="height">Height (m):</label>
+            <input type="number" id="height" name="height" required>
+
+            <label for="width">Width (m):</label>
+            <input type="number" id="width" name="width" required>
+
+            <label for="streetWidth">Street Width (m):</label>
+            <input type="number" id="streetWidth" name="streetWidth" required>
+
+            <label for="streetName">Street Name:</label>
+            <input type="text" id="streetName" name="streetName" required>
+
+            <label for="neighborhood">Neighborhood:</label>
+            <input type="text" id="neighborhood" name="neighborhood" required>
+
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" required>
+
+            <label for="hasBuilding">Building on land:</label>
+            <select id="hasBuilding" name="hasBuilding" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="landPurpose">Purpose of Land:</label>
+            <select id="landPurpose" name="purpose" required>
+                <option value="commercial">Commercial</option>
+                <option value="residential">Residential</option>
+            </select>
+
+            <label for="landFacing">Land Facing:</label>
+            <select id="landFacing" name="facing" required>
+                <option value="north">North</option>
+                <option value="south">South</option>
+                <option value="east">East</option>
+                <option value="west">West</option>
+            </select>
+
+            <label for="titleDeed">Upload Title Deed (Proof of Ownership)</label>
+            <input type="file" id="titleDeed" name="titleDeed" accept="image/*" required>
+
+            <label for="landImage">Land Image</label>
+            <input type="file" id="landImage" name="landImage" accept="image/*" required>
+
+            <div>
+                <input type="checkbox" id="agreeTerms" required>
+                <label for="agreeTerms">I agree to the <a href="terms.html">terms and conditions</a></label>
+            </div>
+
+            <button type="submit" class="submit-btn">Add Land</button>
+        </form>
+    </div>
+</div>
+
 
       <section class="filter-container">
           <div class="filter-buttons">
@@ -177,22 +195,16 @@
     <script type="module" src="js/landlisting.js"></script>
     <script src="js/pagination.js"></script>
     <script src="js/popup_script.js"></script>
-
     <script>
-        document.getElementById('addLandButton').addEventListener('click', () => {
-          document.getElementById('popupForm').style.display = 'block';
-      });
-
-      document.getElementById('closePopup').addEventListener('click', () => {
-          document.getElementById('popupForm').style.display = 'none';
-      });
-
-      window.addEventListener('click', (event) => {
-          if (event.target === document.getElementById('popupForm')) {
-              document.getElementById('popupForm').style.display = 'none';
-          }
-      });
+        const addBtn = document.getElementById('addLandButton');
+        const popupForm = document.getElementById('popupForm');
+    
+        if (addBtn && popupForm) {
+            addBtn.addEventListener('click', () => {
+                popupForm.style.display = 'block';
+            });
+        }
     </script>
-
+    
 </body>
 </html>
