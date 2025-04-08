@@ -348,3 +348,118 @@ var ctx = document.getElementById("revenueChart").getContext("2d");
     container.appendChild(item);
   });
 
+// Mock notifications - replace with real fetch call from your backend or Firebase later
+// Mock notifications - replace with real fetch call from your backend or Firebase later
+let notifications = [
+  { id: 1, message: "New Land in the market" },
+  { id: 2, message: "Landowner123 Responded" }
+];
+
+// Function to update the badge
+function updateNotificationBadge() {
+  const badge = document.getElementById('notif-badge');
+  const count = notifications.length;
+
+  if (count > 0) {
+    badge.textContent = count;
+    badge.style.display = 'inline-block'; // Show badge when there are notifications
+  } else {
+    badge.style.display = 'none'; // Hide badge when no notifications
+  }
+}
+
+// Call the function on page load or with an interval
+window.onload = () => {
+  updateNotificationBadge();
+};
+
+// Optional: update every 30 seconds (you can modify as needed)
+setInterval(() => {
+  updateNotificationBadge(); // This can be replaced with a real fetch call later
+}, 30000);
+
+
+function openModal(type) {
+  const modal = document.getElementById("modal");
+  const body = document.getElementById("modal-body");
+
+  if (type === 'profile') {
+    body.innerHTML = `
+      <h2>👤 Profile</h2>
+      <form id="editProfileForm">
+        <label>Name:</label><br>
+        <input type="text" id="name" value="Nasser Almarshedy" style="width: 100%; margin-bottom: 10px;"><br>
+
+        <label>Email:</label><br>
+        <input type="email" id="email" value="nasser@example.com" style="width: 100%; margin-bottom: 10px;"><br>
+
+        <button type="submit" style="margin-top: 10px;">Save Changes</button>
+      </form>
+    `;
+
+    // Handle form submission
+    document.getElementById("editProfileForm").onsubmit = function (e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      alert("Saved!\nName: " + name + "\nEmail: " + email);
+      closeModal();
+    };
+
+  } else if (type === 'settings') {
+    body.innerHTML = `
+      <h2>⚙️ Settings</h2>
+      <label>
+        <input type="checkbox" id="darkMode" onchange="toggleDarkMode()"> Enable Dark Mode
+      </label>
+      <br><br>
+      <label for="language">Language:</label>
+      <select id="language">
+        <option value="en">English</option>
+        <option value="ar">Arabic</option>
+      </select>
+      <br><br>
+      <button onclick="saveSettings()">Save Settings</button>
+    `;
+  }
+
+  else if (type === 'notifications') {
+    let notifHTML = `<h2>🔔 Notifications</h2><ul style="padding-left: 20px;">`;
+
+    if (notifications.length === 0) {
+      notifHTML += `<li>No new notifications.</li>`;
+    } else {
+      notifications.forEach(n => {
+        notifHTML += `<li>${n.message}</li>`;
+      });
+    }
+
+    notifHTML += `</ul><br><button onclick="closeModal()">Close</button>`;
+    body.innerHTML = notifHTML;
+  }
+
+  modal.style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+// Optional settings logic
+function toggleDarkMode() {
+  const enabled = document.getElementById("darkMode").checked;
+  document.body.style.backgroundColor = enabled ? "#121212" : "#ffffff";
+  document.body.style.color = enabled ? "#ffffff" : "#000000";
+}
+
+function saveSettings() {
+  const darkMode = document.getElementById("darkMode").checked;
+  const language = document.getElementById("language").value;
+  alert(`Settings saved:\nDark Mode: ${darkMode}\nLanguage: ${language}`);
+  closeModal();
+}
+
+window.onload = () => {
+  closeModal();
+  updateNotificationBadge();
+};
