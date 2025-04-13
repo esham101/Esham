@@ -202,3 +202,10 @@ nav {
   font-size: 10px;
 }
 
+.ai-link {
+  color: #215955;
+  font-weight: 600;
+}
+.ai-link:hover {
+  text-decoration: underline;
+}
