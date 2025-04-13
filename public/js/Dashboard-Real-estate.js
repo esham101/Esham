@@ -355,30 +355,52 @@ let notifications = [
   { id: 2, message: "Landowner123 Responded" }
 ];
 
-// Function to update the badge
 function updateNotificationBadge() {
   const badge = document.getElementById('notif-badge');
   const count = notifications.length;
-
   if (count > 0) {
     badge.textContent = count;
-    badge.style.display = 'inline-block'; // Show badge when there are notifications
+    badge.style.display = 'inline-block';
   } else {
-    badge.style.display = 'none'; // Hide badge when no notifications
+    badge.style.display = 'none';
   }
 }
 
-// Call the function on page load or with an interval
-window.onload = () => {
-  updateNotificationBadge();
-};
-
-// Optional: update every 30 seconds (you can modify as needed)
-setInterval(() => {
-  updateNotificationBadge(); // This can be replaced with a real fetch call later
-}, 30000);
+// Theme Toggle
+function toggleDarkMode() {
+  const enabled = document.getElementById("darkMode").checked;
+  applyTheme(enabled); // Only apply theme, no saving here
+}
 
 
+function applyTheme(enabled) {
+  const root = document.documentElement;
+  if (enabled) {
+    root.style.setProperty('--base-clr', '#121212');
+    root.style.setProperty('--text-clr', '#ffffff');
+    root.style.setProperty('--hover-clr', '#1e1e1e');
+    root.style.setProperty('--line-clr', '#2e7d32');
+    root.style.setProperty('--secondary-text-clr', '#cccccc');
+    root.style.setProperty('--card-bg-light', '#1f1f1f');
+    root.style.setProperty('--dark-shadow', 'rgba(255, 255, 255, 0.05)');
+    root.style.setProperty('--table-header-bg', '#2c2c2c');
+    root.style.setProperty('--text-clr-light', '#ffffff');
+    root.style.setProperty('--dark-border', '#444');
+  } else {
+    root.style.setProperty('--base-clr', '#f4f4f4');
+    root.style.setProperty('--text-clr', '#000000');
+    root.style.setProperty('--hover-clr', '#e6e6e6');
+    root.style.setProperty('--line-clr', '#215321');
+    root.style.setProperty('--secondary-text-clr', '#b0b3c1');
+    root.style.setProperty('--card-bg-light', '#ffffff');
+    root.style.setProperty('--dark-shadow', 'rgba(0, 0, 0, 0.1)');
+    root.style.setProperty('--table-header-bg', '#253732');
+    root.style.setProperty('--text-clr-light', '#f4f4f4');
+    root.style.setProperty('--dark-border', '#ddd');
+  }
+}
+
+// Modal
 function openModal(type) {
   const modal = document.getElementById("modal");
   const body = document.getElementById("modal-body");
@@ -389,15 +411,11 @@ function openModal(type) {
       <form id="editProfileForm">
         <label>Name:</label><br>
         <input type="text" id="name" value="Nasser Almarshedy" style="width: 100%; margin-bottom: 10px;"><br>
-
         <label>Email:</label><br>
         <input type="email" id="email" value="nasser@example.com" style="width: 100%; margin-bottom: 10px;"><br>
-
         <button type="submit" style="margin-top: 10px;">Save Changes</button>
       </form>
     `;
-
-    // Handle form submission
     document.getElementById("editProfileForm").onsubmit = function (e) {
       e.preventDefault();
       const name = document.getElementById("name").value;
@@ -405,8 +423,9 @@ function openModal(type) {
       alert("Saved!\nName: " + name + "\nEmail: " + email);
       closeModal();
     };
+  }
 
-  } else if (type === 'settings') {
+  else if (type === 'settings') {
     body.innerHTML = `
       <h2>⚙️ Settings</h2>
       <label>
@@ -421,11 +440,14 @@ function openModal(type) {
       <br><br>
       <button onclick="saveSettings()">Save Settings</button>
     `;
+
+    // ✅ Set checkbox state when modal opens
+    const savedDarkMode = localStorage.getItem("darkModeEnabled") === "true";
+    document.getElementById("darkMode").checked = savedDarkMode;
   }
 
   else if (type === 'notifications') {
     let notifHTML = `<h2>🔔 Notifications</h2><ul style="padding-left: 20px;">`;
-
     if (notifications.length === 0) {
       notifHTML += `<li>No new notifications.</li>`;
     } else {
@@ -433,7 +455,6 @@ function openModal(type) {
         notifHTML += `<li>${n.message}</li>`;
       });
     }
-
     notifHTML += `</ul><br><button onclick="closeModal()">Close</button>`;
     body.innerHTML = notifHTML;
   }
@@ -445,21 +466,25 @@ function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-// Optional settings logic
-function toggleDarkMode() {
-  const enabled = document.getElementById("darkMode").checked;
-  document.body.style.backgroundColor = enabled ? "#121212" : "#ffffff";
-  document.body.style.color = enabled ? "#ffffff" : "#000000";
-}
-
 function saveSettings() {
   const darkMode = document.getElementById("darkMode").checked;
   const language = document.getElementById("language").value;
+
+  // ✅ Save only here
+  localStorage.setItem("darkModeEnabled", darkMode);
+  applyTheme(darkMode); // Apply it again just in case
+
   alert(`Settings saved:\nDark Mode: ${darkMode}\nLanguage: ${language}`);
   closeModal();
 }
 
+
+
+// ✅ Always apply light mode by default; apply dark only if enabled
 window.onload = () => {
   closeModal();
   updateNotificationBadge();
+
+  const savedDarkMode = localStorage.getItem("darkModeEnabled") === "true";
+  applyTheme(savedDarkMode); // Only changes colors — doesn't affect checkbox directly
 };

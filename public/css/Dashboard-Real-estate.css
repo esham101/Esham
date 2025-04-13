@@ -5,8 +5,17 @@
   --line-clr: #215321;
   --hover-clr: #e6e6e6;
   --text-clr: #000000;
+  --text-clr-light: #ffffff;
   --accent-clr: #215321;
   --secondary-text-clr: #b0b3c1;
+  --table-header-bg: #253732; /* Light theme table header (default) */
+  /* Dark mode variables */
+  --dark-box-bg: #1e1e1e;
+  --dark-table-header: #333;
+  --dark-border: #444;
+  --card-bg-light: #ffffff;
+  --card-bg-dark: #1f1f1f;
+  --dark-shadow: rgba(0, 0, 0, 0.3);
 }
 
 * {
@@ -234,9 +243,9 @@ main p {
 
 /* ========== DASHBOARD CONTAINER ========== */
 .dashboard-container {
-    width: 100%;
-    max-width: 1600px; /* 💡 You can change this to 1400px or 1600px */
-    margin: 0 auto;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
 /* ========== DASHBOARD ROW & BOXES ========== */
@@ -249,13 +258,14 @@ main p {
 
 .dashboard-box {
   flex: 1;
-  background: white;
+  background: var(--card-bg-light);
   padding: 20px;
   margin-top: 10px;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px var(--dark-shadow);
   text-align: center;
-  transition: box-shadow 0.3s ease;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  color: var(--text-clr);
 }
 
 .dashboard-box h2 {
@@ -264,31 +274,36 @@ main p {
 
 .dashboard-box:hover,
 .graph-box:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 18px var(--dark-shadow);
 }
-.dashboard-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
+
 /* ========== TABLE STYLING ========== */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
+  background: var(--card-bg-light);
+  color: var(--text-clr);
 }
 
 th, td {
-  border: 1px solid #ddd;
+  border: 1px solid var(--dark-border);
   padding: 10px;
   text-align: left;
 }
 
 th {
-  background-color: #253732;
-  color: #f4f4f4;
+  background-color: var(--table-header-bg);
+  color: var(--text-clr-light);
+  transition: background-color 0.3s ease, color 0.3s ease;
   font-weight: normal;
 }
 
@@ -302,13 +317,14 @@ th {
 
 .graph-box {
   flex: 1;
-  background: white;
+  background: var(--card-bg-light);
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px var(--dark-shadow);
   text-align: center;
-  transition: box-shadow 0.3s ease;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
   margin-bottom: 15px;
+  color: var(--text-clr);
 }
 
 canvas {
