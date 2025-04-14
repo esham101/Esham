@@ -1,4 +1,7 @@
-const toggleButton = document.getElementById('toggle-btn')
+// Dashboard-Real-estate.js
+let userId = 1; // Simulate logged in user
+let notifications = [];
+
 const sidebar = document.getElementById('sidebar')
 
 function toggleSidebar(){
@@ -31,345 +34,93 @@ function closeAllSubMenus(){
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Sample Revenue Data (For Future)
-  const revenueData = [
-      { project: "Project Alpha", date: "10 Mar 2025", revenue: 10000 },
-      { project: "Project Beta", date: "22 Feb 2025", revenue: 15500 },
-      { project: "Project Gamma", date: "18 Jan 2025", revenue: 7800 },
-      { project: "Project Alpha", date: "10 Mar 2025", revenue: 10000 },
-      { project: "Project Beta", date: "22 Feb 2025", revenue: 15500 },
-      { project: "Project Gamma", date: "18 Jan 2025", revenue: 7800 },
-      { project: "Project Alpha", date: "10 Mar 2025", revenue: 10000 }
-  ];
+  closeModal();
+  loadUserProfile();
+  loadSettings();
+  loadNotifications();
+  loadProposals();
+  loadRevenue();
+});
 
-  // Proposals Sent Data
-  const proposalsSent = [
-      { name: "Land223", date: "16 Mar 2025", status: "Pending" },
-      { name: "Land243", date: "15 Mar 2025", status: "Rejected" },
-      { name: "Land123", date: "15 Mar 2025", status: "Pending" },
-      { name: "Land143", date: "14 Mar 2025", status: "Rejected" },
-      { name: "Land193", date: "13 Jan 2025", status: "Rejected" },
-      { name: "Land153", date: "08 Jan 2025", status: "Rejected" },
-      { name: "Land123", date: "02 Jan 2025", status: "Pending" },
-  ];
+function loadProposals() {
+  fetch("http://localhost:3000/api/proposals")
+    .then(res => res.json())
+    .then(data => {
+      const sent = data.filter(p => p.status === 'Pending' || p.status === 'Rejected');
+      const accepted = data.filter(p => p.status === 'Accepted');
 
-  // Proposals Accepted Data
-  const proposalsAccepted = [
-      { name: "Land484", date: "13 Mar 2025", status: "Accepted" },
-      { name: "Land312", date: "11 Mar 2025", status: "Accepted" },
-      { name: "Land999", date: "03 Mar 2025", status: "Accepted" },
-      { name: "Land809", date: "01 Mar 2025", status: "Accepted" },
-      { name: "Land777", date: "28 Feb 2025", status: "Accepted" },
-      { name: "Land676", date: "17 Feb 2025", status: "Accepted" },
-      { name: "Land524", date: "02 Feb 2025", status: "Accepted" },
-  ];
+      populateTable(sent, "proposalsSentData");
+      populateTable(accepted, "proposalsAcceptedData");
 
-// Generalized Table Population Function
-function populateTable(data, tableId) {
-  let tableBody = document.getElementById(tableId);
-  
-  // Check the structure of data and populate accordingly
+      renderProposalsSentChart(sent);
+      renderProposalsAcceptedChart(accepted);
+    })
+    .catch(err => console.error("Error loading proposals:", err));
+}
+
+
+function loadRevenue() {
+  fetch("http://localhost:3000/api/revenue")
+    .then(res => res.json())
+    .then(data => {
+      populateRevenueTable(data, "revenueData"); // If using a separate revenue table
+      renderRevenueChart(data); // ✅ draw graph here
+    })
+    .catch(err => console.error("Error loading revenue:", err));
+}
+
+// You can use a different function if revenue table has different structure
+function populateRevenueTable(data, tableId) {
+  const tableBody = document.getElementById(tableId);
+  tableBody.innerHTML = "";
+
   data.forEach(item => {
-      let row = '';
+    const row = `<tr><td>${item.project}</td><td>${item.date}</td><td>${item.revenue}</td></tr>`;
+    tableBody.innerHTML += row;
+  });
+}
 
-      // Check if the data is from proposals (Sent or Accepted)
-      if (item.name && item.status) {
-          row = `<tr><td>${item.name}</td><td>${item.date}</td><td>${item.status}</td></tr>`;
+
+// ==== LOAD USER PROFILE ====
+function loadUserProfile() {
+  fetch(`http://localhost:3000/api/user/${userId}`)
+    .then(res => res.json())
+    .then(user => {
+      window.currentUser = user; // store role if needed elsewhere
+    });
+}
+
+// ==== SETTINGS ====
+function loadSettings() {
+  fetch(`http://localhost:3000/api/settings/${userId}`)
+    .then(res => res.json())
+    .then(settings => {
+      if (settings && 'dark_mode' in settings) {
+        applyTheme(settings.dark_mode);
+        // Set the checkbox only if the modal is already open
+        const checkbox = document.getElementById("darkMode");
+        if (checkbox) checkbox.checked = settings.dark_mode;
       }
-      // If it's revenue data
-      else if (item.project && item.revenue) {
-          row = `<tr><td>${item.project}</td><td>${item.date}</td><td>${item.revenue}</td></tr>`;
-      }
-
-      tableBody.innerHTML += row;
-  });
+    })
+    .catch(err => console.error("Error loading settings:", err));
 }
 
-// Populate Tables
-populateTable(proposalsSent, "proposalsSentData");
-populateTable(proposalsAccepted, "proposalsAcceptedData");
-populateTable(revenueData, "revenueData");
 
-var ctx = document.getElementById("revenueChart").getContext("2d");
+function saveSettings() {
+  const darkMode = document.getElementById("darkMode").checked;
 
-  new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: ["M", "T", "W", "T", "F", "S", "S"],
-      datasets: [{
-        label: "revenue",
-        tension: 0.4,
-        borderWidth: 0,
-        borderRadius: 4,
-        borderSkipped: false,
-        backgroundColor: "#43A047",
-        data: [50, 45, 22, 28, 50, 60, 76],
-        barThickness: 'flex'
-      }, ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: false,
-        }
-      },
-      interaction: {
-        intersect: false,
-        mode: 'index',
-      },
-      scales: {
-        y: {
-          grid: {
-            drawBorder: false,
-            display: true,
-            drawOnChartArea: true,
-            drawTicks: false,
-            borderDash: [5, 5],
-            color: '#e5e5e5'
-          },
-          ticks: {
-            suggestedMin: 0,
-            suggestedMax: 500,
-            beginAtZero: true,
-            padding: 10,
-            font: {
-              size: 14,
-              lineHeight: 2
-            },
-            color: "#737373"
-          },
-        },
-        x: {
-          grid: {
-            drawBorder: false,
-            display: false,
-            drawOnChartArea: false,
-            drawTicks: false,
-            borderDash: [5, 5]
-          },
-          ticks: {
-            display: true,
-            color: '#737373',
-            padding: 10,
-            font: {
-              size: 14,
-              lineHeight: 2
-            },
-          }
-        },
-      },
-    },
-  });
-
-
-  var ctx2 = document.getElementById("proposalsSentChart").getContext("2d");
-
-  new Chart(ctx2, {
-    type: "line",
-    data: {
-      labels: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
-      datasets: [{
-        label: "Sent",
-        tension: 0,
-        borderWidth: 2,
-        pointRadius: 3,
-        pointBackgroundColor: "#43A047",
-        pointBorderColor: "transparent",
-        borderColor: "#43A047",
-        backgroundColor: "transparent",
-        fill: true,
-        data: [120, 230, 130, 440, 250, 360, 270, 180, 90, 300, 310, 220],
-        maxBarThickness: 6
-
-      }],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: false,
-        },
-        tooltip: {
-          callbacks: {
-            title: function(context) {
-              const fullMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-              return fullMonths[context[0].dataIndex];
-            }
-          }
-        }
-      },
-      interaction: {
-        intersect: false,
-        mode: 'index',
-      },
-      scales: {
-        y: {
-          grid: {
-            drawBorder: false,
-            display: true,
-            drawOnChartArea: true,
-            drawTicks: false,
-            borderDash: [4, 4],
-            color: '#e5e5e5'
-          },
-          ticks: {
-            display: true,
-            color: '#737373',
-            padding: 10,
-            font: {
-              size: 12,
-              lineHeight: 2
-            },
-          }
-        },
-        x: {
-          grid: {
-            drawBorder: false,
-            display: false,
-            drawOnChartArea: false,
-            drawTicks: false,
-            borderDash: [5, 5]
-          },
-          ticks: {
-            display: true,
-            color: '#737373',
-            padding: 10,
-            font: {
-              size: 12,
-              lineHeight: 2
-            },
-          }
-        },
-      },
-    },
-  });
-
-  var ctx3 = document.getElementById("proposalsAcceptedChart").getContext("2d");
-
-  new Chart(ctx3, {
-    type: "line",
-    data: {
-      labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-      datasets: [{
-        label: "Accepted",
-        tension: 0,
-        borderWidth: 2,
-        pointRadius: 3,
-        pointBackgroundColor: "#43A047",
-        pointBorderColor: "transparent",
-        borderColor: "#43A047",
-        backgroundColor: "transparent",
-        fill: true,
-        data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-        maxBarThickness: 6
-
-      }],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: false,
-        }
-      },
-      interaction: {
-        intersect: false,
-        mode: 'index',
-      },
-      scales: {
-        y: {
-          grid: {
-            drawBorder: false,
-            display: true,
-            drawOnChartArea: true,
-            drawTicks: false,
-            borderDash: [4, 4],
-            color: '#e5e5e5'
-          },
-          ticks: {
-            display: true,
-            padding: 10,
-            color: '#737373',
-            font: {
-              size: 14,
-              lineHeight: 2
-            },
-          }
-        },
-        x: {
-          grid: {
-            drawBorder: false,
-            display: false,
-            drawOnChartArea: false,
-            drawTicks: false,
-            borderDash: [4, 4]
-          },
-          ticks: {
-            display: true,
-            color: '#737373',
-            padding: 10,
-            font: {
-              size: 14,
-              lineHeight: 2
-            },
-          }
-        },
-      },
-    },
-  });
-}
-);
-
-
-  const projectPhases = [
-    { name: "Design", progress: 80 },
-    { name: "Development", progress: 60 },
-    { name: "Testing", progress: 30 }
-  ];
-
-  const container = document.getElementById("progress-container");
-
-  projectPhases.forEach(phase => {
-    const item = document.createElement("div");
-    item.className = "progress-item";
-
-    item.innerHTML = `
-      <span>${phase.name}</span>
-      <div class="progress-bar">
-        <div class="progress" style="width: ${phase.progress}%; background-color: #215321;"></div>
-      </div>
-      <small>${phase.progress}%</small>
-    `;
-
-    container.appendChild(item);
-  });
-
-// Mock notifications - replace with real fetch call from your backend or Firebase later
-// Mock notifications - replace with real fetch call from your backend or Firebase later
-let notifications = [
-  { id: 1, message: "New Land in the market" },
-  { id: 2, message: "Landowner123 Responded" }
-];
-
-function updateNotificationBadge() {
-  const badge = document.getElementById('notif-badge');
-  const count = notifications.length;
-  if (count > 0) {
-    badge.textContent = count;
-    badge.style.display = 'inline-block';
-  } else {
-    badge.style.display = 'none';
-  }
-}
-
-// Theme Toggle
-function toggleDarkMode() {
-  const enabled = document.getElementById("darkMode").checked;
-  applyTheme(enabled); // Only apply theme, no saving here
+  fetch("http://localhost:3000/api/settings", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user_id: userId, dark_mode: darkMode }) // ❌ removed language
+  })
+  .then(res => res.json())
+  .then(data => {
+    applyTheme(darkMode);
+    alert(data.message);
+    closeModal();
+  })
+  .catch(err => console.error("Settings save error:", err));
 }
 
 
@@ -400,63 +151,69 @@ function applyTheme(enabled) {
   }
 }
 
-// Modal
+// ==== PROFILE MODAL ====
 function openModal(type) {
   const modal = document.getElementById("modal");
   const body = document.getElementById("modal-body");
 
   if (type === 'profile') {
-    body.innerHTML = `
-      <h2>👤 Profile</h2>
-      <form id="editProfileForm">
-        <label>Name:</label><br>
-        <input type="text" id="name" value="Nasser Almarshedy" style="width: 100%; margin-bottom: 10px;"><br>
-        <label>Email:</label><br>
-        <input type="email" id="email" value="nasser@example.com" style="width: 100%; margin-bottom: 10px;"><br>
-        <button type="submit" style="margin-top: 10px;">Save Changes</button>
-      </form>
-    `;
-    document.getElementById("editProfileForm").onsubmit = function (e) {
-      e.preventDefault();
-      const name = document.getElementById("name").value;
-      const email = document.getElementById("email").value;
-      alert("Saved!\nName: " + name + "\nEmail: " + email);
-      closeModal();
-    };
+    fetch(`http://localhost:3000/api/user/${userId}`)
+      .then(res => res.json())
+      .then(user => {
+        body.innerHTML = `
+          <h2>👤 Profile (${user.role})</h2>
+          <form id="editProfileForm">
+            <label>Name:</label><br>
+            <input type="text" id="name" value="${user.name}"><br>
+            <label>Email:</label><br>
+            <input type="email" id="email" value="${user.email}"><br>
+            <button type="submit">Save Changes</button>
+          </form>
+        `;
+        document.getElementById("editProfileForm").onsubmit = function (e) {
+          e.preventDefault();
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+
+          fetch("http://localhost:3000/api/user/update", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: userId, name, email })
+          })
+          .then(res => res.json())
+          .then(data => {
+            alert(data.message);
+            closeModal();
+          });
+        };
+      });
   }
 
   else if (type === 'settings') {
     body.innerHTML = `
       <h2>⚙️ Settings</h2>
       <label>
-        <input type="checkbox" id="darkMode" onchange="toggleDarkMode()"> Enable Dark Mode
+        <input type="checkbox" id="darkMode" onchange="toggleDarkMode()"> Dark Mode
       </label>
-      <br><br>
-      <label for="language">Language:</label>
-      <select id="language">
-        <option value="en">English</option>
-        <option value="ar">Arabic</option>
-      </select>
       <br><br>
       <button onclick="saveSettings()">Save Settings</button>
     `;
-
-    // ✅ Set checkbox state when modal opens
-    const savedDarkMode = localStorage.getItem("darkModeEnabled") === "true";
-    document.getElementById("darkMode").checked = savedDarkMode;
+  
+    // Load previously saved dark mode setting from DB
+    fetch(`http://localhost:3000/api/settings/${userId}`)
+      .then(res => res.json())
+      .then(settings => {
+        document.getElementById("darkMode").checked = settings.dark_mode;
+        applyTheme(settings.dark_mode);
+      });
   }
 
   else if (type === 'notifications') {
-    let notifHTML = `<h2>🔔 Notifications</h2><ul style="padding-left: 20px;">`;
-    if (notifications.length === 0) {
-      notifHTML += `<li>No new notifications.</li>`;
-    } else {
-      notifications.forEach(n => {
-        notifHTML += `<li>${n.message}</li>`;
-      });
-    }
-    notifHTML += `</ul><br><button onclick="closeModal()">Close</button>`;
-    body.innerHTML = notifHTML;
+    let html = `<h2>🔔 Notifications</h2><ul>`;
+    if (notifications.length === 0) html += `<li>No new notifications</li>`;
+    else notifications.forEach(n => html += `<li>${n.message}</li>`);
+    html += `</ul><button onclick="closeModal()">Close</button>`;
+    body.innerHTML = html;
   }
 
   modal.style.display = "flex";
@@ -466,25 +223,151 @@ function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-function saveSettings() {
-  const darkMode = document.getElementById("darkMode").checked;
-  const language = document.getElementById("language").value;
+function toggleDarkMode() {
+  const enabled = document.getElementById("darkMode").checked;
+  applyTheme(enabled);
+}
 
-  // ✅ Save only here
-  localStorage.setItem("darkModeEnabled", darkMode);
-  applyTheme(darkMode); // Apply it again just in case
+// ==== NOTIFICATIONS ====
+function loadNotifications() {
+  fetch(`http://localhost:3000/api/notifications/${userId}`)
+    .then(res => res.json())
+    .then(data => {
+      notifications = data;
+      updateNotificationBadge();
+    });
+}
 
-  alert(`Settings saved:\nDark Mode: ${darkMode}\nLanguage: ${language}`);
-  closeModal();
+function updateNotificationBadge() {
+  const badge = document.getElementById('notif-badge');
+  const count = notifications.length;
+  if (count > 0) {
+    badge.textContent = count;
+    badge.style.display = 'inline-block';
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+function populateTable(data, tableId) {
+  const tableBody = document.getElementById(tableId);
+  tableBody.innerHTML = ""; // clear existing
+
+  data.forEach(item => {
+    const row = `<tr><td>${item.name}</td><td>${item.date}</td><td>${item.status}</td></tr>`;
+    tableBody.innerHTML += row;
+  });
 }
 
 
+function renderRevenueChart(data) {
+  const ctx = document.getElementById("revenueChart").getContext("2d");
 
-// ✅ Always apply light mode by default; apply dark only if enabled
-window.onload = () => {
-  closeModal();
-  updateNotificationBadge();
+  const labels = data.map(item => item.date);
+  const values = data.map(item => item.revenue);
 
-  const savedDarkMode = localStorage.getItem("darkModeEnabled") === "true";
-  applyTheme(savedDarkMode); // Only changes colors — doesn't affect checkbox directly
-};
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "Revenue",
+        data: values,
+        backgroundColor: "#43A047",
+        borderRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { color: '#737373' },
+          grid: { color: '#e5e5e5' }
+        },
+        x: {
+          ticks: { color: '#737373' },
+          grid: { display: false }
+        }
+      }
+    }
+  });
+}
+
+function renderProposalsSentChart(data) {
+  const ctx = document.getElementById("proposalsSentChart").getContext("2d");
+
+  const monthLabels = [...new Set(data.map(p => p.date.slice(0, 7)))]; // YYYY-MM
+  const countMap = {};
+
+  monthLabels.forEach(month => {
+    countMap[month] = data.filter(p => p.date.startsWith(month)).length;
+  });
+
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: Object.keys(countMap),
+      datasets: [{
+        label: "Sent",
+        data: Object.values(countMap),
+        borderColor: "#43A047",
+        backgroundColor: "transparent",
+        borderWidth: 2,
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        y: { beginAtZero: true },
+        x: {}
+      }
+    }
+  });
+}
+
+function renderProposalsAcceptedChart(data) {
+  const ctx = document.getElementById("proposalsAcceptedChart").getContext("2d");
+
+  const monthLabels = [...new Set(data.map(p => p.date.slice(0, 7)))]; // YYYY-MM
+  const countMap = {};
+
+  monthLabels.forEach(month => {
+    countMap[month] = data.filter(p => p.date.startsWith(month)).length;
+  });
+
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: Object.keys(countMap),
+      datasets: [{
+        label: "Accepted",
+        data: Object.values(countMap),
+        borderColor: "#43A047",
+        backgroundColor: "transparent",
+        borderWidth: 2,
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        y: { beginAtZero: true },
+        x: {}
+      }
+    }
+  });
+}
