@@ -48,8 +48,6 @@ app.get("/login", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "Registeration.html"));
 });
 
-// Registration and login routes...
-
 app.get("/logout", (req, res) => {
   req.session.destroy();
   res.redirect("/");
@@ -101,9 +99,24 @@ app.get("/api/lands", (req, res) => {
   });
 });
 
+// ✅ Get single land by ID
+app.get("/api/lands/:id", (req, res) => {
+  const landId = req.params.id;
+  const sql = "SELECT * FROM lands WHERE id = ?";
+  db.query(sql, [landId], (err, results) => {
+    if (err) {
+      console.error("MySQL error:", err);
+      return res.status(500).send("Database error");
+    }
+    if (results.length === 0) {
+      return res.status(404).send("Land not found");
+    }
+    res.json(results[0]);
+  });
+});
+
 // =================== AI ROUTES ===================
 
-// 🧠 Voice Question Route (AssemblyAI + GPT)
 app.post("/voice-question", upload.single("audio"), async (req, res) => {
   try {
     const audioData = fs.readFileSync(req.file.path);
@@ -147,7 +160,6 @@ app.post("/voice-question", upload.single("audio"), async (req, res) => {
   }
 });
 
-// 💬 Text Question Route
 app.post("/text-question", async (req, res) => {
   const question = req.body.text;
   if (!question?.trim()) {
@@ -163,7 +175,7 @@ app.post("/text-question", async (req, res) => {
   }
 });
 
-// ✅ Helper function to query OpenAI
+// ✅ OpenAI Assistant Helper
 async function askGPT(question) {
   const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
@@ -310,7 +322,6 @@ If you are not 100% certain of the answer, respond:
 > "I’m not completely sure, but I can definitely help with anything related to using the Esham platform."
 
 `
-
         },
         {
           role: "user",
@@ -321,7 +332,7 @@ If you are not 100% certain of the answer, respond:
   });
 
   const gptData = await openaiRes.json();
-console.log("🔍 GPT Full Response:", JSON.stringify(gptData, null, 2));
+  console.log("🔍 GPT Full Response:", JSON.stringify(gptData, null, 2));
 
   if (gptData.choices && gptData.choices.length > 0 && gptData.choices[0].message && gptData.choices[0].message.content) {
     return gptData.choices[0].message.content;
@@ -329,7 +340,6 @@ console.log("🔍 GPT Full Response:", JSON.stringify(gptData, null, 2));
     console.error("GPT Error:", gptData);
     return "Sorry, I couldn't find an answer.";
   }
-  
 }
 
 app.listen(3000, () => {
