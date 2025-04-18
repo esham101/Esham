@@ -2,6 +2,7 @@
 let userId = 1; // Simulate logged in user
 let notifications = [];
 
+const toggleButton = document.getElementById('toggle-btn')
 const sidebar = document.getElementById('sidebar')
 
 function toggleSidebar(){
