@@ -287,6 +287,7 @@ main p {
 
 /* ========== TABLE STYLING ========== */
 table {
+  border-radius: 10px;
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
@@ -295,12 +296,14 @@ table {
 }
 
 th, td {
+  border-radius: 5px;
   border: 1px solid var(--dark-border);
   padding: 10px;
   text-align: left;
 }
 
 th {
+  border-radius: 5px;
   background-color: var(--table-header-bg);
   color: var(--text-clr-light);
   transition: background-color 0.3s ease, color 0.3s ease;
