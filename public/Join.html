@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Esham</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/Main_template_style.css">
     <link rel="stylesheet" href="css/Join.css">
     <script src="script.js" defer></script>
@@ -34,38 +35,38 @@
     </header>
 
     <main>
-        <div class="team-container">
-            <h1>Join Our Team</h1>
-            <p>At Esham, we are always looking for talented individuals to join our growing team. Explore our open positions and be part of an innovative company shaping the future of real estate technology.</p>
-            
-            <section class="careers-section">
-                <h2>Why Work with Us?</h2>
-                <ul>
-                    <li>Innovative and dynamic work environment</li>
-                    <li>Opportunities for growth and career development</li>
-                    <li>Competitive salary and benefits</li>
-                    <li>Flexible work arrangements</li>
-                </ul>
-            </section>
-            
-            <section class="open-positions">
-                <h2>Current Job Openings</h2>
-                <p>No open positions at the moment. Check back soon!</p>
-                <!-- Example Job Listing -->
-                <!--
-                <div class="job-listing">
-                    <h3>Software Engineer</h3>
-                    <p>We are looking for a skilled software engineer to develop and maintain our platform.</p>
-                    <a href="#">Apply Now</a>
-                </div>
-                -->
-            </section>
-            
-            <section class="contact-careers">
-                <h2>Get in Touch</h2>
-                <p>If you're interested in working with us, feel free to send your resume and cover letter to <a href="mailto:careers@esham.com">careers@esham.com</a>.</p>
-            </section>
-        </div>
+      <div class="join-container">
+        <h1>Join Us</h1>
+        <p>Be part of Saudi Arabia’s next real estate transformation. Whether you're a landowner, a developer, or a passionate contributor — we want to hear from you.</p>
+    
+        <form class="join-form">
+          <div>
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required />
+          </div>
+    
+          <div>
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address" required />
+          </div>
+    
+          <div>
+            <label for="role">I'm joining as a:</label>
+            <select id="role" name="role" required>
+              <option value="">-- Select One --</option>
+              <option value="partner">Strategic Partner</option>
+              <option value="employee">Team Member</option>
+            </select>
+          </div>
+    
+          <div>
+            <label for="message">Tell us more</label>
+            <textarea id="message" name="message" placeholder="Write a brief about your interest or proposal..."></textarea>
+          </div>
+    
+          <button type="submit">Submit Request</button>
+        </form>
+      </div>
     </main>
 
     <footer class="footer">
@@ -81,7 +82,7 @@
           <div class="footer-column">
             <h3 class="footer-title">Esham</h3>
             <ul class="footer-links">
-              <li><a href="Committee.html">Shariah Committee</a></li>
+              <li><a href="Musahem.html">Musahem</a></li>
               <li><a href="Join.html">Join Our Team</a></li>
               <li><a href="Terms.html">Terms and Conditions</a></li>
             </ul>

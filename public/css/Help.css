@@ -12,7 +12,7 @@ h1, h2 {
     color: #215955;
 }
 
-p {
+.help-container p {
     color: #666;
     line-height: 1.6;
 }

@@ -1,302 +1,80 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+}
+
 body {
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-header {
-    background-color: #fff;
-    color: #fff;
-    padding: 1rem 0;
-    font-family: 'Inter', sans-serif;
-}
-
-nav {
-    display: flex;
-    justify-content: center; /* Centers the content horizontally */
-    align-items: center; /* Aligns items vertically */
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-}
-
-.registeration {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
-}
-
-.login button {
-    background-color: #ffffff;
-    color: #245056;
-    font-weight: 500;
-    font-family: Inter;
-    font-size: 16px;
-    border: none;
-    padding: 0.9rem 1rem;
-    font-family: 'Inter', sans-serif;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.register button {
-    background-color: #215955;
-    border-radius: 25px;
-    width: 130px; /* Fixed width */
-    height: 50px; /* Fixed height */
-    font-size: 16px;
-    font-weight: 500;
-    font-family: 'Inter', sans-serif;
-    color: #fff;
-    border: none;
-    padding: 0; /* Removes extra padding to fit text properly */
-    cursor: pointer;
-    display: flex; /* Ensures text alignment using flexbox */
-    justify-content: center; /* Centers text horizontally */
-    align-items: center; /* Centers text vertically */
-    text-align: center; /* Aligns the text in the middle */
-    white-space: nowrap; /* Prevents text wrapping to the next line */
-    overflow: hidden; /* Ensures any overflow is hidden */
-}
-
-.logo img {
-    margin: 0;
-    width: 130px;
-    height: auto;
-    background-color: transparent;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
-}
-
-.nav-links li {
-    margin: 0;
-}
-
-.nav-links a {
+  margin: 0;
+  background-color: #f9f9f9;
   color: #333;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  position: relative;
-  transition: color 0.3s;
 }
 
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0%;
-  height: 1px;
-  background-color: #215955; /* Underline color */
-  transition: width 0.3s ease-in-out;
+.privacy-wrapper {
+  max-width: 950px;
+  margin: 50px auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.nav-links a:hover {
+.privacy-wrapper h1 {
+  font-size: 32px;
   color: #215955;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.nav-links a:hover::after {
-  width: 100%;
-}
-
-
-.footer {
-  background-color: #253732; /* Dark green background */
-  color: #FAFAFA;
-  padding: 40px 20px;
-  font-family: 'Inter', sans-serif;
-}
-
-.footer-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-bottom: 40px;
-  margin-top: 25px;
-}
-
-.footer-column {
-  flex: 1;
-  min-width: 200px;
-}
-
-.footer-logo img {
-  max-width: 120px;
-  margin-top: 30px;
+.privacy-wrapper h3 {
+  font-size: 22px;
+  color: #215955;
+  margin-top: 40px;
   margin-bottom: 10px;
-  margin-left: 160px;
 }
 
-.footer-title {
+.privacy-wrapper h4 {
   font-size: 18px;
-  font-weight: 600;
+  color: #18473e;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.privacy-wrapper p {
+  font-size: 16px;
+  line-height: 1.7;
   margin-bottom: 15px;
 }
 
-.footer-links {
-  list-style: none;
-  padding: 0;
+.privacy-wrapper ul {
+  padding-left: 20px;
+  margin-bottom: 20px;
 }
 
-.footer-links li {
+.privacy-wrapper ul li {
   margin-bottom: 10px;
+  font-size: 16px;
 }
 
-.footer-links a {
-  color: #FAFAFA;
-  font-size: 14px;
-  font-weight: 300;
-  text-decoration: none;
-}
-
-.footer-links a:hover {
+a {
+  color: #215955;
   text-decoration: underline;
 }
 
-.contact-number {
-  font-size: 18px;
-  font-weight: 800;
-  margin-left: 5px;
-  margin-bottom: 10px;
-}
-
-.contact-number a {
-  color: white; /* Makes the text white */
-  text-decoration: none; /* Removes the underline */
-}
-
-.working-hours {
-  font-size: 11px;
-  font-weight: 300;
-  line-height: 1.5;
-  margin-top: 5px; /* Ensure spacing between the contact number and working hours */
-  text-align: center;
-  margin-right: 26rem;
-}
-
-.footer-description {
-  padding-top: 20px;
-  font-size: 10px;
-  line-height: 1.8;
-  text-align: left;
-  margin-left: 20rem;
-  margin-right: 20rem;
-}
-
-.footer-description p {
-  margin-bottom: 15px;
-}
-
-.footer-disclaimer {
-  font-weight: 300;
-  font-size: 10px;
-}
-
-
-.policy-box {
-    background: gray;
+@media (max-width: 768px) {
+  .privacy-wrapper {
     padding: 20px;
-    margin: 20px auto;
-    width: 80%;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    border-left: 5px solid #245056; /* Left accent border */
-}
+    margin: 20px;
+  }
 
-.welcome-container {
-  background: white;
-  padding: 20px;
-  margin-bottom: 20px;
-  margin-top: -50px;
-  margin-left: 220px;
-  margin-right: 100px;
-  border-radius: 8px;
-}
+  .privacy-wrapper h1 {
+    font-size: 26px;
+  }
 
-.welcome-container h1 {
-  text-align: left;
-  font-size: 40px;
-  color: #000;
-}
-
-.welcome-container p {
-  text-align: left;
-  text-align: justify;
-  font-size: 22px;
-  line-height: 1.7;
-  color: #4E4E4E;
-  margin-left: 20px;
-  margin-right: 250px;
-}
-
-.policy-box h3 {
-    color: #245056;
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-.policy-box h4 {
-    color: #1b3d42;
+  .privacy-wrapper h3 {
     font-size: 20px;
-    margin-top: 15px;
-    margin-bottom: 5px;
-}
+  }
 
-.policy-box p {
-    text-align: justify;
-    font-size: 18px;
-    line-height: 1.6;
-    color: #4E4E4E;
-    margin-bottom: 10px;
-}
-
-.board-container {
-  background: white;
-  padding: 20px;
-  margin-bottom: 20px;
-  margin-top: 50px;
-  border-radius: 8px;
-
-}
-
-.board-container h2 {
-  text-align: left;
-  color: #245056;
-  font-size: 30px;
-}
-
-.board-members {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-}
-
-.member {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: left;
-  width: 80%;
-  transition: transform 0.3s ease-in-out;
-}
-
-.member:hover {
-  transform: scale(1.05);
-}
-
-.member h3 {
-  color: #245056;
-  margin-bottom: 5px;
-}
-
-.member p {
-  color: #7f8c8d;
+  .privacy-wrapper h4 {
+    font-size: 16px;
+  }
 }

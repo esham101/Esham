@@ -1,44 +1,90 @@
-.team-container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+* {
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  body {
+    margin: 0;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+
+  .join-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .join-container h1 {
+    font-size: 32px;
+    color: #215955;
+    margin-bottom: 10px;
     text-align: center;
-}
+  }
 
-h1, h2, h3 {
+  .join-container p {
+    font-size: 16px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .join-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .join-form label {
+    font-weight: 600;
     color: #215955;
-}
+    margin-bottom: 5px;
+  }
 
-p {
-    color: #666;
-    line-height: 1.6;
-}
-
-ul {
-    text-align: left;
-    color: #666;
-    list-style-type: disc;
-    padding-left: 20px;
-}
-
-.job-listing {
-    background: #f9f9f9;
-    padding: 15px;
-    margin-top: 10px;
+  .join-form input,
+  .join-form select,
+  .join-form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
     border-radius: 5px;
-}
+    background-color: #fff;
+  }
 
-.job-listing a {
-    display: inline-block;
-    margin-top: 10px;
-    color: #215955;
-    text-decoration: none;
-    font-weight: 500;
-}
+  .join-form textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
 
-.job-listing a:hover {
-    text-decoration: underline;
-}
+  .join-form button {
+    width: fit-content;
+    background-color: #215955;
+    color: white;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: center;
+    transition: background-color 0.3s ease;
+  }
+
+  .join-form button:hover {
+    background-color: #18473e;
+  }
+
+  @media (max-width: 768px) {
+    .join-container {
+      margin: 20px;
+      padding: 20px;
+    }
+
+    .join-container h1 {
+      font-size: 26px;
+    }
+  }

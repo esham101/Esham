@@ -103,3 +103,33 @@ app.get('/api/revenue', (req, res) => {
     });
   });
   
+
+// ===== PROJECT PROGRESSION =====
+
+// Get all progress updates for a proposal
+app.get('/api/progress/:proposalId', (req, res) => {
+  const { proposalId } = req.params;
+  db.query(
+    'SELECT * FROM project_progress WHERE proposal_id = ? ORDER BY updated_at DESC',
+    [proposalId],
+    (err, results) => {
+      if (err) {
+        console.error('Error fetching progress:', err);
+        return res.status(500).json({ error: 'Database error' });
+      }
+      res.json(results); // Will return [] if no data
+    }
+  );
+});
+// Add or update progress for a proposal
+app.post('/api/progress', (req, res) => {
+  const { proposal_id, stage, description, progress_percent } = req.body;
+  const sql = `
+    INSERT INTO project_progress (proposal_id, stage, description, progress_percent)
+    VALUES (?, ?, ?, ?)
+  `;
+  db.query(sql, [proposal_id, stage, description, progress_percent], (err, result) => {
+    if (err) return res.status(500).send(err);
+    res.json({ message: 'Progress entry added', id: result.insertId });
+  });
+});
