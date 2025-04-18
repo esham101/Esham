@@ -55,6 +55,9 @@ function loadProposals() {
 
       renderProposalsSentChart(sent);
       renderProposalsAcceptedChart(accepted);
+      if (accepted.length > 0) {
+        loadProjectProgress(accepted[0].id); // Or any valid proposal_id
+      }
     })
     .catch(err => console.error("Error loading proposals:", err));
 }
@@ -370,5 +373,36 @@ function renderProposalsAcceptedChart(data) {
         x: {}
       }
     }
+  });
+}
+
+function loadProjectProgress(proposalId) {
+  fetch(`http://localhost:3000/api/progress/${proposalId}`)
+    .then(res => res.json())
+    .then(data => {
+      renderProgressTimeline(data);
+    })
+    .catch(err => console.error("Error loading project progress:", err));
+}
+
+function renderProgressTimeline(data) {
+  const container = document.getElementById("progressTimeline");
+  container.innerHTML = "";
+
+  if (data.length === 0) {
+    container.innerHTML = "<p>No progress updates found.</p>";
+    return;
+  }
+
+  data.forEach(item => {
+    const block = document.createElement("div");
+    block.className = "progress-item";
+    block.innerHTML = `
+      <h4>${item.stage} (${item.progress_percent}%)</h4>
+      <p>${item.description}</p>
+      <small>Updated: ${new Date(item.updated_at).toLocaleString()}</small>
+      <hr>
+    `;
+    container.appendChild(block);
   });
 }
