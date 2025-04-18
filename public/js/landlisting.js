@@ -78,3 +78,29 @@ function setupFilters() {
         });
     });
 }
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
+
+searchBtn.addEventListener("click", handleSearch);
+searchInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") handleSearch();
+});
+
+function handleSearch() {
+    const query = searchInput.value.trim().toLowerCase();
+
+    if (!query) {
+        renderLands(allLands);
+        return;
+    }
+
+    const filtered = allLands.filter(land => {
+        return (
+            (land.city || "").toLowerCase().includes(query) ||
+            (land.neighborhood || "").toLowerCase().includes(query) ||
+            (land.street_name || "").toLowerCase().includes(query)
+        );
+    });
+
+    renderLands(filtered);
+}
