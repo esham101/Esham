@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/Main_template_style.css">
     <link rel="stylesheet" href="css/SearchBar_Style.css">
     <link rel="stylesheet" href="css/popup_style.css">
+    <link rel="stylesheet" href="css/Helper logo.css">
 </head>
 <body>
     <header class="header">
@@ -37,11 +38,12 @@
         <div class="search__container">
             <h1 class="search__title" style="font-size: 80px;">Land Listing</h1>
             <div class="search__wrapper">
-                <input class="search__input" type="text" placeholder="Enter a Postal code, District, or Street">
-                <button class="search__button">
-                    <img src="images/search.png" alt="Search">
+                <input class="search__input" id="searchInput" type="text" placeholder="Enter a Postal code, District, or Street">
+                <button class="search__button" id="searchBtn">
+                  <img src="images/search.png" alt="Search">
                 </button>
-            </div>
+              </div>
+              
         </div>
     </header>
     
@@ -205,6 +207,8 @@
             });
         }
     </script>
-    
+    <a href="Helper.html" class="helper-button" title="Need Help?">
+        <img src="images/White helper.png" alt="Musahem Helper Icon">
+      </a>
 </body>
 </html>

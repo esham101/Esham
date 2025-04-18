@@ -1,115 +1,163 @@
-
-
+/* --- Layout & Grid --- */
 main {
     padding: 2rem;
-}
-
-.results-container {
+  }
+  
+  .results-container {
     max-width: 1200px;
     margin: 0 auto;
-}
-
-.property-grid {
+  }
+  
+  .property-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
-}
-
-/* Property Item Styles */
-.property-item {
+  }
+  
+  /* --- Property Item Styling --- */
+  .property-item {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: background-color 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
     position: relative;
-}
-
-.property-item:hover {
+  }
+  
+  .property-item:hover {
     background-color: rgba(33, 89, 85, 1);
     color: #fff;
-    transform: scale(1.05); /* Slightly grows in size */
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Adds a deeper shadow */
-}
-
-.property-item:hover h3,
-.property-item:hover .tags,
-.property-item:hover .location,
-.property-item:hover .owner span {
-    color: #fff; /* Change text color to white */
-}
-
-/* Button Style */
-.view-link {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .property-item:hover h3,
+  .property-item:hover .tags,
+  .property-item:hover .location,
+  .property-item:hover .owner span {
+    color: #fff;
+  }
+  
+  /* --- Buttons --- */
+  .view-link {
     position: absolute;
     bottom: 10px;
     right: 10px;
     text-decoration: none;
     font-weight: bold;
-    padding: 0.4rem 0.8rem; /* Slightly smaller size */
+    padding: 0.4rem 0.8rem;
     border: 2px solid rgba(33, 89, 85, 1);
     border-radius: 5px;
     background-color: rgba(33, 89, 85, 1);
     color: #fff;
     transition: background-color 0.3s, color 0.3s, transform 0.3s;
-}
-
-/* Button synchronized with container hover */
-.property-item:hover .view-link {
-    background-color: #fff; /* Button background turns white */
-    color: rgba(33, 89, 85, 1); /* Button text turns green */
-    border-color: #fff; /* Button border matches background */
-    transform: scale(1.1); /* Button grows slightly */
-}
-
-/* Image and Details */
-.property-item img {
+  }
+  
+  .property-item:hover .view-link {
+    background-color: #fff;
+    color: rgba(33, 89, 85, 1);
+    border-color: #fff;
+    transform: scale(1.1);
+  }
+  
+  /* --- Image --- */
+  .property-item img {
     width: 100%;
     height: 200px;
     object-fit: cover;
     border-bottom: 1px solid #ddd;
-}
-
-.property-details {
+  }
+  
+  /* --- Details --- */
+  .property-details {
     padding: 1rem;
-}
-
-.property-details h3 {
+  }
+  
+  .property-details h3 {
     margin: 0;
     font-size: 1.2rem;
-    color: rgba(33, 89, 85, 1);
     transition: color 0.3s;
-}
-
-.property-details .tags {
+    color: rgba(33, 89, 85, 1);
+  }
+  
+  .property-details .tags {
     margin: 0.5rem 0;
     font-size: 0.9rem;
     color: #777;
     transition: color 0.3s;
-}
-
-.property-details .location {
+  }
+  
+  .property-details .location {
     font-size: 0.9rem;
     color: #555;
     transition: color 0.3s;
-}
-
-.owner {
+  }
+  
+  .owner {
     display: flex;
     align-items: center;
     margin-top: 1rem;
-}
-
-.owner img {
+  }
+  
+  .owner img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-right: 0.5rem;
-}
-
-.owner span {
+  }
+  
+  .owner span {
     flex-grow: 1;
     font-size: 0.9rem;
     color: #333;
     transition: color 0.3s;
-}
+  }
+  
+  /* --- Price & SAR Icon --- */
+  .price-line {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 1.2rem;
+    color: rgba(33, 89, 85, 1);
+  }
+  
+  .price-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .sar-symbol {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url("/images/Saudi_riyal.png");
+
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    margin-left: 4px;
+  }
+  
+  .property-item:hover .sar-symbol {
+    background-image: url("/images/White_riyal_symbol.png");
+  }
+  
+  
+  /* --- Land Meta Info --- */
+  .land-meta {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  .land-meta p {
+    margin: 0;
+    margin-bottom: 4px;
+  }
+  
+  .land-meta strong {
+    font-weight: 600;
+  }
+  

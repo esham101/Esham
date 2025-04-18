@@ -23,25 +23,27 @@ function renderLands(lands) {
         const div = document.createElement("div");
         div.className = "property-item";
         div.innerHTML = `
-    <img src="${land.land_image}" alt="Land Image" />
-    
-    <div class="property-details">
-        <h3>${land.price_per_meter} SAR per meter • ${land.land_size.toLocaleString()} Meter</h3>
-
-        <div class="tags">Empty • New • To be assigned</div>
-
-        <p class="location">${land.city}, ${land.neighborhood}, ${land.street_name}</p>
-
-        <div class="owner">
-            <img src="images/profile-placeholder.png" alt="Owner">
-            <span>Personal owner</span>
-            <a href="#" class="view-link">View</a>
-        </div>
-    </div>
-`;
+            <img src="${land.land_image}" alt="Land Image" />
+            <div class="property-details">
+                <h3 class="price-line">
+  <span class="price-wrap">
+    <span class="sar-symbol"></span>
+    ${parseFloat(land.price_per_meter).toFixed(2)} 
+  </span>&nbsp; per meter • ${land.land_size.toLocaleString()} Meter
+</h3>
 
 
-        // Add more details as needed
+                <div class="tags">
+                    ${land.purpose} • ${land.facing} • ${land.has_building === 1 || land.has_building === true ? "Yes" : "No"}
+                </div>
+                <p class="location">${land.city}, ${land.neighborhood}, ${land.street_name}</p>
+                <div class="owner">
+                    <img src="images/profile-placeholder.png" alt="Owner">
+                    <span>Personal owner</span>
+                    <a href="land.html?id=${land.id}" class="view-link">View</a>
+                </div>
+            </div>
+        `;
         container.appendChild(div);
     });
 
@@ -59,8 +61,6 @@ function setupFilters() {
 
     buttons.forEach(button => {
         button.addEventListener('click', () => {
-            console.log("Clicked:", button.textContent); // Debug
-
             // Update active style
             buttons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
@@ -77,4 +77,30 @@ function setupFilters() {
             }
         });
     });
+}
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
+
+searchBtn.addEventListener("click", handleSearch);
+searchInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") handleSearch();
+});
+
+function handleSearch() {
+    const query = searchInput.value.trim().toLowerCase();
+
+    if (!query) {
+        renderLands(allLands);
+        return;
+    }
+
+    const filtered = allLands.filter(land => {
+        return (
+            (land.city || "").toLowerCase().includes(query) ||
+            (land.neighborhood || "").toLowerCase().includes(query) ||
+            (land.street_name || "").toLowerCase().includes(query)
+        );
+    });
+
+    renderLands(filtered);
 }
