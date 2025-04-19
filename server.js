@@ -48,6 +48,100 @@ app.get("/login", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "Registeration.html"));
 });
 
+
+app.post("/register/landowner", (req, res) => {
+  const { fullname, idnumber, phone, email, password } = req.body;
+
+  db.query("SELECT * FROM landowners WHERE email = ?", [email], (err, results) => {
+      if (err) return res.send("Database error!");
+
+      if (results.length > 0) {
+          return res.redirect("/register?error=Email already exists");
+      }
+
+      bcrypt.hash(password, saltRounds, (err, hash) => {
+          if (err) return res.send("Error encrypting password");
+
+          console.log("Hashed Landowner Password:", hash);
+
+          const insertSql = `
+              INSERT INTO landowners (name, id_number, phone, email, password)
+              VALUES (?, ?, ?, ?, ?)
+          `;
+          db.query(insertSql, [fullname, idnumber, phone, email, hash], (err, result) => {
+              if (err) return res.send("Error registering user");
+              res.redirect("/");
+          });
+      });
+  });
+});
+
+
+app.post("/register/realestate", (req, res) => {
+  const { company, businessReg, taxId, address, email, phone, password } = req.body;
+
+  db.query("SELECT * FROM realestates WHERE email = ?", [email], (err, results) => {
+      if (err) return res.send("Database error!");
+
+      if (results.length > 0) {
+          return res.redirect("/register?error=Email already exists");
+      }
+
+      bcrypt.hash(password, saltRounds, (err, hash) => {
+          if (err) return res.send("Error encrypting password");
+
+          console.log("Hashed RealEstate Password:", hash);
+
+          const insertSql = `
+              INSERT INTO realestates (company_name, business_reg, tax_id, address, email, phone, password)
+              VALUES (?, ?, ?, ?, ?, ?, ?)
+          `;
+          db.query(insertSql, [company, businessReg, taxId, address, email, phone, hash], (err, result) => {
+              if (err) return res.send("Error registering user");
+              res.redirect("/");
+          });
+      });
+  });
+});
+
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
+
+  db.query("SELECT * FROM landowners WHERE email = ?", [email], (err, landResults) => {
+      if (err) return res.send("Database error!");
+
+      if (landResults.length > 0) {
+          const user = landResults[0];
+          bcrypt.compare(password, user.password, (err, result) => {
+              if (result) {
+                  req.session.user = user;
+                  return res.redirect("/");
+              } else {
+                  return res.redirect("/login?error=Incorrect password");
+              }
+          });
+      } else {
+          db.query("SELECT * FROM realestates WHERE email = ?", [email], (err, realResults) => {
+              if (err) return res.send("Database error!");
+
+              if (realResults.length > 0) {
+                  const user = realResults[0];
+                  bcrypt.compare(password, user.password, (err, result) => {
+                      if (result) {
+                          req.session.user = user;
+                          return res.redirect("/");
+                      } else {
+                          return res.redirect("/login?error=Incorrect password");
+                      }
+                  });
+              } else {
+                  return res.redirect("/login?error=Account not found. Please register first.");
+              }
+          });
+      }
+  });
+});
+
 app.get("/logout", (req, res) => {
   req.session.destroy();
   res.redirect("/");
@@ -72,6 +166,7 @@ app.post("/add-land", upload.fields([{ name: "titleDeed" }, { name: "landImage" 
   const landImagePath = "/uploads/" + req.files["landImage"][0].filename;
   const landownerId = req.session.user?.id || null;
 
+
   const sql = `
     INSERT INTO lands 
     (street_name, neighborhood, city, land_size, height, width, street_width, has_building, price_per_meter, purpose, facing, title_deed, land_image, landowner_id)
@@ -91,18 +186,21 @@ app.post("/add-land", upload.fields([{ name: "titleDeed" }, { name: "landImage" 
   });
 });
 
-// Get all lands
 app.get("/api/lands", (req, res) => {
-  db.query("SELECT * FROM lands ORDER BY id DESC", (err, results) => {
-    if (err) return res.status(500).send("Database error");
+  db.query("SELECT * FROM lands ORDER BY land_id DESC", (err, results) => {
+    if (err) {
+      console.error("MySQL error:", err);
+      return res.status(500).json({ error: "Database error", details: err.message });
+    }
     res.json(results);
   });
 });
 
+
 // ✅ Get single land by ID
 app.get("/api/lands/:id", (req, res) => {
   const landId = req.params.id;
-  const sql = "SELECT * FROM lands WHERE id = ?";
+  const sql = "SELECT * FROM lands WHERE land_id = ?";
   db.query(sql, [landId], (err, results) => {
     if (err) {
       console.error("MySQL error:", err);
@@ -304,7 +402,7 @@ If a user asks for help in Arabic, such as:
 For example:
 
 ❓ "من أنت؟"  
-✅ "أنا مساعدك الذكي - مساهم - على منصة أسهم. أستطيع مساعدتك في كل ما يتعلق بتسجيل الأراضي أو استقبال العروض أو استخدام المنصة بشكل عام."
+✅ "أنا مساعدك الذكي - مساهم - على منصة إسهام. أستطيع مساعدتك في كل ما يتعلق بتسجيل الأراضي أو استقبال العروض أو استخدام المنصة بشكل عام."
 
 ❓ "ساعدني"  
 ✅ "أنا هنا لمساعدتك! هل ترغب في التسجيل، إضافة أرض، أم معرفة كيفية استقبال العروض؟"
@@ -315,7 +413,7 @@ For example:
 Always use formal Modern Standard Arabic (فصحى) when responding in Arabic.
 
 If you're unsure about a vague Arabic question, say:
-> "أستطيع مساعدتك في كل ما يتعلق بمنصة أسهم، مثل التسجيل، العروض، أو إضافة الأراضي. فقط أخبرني بما تحتاجه."
+> "أستطيع مساعدتك في كل ما يتعلق بمنصة إسهام، مثل التسجيل، العروض، أو إضافة الأراضي. فقط أخبرني بما تحتاجه."
 
 
 If you are not 100% certain of the answer, respond:
