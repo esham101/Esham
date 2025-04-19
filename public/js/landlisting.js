@@ -40,7 +40,8 @@ function renderLands(lands) {
                 <div class="owner">
                     <img src="images/profile-placeholder.png" alt="Owner">
                     <span>Personal owner</span>
-                    <a href="land.html?id=${land.id}" class="view-link">View</a>
+                    <a href="land.html?id=${land.land_id}" class="view-link">View</a>
+
                 </div>
             </div>
         `;
@@ -104,3 +105,5 @@ function handleSearch() {
 
     renderLands(filtered);
 }
+
+

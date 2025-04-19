@@ -72,6 +72,7 @@ app.post("/add-land", upload.fields([{ name: "titleDeed" }, { name: "landImage" 
   const landImagePath = "/uploads/" + req.files["landImage"][0].filename;
   const landownerId = req.session.user?.id || null;
 
+
   const sql = `
     INSERT INTO lands 
     (street_name, neighborhood, city, land_size, height, width, street_width, has_building, price_per_meter, purpose, facing, title_deed, land_image, landowner_id)
@@ -91,18 +92,21 @@ app.post("/add-land", upload.fields([{ name: "titleDeed" }, { name: "landImage" 
   });
 });
 
-// Get all lands
 app.get("/api/lands", (req, res) => {
-  db.query("SELECT * FROM lands ORDER BY id DESC", (err, results) => {
-    if (err) return res.status(500).send("Database error");
+  db.query("SELECT * FROM lands ORDER BY land_id DESC", (err, results) => {
+    if (err) {
+      console.error("MySQL error:", err);
+      return res.status(500).json({ error: "Database error", details: err.message });
+    }
     res.json(results);
   });
 });
 
+
 // ✅ Get single land by ID
 app.get("/api/lands/:id", (req, res) => {
   const landId = req.params.id;
-  const sql = "SELECT * FROM lands WHERE id = ?";
+  const sql = "SELECT * FROM lands WHERE land_id = ?";
   db.query(sql, [landId], (err, results) => {
     if (err) {
       console.error("MySQL error:", err);
