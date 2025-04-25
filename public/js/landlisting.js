@@ -38,8 +38,11 @@ function renderLands(lands) {
                 </div>
                 <p class="location">${land.city}, ${land.neighborhood}, ${land.street_name}</p>
                 <div class="owner">
-                    <img src="images/profile-placeholder.png" alt="Owner">
-                    <span>Personal owner</span>
+                    <img src="images/blank-profile-circle.png" alt="Owner">
+                    <span>${land.owner_name || "Unknown"}</span>
+
+
+
                     <a href="land.html?id=${land.land_id}" class="view-link">View</a>
 
                 </div>

@@ -40,6 +40,13 @@ async function loadLand() {
     document.getElementById("landDescription").textContent =
       "This land is located in a prime area and ready for development.";
 
+// Show the owner's name
+const ownerName = document.createElement("p");
+ownerName.textContent = `Listed by: ${land.owner_name || "Unknown"}`;
+ownerName.classList.add("land-owner-name");
+document.getElementById("landDescription").insertAdjacentElement("afterend", ownerName);
+
+
     // Title deed download link
     document.getElementById("deedLink").addEventListener("click", (e) => {
       e.preventDefault();

@@ -33,6 +33,14 @@
     margin-bottom: 15px;
   }
   
+  .land-owner-name {
+    font-weight: bold;
+    color: #215955;
+    margin: 15px 0 10px 0;
+    font-size: 1rem;
+  }
+  
+
   .location {
     color: #777;
     margin-bottom: 20px;
