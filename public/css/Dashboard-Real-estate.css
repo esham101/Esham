@@ -377,3 +377,133 @@ canvas {
   margin: 0;
   color: #215955;
 }
+
+
+/* Overlay */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+  }
+
+  /* Modal Box */
+  .modal-box {
+    background: var(--modal-bg, #ffffff);
+    color: var(--modal-text, #000000);
+    padding: 24px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    text-align: left;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  /* Close Button */
+  .modal-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    color: var(--modal-close, #888);
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  .modal-close-btn:hover {
+    color: var(--modal-close-hover, #f00);
+  }
+
+  /* Modal body content */
+  .modal-body {
+    margin-top: 20px;
+    line-height: 1.5;
+  }
+
+  /* Dark mode styles */
+  body.dark-mode .modal-box {
+    --modal-bg: #1e1e1e;
+    --modal-text: #f0f0f0;
+    --modal-close: #ccc;
+    --modal-close-hover: #ff6961;
+  }
+
+  /* Optional transition for appearance */
+  #modal {
+    animation: fadeIn 0.2s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+/* Form wrapper */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels */
+.modal-form label {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: var(--text-clr);
+}
+
+/* Inputs */
+.modal-form input[type="text"],
+.modal-form input[type="email"],
+.modal-form input[type="password"],
+.modal-form input[type="checkbox"] {
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #000;
+  font-size: 14px;
+}
+
+/* Adjust checkbox padding */
+.modal-form input[type="checkbox"] {
+  margin-right: 8px;
+  transform: scale(1.1);
+}
+
+/* Dark mode inputs */
+body.dark-mode .modal-form input {
+  background-color: #2a2a2a;
+  color: #f0f0f0;
+  border: 1px solid #444;
+}
+
+/* Buttons */
+.modal-button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: fit-content;
+  align-self: flex-end;
+}
+
+
+/* Modal headings */
+#modal-content h2 {
+  margin-bottom: 16px;
+  color: var(--text-clr);
+  font-size: 20px;
+}
