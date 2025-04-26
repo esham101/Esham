@@ -8,17 +8,23 @@
   /* Image on top */
   .land-gallery {
     width: 100%;
-    border-radius: 12px;
+    max-width: 100%;
+    height: 450px; /* Fixed nice height for land images */
     overflow: hidden;
-    box-shadow: 0 4px 12px rgb(0, 0, 0);
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background-color: #f4f4f4; /* In case image is transparent */
     margin-bottom: 30px;
   }
   
   .land-gallery img {
     width: 100%;
-    height: auto;
-    display: block;
+    height: 100%;
+    object-fit: cover; /* Important: Keep nice crop without distortion */
+    display: block; /* Remove small gaps */
+    border-radius: 15px;
   }
+  
   
   /* Info box below image */
   .land-info-box {
@@ -141,3 +147,35 @@
     height: 30px;
     cursor: pointer;
   }
+
+  .back-wrapper {
+    max-width: 1200px;
+    margin: 30px auto 20px auto; /* ⬅️ Increased the top margin */
+    padding: 0 20px;
+  }
+  
+  
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #215955;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.3s ease;
+  }
+  
+  .back-button:hover {
+    color: #163e3b;
+  }
+  
+  .back-button svg {
+    stroke: #215955;
+    transition: stroke 0.3s ease;
+  }
+  
+  .back-button:hover svg {
+    stroke: #163e3b;
+  }
+  
