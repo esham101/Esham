@@ -118,6 +118,7 @@ label {
     display: block;
     margin-top: 10px;
     text-align: left;
+    margin-bottom: 10px;
 }
 
 input {
@@ -128,10 +129,38 @@ input {
     border-radius: 8px;
 }
 
+.phone-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.phone-wrapper input {
+    width: 100%;
+    padding: 12px 12px 12px 60px; /* لاحظ المسافة من اليسار عشان +966 */
+    margin-top: 5px;
+    border: none;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.phone-wrapper .country-code {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: black; /* لون +966 */
+    font-size: 16px;
+    pointer-events: none; /* المستخدم ما يقدر يضغط عليها */
+}
+
+
+
+
 button {
     width: 100%;
-    padding: 12px;
+    padding: 15px;
     margin-top: 15px;
+    margin-left: 12px;
     border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
