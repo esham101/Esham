@@ -72,57 +72,64 @@
 
         <form id="addLandForm" action="/add-land" method="POST" enctype="multipart/form-data">
 
-            <label for="pricePerMeter">Price per meter:</label>
-            <input type="number" id="pricePerMeter" name="pricePerMeter" required>
+          <label for="pricePerMeter">Price per meter (SAR):</label>
+<input type="number" id="pricePerMeter" name="pricePerMeter" required placeholder="Ex: 150, 240">
 
-            <label for="landSize">Size (in sq.m.):</label>
-            <input type="number" id="landSize" name="landSize" required>
+<label for="landSize">Land Size (in square meters):</label>
+<input type="number" id="landSize" name="landSize" required placeholder="Ex: 300, 500">
 
-            <label for="height">Height (m):</label>
-            <input type="number" id="height" name="height" required>
+<label for="height">Land Height (m):</label>
+<input type="number" id="height" name="height" required placeholder="Ex: 20, 25">
 
-            <label for="width">Width (m):</label>
-            <input type="number" id="width" name="width" required>
+<label for="width">Land Width (m):</label>
+<input type="number" id="width" name="width" required placeholder="Ex: 15, 30">
 
-            <label for="streetWidth">Street Width (m):</label>
-            <input type="number" id="streetWidth" name="streetWidth" required>
+<label for="streetWidth">Street Width (m):</label>
+<input type="number" id="streetWidth" name="streetWidth" required placeholder="Ex: 10, 12">
 
-            <label for="streetName">Street Name:</label>
-            <input type="text" id="streetName" name="streetName" required>
+<label for="streetName">Street Name:</label>
+<input type="text" id="streetName" name="streetName" required placeholder="Ex: King Fahad Road">
 
-            <label for="neighborhood">Neighborhood:</label>
-            <input type="text" id="neighborhood" name="neighborhood" required>
+<label for="neighborhood">Neighborhood:</label>
+<input type="text" id="neighborhood" name="neighborhood" required placeholder="Ex: Al Olaya, Al Nakheel">
 
-            <label for="city">City:</label>
-            <input type="text" id="city" name="city" required>
+<label for="city">City:</label>
+<input type="text" id="city" name="city" required placeholder="Ex: Riyadh, Jeddah">
 
-            <label for="hasBuilding">Building on land:</label>
-            <select id="hasBuilding" name="hasBuilding" required>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
+<label for="hasBuilding">Building on land:</label>
+<select id="hasBuilding" name="hasBuilding" required>
+    <option value="">--Select--</option>
+    <option value="yes">Yes</option>
+    <option value="no">No</option>
+</select>
+<small>Ex: Yes (land has an existing house or building)</small>
 
-            <label for="landPurpose">Purpose of Land:</label>
-            <select id="landPurpose" name="purpose" required>
-                <option value="commercial">Commercial</option>
-                <option value="residential">Residential</option>
-            </select>
+<label for="landPurpose">Purpose of Land:</label>
+<select id="landPurpose" name="purpose" required>
+    <option value="">--Select Purpose--</option>
+    <option value="commercial">Commercial </option>
+    <option value="residential">Residential</option>
+</select>
+<small>Commercial (shops, malls) or Residential (houses, apartments)</small>
 
-            <label for="landFacing">Land Facing:</label>
-            <select id="landFacing" name="facing" required>
-                <option value="north">North</option>
-                <option value="south">South</option>
-                <option value="east">East</option>
-                <option value="west">West</option>
-            </select>
+<label for="landFacing">Land Facing Direction:</label>
+<select id="landFacing" name="facing" required>
+    <option value="">--Select Direction--</option>
+    <option value="north">North</option>
+    <option value="south">South</option>
+    <option value="east">East</option>
+    <option value="west">West</option>
+</select>
+<small>Which way is the land facing</small>
 
-            <label for="titleDeed">Upload Title Deed (Proof of Ownership)</label>
-            <input type="file" id="titleDeed" name="titleDeed" accept="image/*" required>
+<label for="titleDeed">Upload Title Deed:</label>
+<input type="file" id="titleDeed" name="titleDeed" accept="image/*" required>
+<small> Ex: Upload scanned government-issued title deed</small>
 
-            <label for="landImage">Land Image</label>
-            <input type="file" id="landImage" name="landImage" accept="image/*" required>
-            <p style="font-size: 12px; color: #777; margin-top: 5px;">Recommended image size: 1200×450 px</p>
-            
+<label for="landImage">Upload Land Image:</label>
+<input type="file" id="landImage" name="landImage" accept="image/*" required>
+<small> Ex: Image with 2:1 or 3:2 ratio (1200×600 or 1500×1000)</small>
+
             
 
             <div>
