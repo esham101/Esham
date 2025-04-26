@@ -6,7 +6,10 @@
   <title>Dashboard</title>
   <link rel="stylesheet" href="css/Dashboard-Real-estate copy.css"> 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script type="text/javascript" src="js/Dashboard-Real-estate.js" defer></script>
+  <script type="module" src="js/data.js"></script>
+  <script type="module" src="js/Dashboard-Real-estate.js" defer></script>
+  <script type="module" src="js/proposal-management.js" defer></script>
+  
 </head>
 <body>
   <nav id="sidebar">
@@ -201,8 +204,10 @@
 </section>
 
 <section class="dashboard-box">
-  <h3>Proposal managment</h3>
-  <div id="progressTimeline"></div>
+  <h3>Proposal Management</h3>
+  <div id="proposalManagement"></div>
+</section>
+
 
   <section class="results-container" id="property-list">
     <div class="property-grid">
