@@ -1,0 +1,369 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --base-clr: #f4f4f4;
+  --sidebar-bg: #215955;
+  --main-color: #215955;
+  --card-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  --white: #ffffff;
+  --text-dark: #000000;
+  --text-light: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--base-clr);
+  color: var(--text-dark);
+  display: flex;
+}
+
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background-color: #245954;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  gap: 20px;
+  overflow-y: auto;
+  transition: width 0.3s ease;
+}
+
+#sidebar .logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* center logo and button */
+  gap: 8px;
+}
+
+#sidebar .logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+}
+#toggle-btn {
+  background: none; /* No background */
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#toggle-btn svg {
+  fill: white; /* Make the icon itself white */
+  width: 24px;
+  height: 24px;
+}
+
+.main-content {
+  margin-left: 250px;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+.main-content.expanded {
+  margin-left: 80px;
+}
+
+#sidebar ul {
+  list-style: none;
+  margin-top: 2rem;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* <<< More space between options */
+}
+
+#sidebar ul li {
+  margin-bottom: 0; /* because gap already added */
+}
+
+#sidebar ul li a {
+  text-decoration: none;
+  color: var(--text-light);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 5px;
+}
+
+#sidebar ul li a:hover {
+  background: rgba(255,255,255,0.1);
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+/* Sidebar closed state */
+#sidebar.close {
+  width: 80px;
+}
+#sidebar.close ul li span {
+  display: none; /* hide text */
+}
+
+#sidebar.close ul li a {
+  justify-content: center;
+}
+
+#sidebar.close #toggle-btn {
+  transform: rotate(180deg); /* optional: rotate the toggle button */
+}
+
+
+/* Main Area */
+main {
+  flex: 1;
+  padding: 20px 20px 20px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Big white container */
+.dashboard-wrapper {
+  background: var(--white);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  background: var(--white);
+  border-radius: 10px;
+  padding: 12px 20px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  color: var(--main-color);
+}
+
+/* Welcome Title */
+.welcome-title {
+  font-size: 28px;
+  color: var(--text-dark);
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Top Info Tables */
+.info-cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.small-card {
+  flex: 1;
+  background: var(--white);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+}
+
+.small-card h3 {
+  color: var(--text-dark);
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.small-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.small-card th, .small-card td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.small-card tbody tr:hover {
+  background: var(--main-color);
+  color: var(--white);
+}
+
+/* Graphs */
+.graphs {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.graph-card {
+  flex: 1;
+  padding: 20px;
+  border-radius: 12px;
+  background: var(--white);
+  box-shadow: var(--card-shadow);
+  text-align: center;
+}
+
+.graph-card h3 {
+  color: var(--text-dark);
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+/* Full Width Cards */
+.full-card {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+}
+
+.full-card h2 {
+  color: var(--text-dark);
+  margin-bottom: 20px;
+}
+
+/* Progress Timeline */
+#progressTimeline {
+  margin-top: 10px;
+}
+
+/* Proposal Management Table */
+.full-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.full-card th, .full-card td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.full-card tbody tr:hover {
+  background: var(--main-color);
+  color: #ffffff;
+}
+
+/* Accept/Reject Buttons */
+.accept-btn, .reject-btn {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.accept-btn {
+  background-color: #4CAF50;
+  color: #ffffff;
+}
+
+.reject-btn {
+  background-color: #f44336;
+  color: #ffffff;
+}
+
+/* Responsive Fixes */
+@media(max-width: 768px) {
+  #sidebar {
+    width: 60px;
+    padding: 0.5rem;
+  }
+
+  #sidebar .logo {
+    font-size: 18px;
+  }
+
+  #sidebar ul li a span {
+    display: none;
+  }
+
+  main {
+    padding: 10px 10px;
+  }
+
+  .info-cards, .graphs {
+    flex-direction: column;
+  }
+}
+
+.graph-card canvas {
+  width: 100% !important;
+  height: 250px !important; /* 🎯 Fix the tall chart */
+  max-height: 250px;
+}
+
+.top-header {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* spacing between icon and text */
+  color:#215955
+}
+
+.header-icon img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain; /* ensures the SVG doesn't stretch weirdly */
+  color:#215955
+}
+
+.header-title {
+  font-size: 24px; /* adjust if needed */
+  font-weight: bold;
+  margin: 0;
+}
+
+table tbody tr {
+  transition: all 0.3s ease;
+}
+
+table tbody tr:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: #f9f9f9; /* Optional: make it slightly lighter on hover */
+}
+.sar-symbol {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url('/images/Saudi_Riyal_Symbol.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+tbody tr:hover .sar-symbol {
+  background-image: url('/images/White_riyal_symbol.png');
+}
+.more-link {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  margin-left: 12px; /* Move it away from the Riyal */
+  transition: color 0.3s;
+}
+
+tbody tr:hover .more-link {
+  color: black; /* keep black even on hover */
+  text-decoration: underline; /* optional underline if you want */
+}

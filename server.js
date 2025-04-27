@@ -114,7 +114,7 @@ app.post("/login", (req, res) => {
       const user = landResults[0];
       bcrypt.compare(password, user.password, (err, result) => {
         if (result) {
-          req.session.user = { id: user.id, name: user.name, role: "landowner" };
+          req.session.user = { id: user.id, name: user.name, email: user.email, role: "landowner" };
           return res.redirect("/");
         } else {
           return res.redirect("/login?error=Incorrect password");
@@ -128,7 +128,8 @@ app.post("/login", (req, res) => {
           const user = realResults[0];
           bcrypt.compare(password, user.password, (err, result) => {
             if (result) {
-              req.session.user = { id: user.id, name: user.company_name, role: "realestate" };
+              req.session.user = { id: user.id, name: user.company_name, email: user.email, role: "realestate" };
+
               return res.redirect("/");
             } else {
               return res.redirect("/login?error=Incorrect password");
@@ -274,6 +275,80 @@ app.get("/api/session", (req, res) => {
     res.json({ loggedIn: false });
   }
 });
+
+
+// =================== LANDOWNER ROLE DUMMY API ROUTES ===================
+
+// Landowner User Profile
+app.get("/api/landowner/user/:id", (req, res) => {
+  const userId = req.params.id;
+
+  const sql = "SELECT name FROM landowners WHERE id = ?";
+  db.query(sql, [userId], (err, results) => {
+    if (err) {
+      console.error("❌ MySQL error fetching landowner:", err);
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Landowner not found" });
+    }
+
+    res.json(results[0]); // { name: "Real Name from Database" }
+  });
+});
+
+app.get("/api/landowner/lands", (req, res) => {
+  if (!req.session.user || req.session.user.role !== "landowner") {
+    return res.status(403).json({ message: "Unauthorized" });
+  }
+
+  const landownerId = req.session.user.id;
+
+  const sql = `
+    SELECT land_id, land_size, price_per_meter
+    FROM lands
+    WHERE landowner_id = ?
+    ORDER BY land_id DESC
+  `;
+
+  db.query(sql, [landownerId], (err, results) => {
+    if (err) {
+      console.error("MySQL error:", err);
+      return res.status(500).json({ error: "Database error" });
+    }
+    res.json(results);
+  });
+});
+
+// Landowner Settings
+app.get("/api/landowner/settings/:id", (req, res) => {
+  res.json({ dark_mode: false });
+});
+
+// Landowner Proposals
+app.get("/api/landowner/proposals", (req, res) => {
+  res.json([
+    { name: "Landowner Company A", date: "2025-04-20", status: "Pending" },
+    { name: "Landowner Company B", date: "2025-04-22", status: "Accepted" }
+  ]);
+});
+
+// Landowner Revenue
+app.get("/api/landowner/revenue", (req, res) => {
+  res.json([
+    { project: "Landowner Land 1", date: "2025-04-21", revenue: 100000 },
+    { project: "Landowner Land 2", date: "2025-04-23", revenue: 200000 }
+  ]);
+});
+
+// Landowner Properties
+app.get("/api/landowner/properties", (req, res) => {
+  res.json([
+    { property_name: "Landowner Villa", owner_name: "Owner Y", status: "Active", monthly_rent: 4000, description: "Nice villa for landowner." }
+  ]);
+});
+
 
 // =================== AI ROUTES ===================
 
