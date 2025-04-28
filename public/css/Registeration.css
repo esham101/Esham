@@ -1,48 +1,167 @@
-.login-container{
-    width: 400px;
-    margin: 50px auto;
-    padding: 45px;
-    padding-right: 60px;
-    background: #205d57; /* Updated to your desired color */
-    color: white; /* Ensures text is readable */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    text-align: center;
-    margin-bottom: 142px;   
+/* Reset and Base Styles */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif; /* ✅ */
+    font-weight: 400; /* ✅ default weight regular */
+    background: white;
+    overflow-x: hidden;
 }
-form {
+
+
+/* Main Container */
+.main-container {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full height of the page */
+    display: flex;
+    overflow: hidden;
+    overflow-x: hidden; /* Disable horizontal scroll globally */
+
+}
+
+/* Left Panel (Register Buttons) */
+.left-panel {
+    width: 35%;
+    background: url('../images/Building back.jpg') no-repeat center center;
+    background-size: cover; /* Cover fully without stretching */
+    color: white;
     display: flex;
     flex-direction: column;
-    
-} 
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
 
-.login-btn {
-    width: 100px; /* Adjust width to match */
-    height: 40px; /* Adjust height to match */
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: white;
-    color: #205d57;
-    border: none;
-    border-radius: 10px; /* Rounded corners */
-    cursor: pointer;
+.left-panel h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #ffffff; /* Make it pure white */
+}
+
+
+.left-panel button {
+    all: unset; /* Reset all button default styles */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    padding: 14px 24px;
+    margin: 10px 0;
+    border-radius: 50px;
     font-weight: bold;
-    font-size: 16px; /* Adjust font size */
+    cursor: pointer;
+    width: 250px;
+    font-size: 16px;
+    gap: 10px;
     text-align: center;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.login-btn:hover {
-    background-color: #ddd;
+.left-panel button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #ffffff;
 }
 
+
+
+.left-panel button:hover {
+    background-color: #e0e0e0;
+}
+
+
+/* Right Panel (Login and Sign up) */
+.right-panel {
+    width: 65%;
+    background: white;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Sliding Animation */
+.slider {
+    width: 200%;
+    height: 100%;
+    display: flex;
+    transition: transform 0.6s ease;
+}
+
+/* Login and Signup Containers */
+.login-container, .signup-container {
+    width: 50%;
+    height: 100%;
+    padding: 60px;
+    box-sizing: border-box;
+    background: white;
+    color: #205d57;
+    overflow-y: auto;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #205d57;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #205d57;
+}
+
+/* Input Fields */
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #205d57;
+    background: white;
+}
+
+input::placeholder {
+    color: #999;
+}
+
+/* Form Buttons */
+button, .login-btn, .google-btn, .register-btn, .back-btn, .signup-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #205d57;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+
+button:hover, .login-btn:hover, .google-btn:hover, .register-btn:hover, .back-btn:hover, .signup-container button:hover {
+    background-color: #174944;
+}
+
+/* Forgot Password */
 .forgot-password {
     margin-top: 10px;
-    margin-right: 250px;
-    color: white;
+    display: block;
+    text-align: left;
+    color: #205d57;
     font-weight: bold;
     cursor: pointer;
 }
 
+/* Google Sign-in */
 .google-login {
     text-align: center;
     margin-top: 20px;
@@ -52,14 +171,8 @@ form {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    padding: 12px;
-    border: none;
     background: #d9d9d9;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
+    color: #000000;
 }
 
 .google-btn img {
@@ -72,177 +185,205 @@ form {
     background: #c2c2c2;
 }
 
+/* Registration Section */
 .register-text {
     margin-top: 20px;
-    color: white;
     font-size: 16px;
+    text-align: center;
+    color: #205d57;
 }
-
-.register-btn-container {
-    display: flex;
-    justify-content: center; 
-    gap: 10px; 
-    margin-top: 10px;
-}
-
 .register-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 160px;
-    padding: 10px;
-    border: none;
-    background: #d9d9d9;
-    cursor: pointer;
-    font-size: 16px;
+    background-color: transparent; /* No background */
+    color: #ffffff; /* Keep text white for visibility */
+    border: 2px solid rgba(255, 255, 255, 0.8); /* Soft white border */
+    padding: 14px 24px;
+    margin: 10px 0;
+    border-radius: 50px; /* Keep pill shape */
     font-weight: bold;
-    border-radius: 8px;
-}
-
-.register-btn img {
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
+    cursor: pointer;
+    width: 250px;
+    font-size: 16px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    gap: 10px;
 }
 
 .register-btn:hover {
-    background: #c2c2c2;
-}
- 
-
-h2 {
-    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.2); /* Soft hover highlight */
+    border-color: #ffffff; /* Make border pure white on hover */
 }
 
-label {
-    display: block;
-    margin-top: 10px;
-    text-align: left;
+.register-btn img.btn-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
 }
 
-input {
+
+
+/* Adjusting landowner and real estate developer containers */
+.landownersignup-container, .Realestatesignup-container {
     width: 100%;
-    padding: 12px;
-    margin-top: 5px;
-    border: none;
+    margin: 0 auto;
+    background: white;
+    color: #205d57;
+    border-radius: 12px;
+    padding: 0; /* No padding! */
+}
+
+
+/* Adjusting input fields for landowner and real estate developer containers */
+.landownersignup-container input, 
+.Realestatesignup-container input {
+    width: 100%; /* Match the container width */
+    padding: 12px; /* Same padding as login fields */
+    margin-top: 10px; /* Add consistent spacing between fields */
+    border: 1px solid #ccc;
     border-radius: 8px;
+    font-size: 16px;
+    color: #205d57;
+    background: white;
 }
 
-button {
-    width: 100%;
+.landownersignup-container input::placeholder, 
+.Realestatesignup-container input::placeholder {
+    color: #999; /* Same placeholder color as login fields */
+}
+
+/* Adjusting buttons for landowner and real estate developer containers */
+.landownersignup-container button, 
+.Realestatesignup-container button {
+    width: 100%; /* Match the login button width */
     padding: 12px;
     margin-top: 15px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.back-btn {
-    background-color: #ccc;
-    color: black;
-}
-
-
-
-
-
-
-/* Google Sign-in Button */
-.google-login {
-    text-align: center;
-    margin-top: 10px;
-}
-
-.google-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background: #d9d9d9;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    border-radius: 8px;
-}
-
-.google-btn img {
-    width: 18px;
-    height: 18px;
-    margin-right: 8px;
-}
-
-.google-btn:hover {
-    background: #c2c2c2;
-}
-
-
-/* Registration Form */
-.signup-selection, .landownersignup-container, .Realestatesignup-container {
-    width: 350px;
-    margin: 50px auto;
-    padding: 20px;
-    background: #205d57;
+    background-color: #205d57;
     color: white;
-    border-radius: 10px;
-    text-align: center;
-}
-
-/* Register As Buttons */
-.register-btn-container {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.register-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 140px;
-    padding: 8px;
     border: none;
-    background: #d9d9d9;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
     border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.register-btn img {
-    width: 18px;
-    height: 18px;
-    margin-right: 5px;
+.landownersignup-container button:hover, 
+.Realestatesignup-container button:hover {
+    background-color: #174944;
 }
-
-.register-btn:hover {
-    background: #c2c2c2;
-}
-
 .terms {
     display: flex;
-    align-items: center;
-    gap: 8px; 
-    font-size: 16px; 
-    font-weight: bold; 
-    color: white; 
-    margin-top: 10px; 
+    align-items: center; /* Align checkbox and text vertically center */
+    gap: 8px; /* Small nice space between checkbox and text */
+    margin-top: 10px;
+    font-size: 14px;
+    color: #205d57;
+    font-weight: bold;
 }
 
 .terms input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    accent-color: white; 
-    border-radius: 5px; 
+    width: 18px;
+    height: 18px;
+    accent-color: #205d57;
     cursor: pointer;
 }
-
-.terms label {
-    cursor: pointer;
+.footer {
+    display: none;
 }
 
-    
-    
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+}
 
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+}
+
+.divider:not(:empty)::before {
+    margin-right: .75em;
+}
+
+.divider:not(:empty)::after {
+    margin-left: .75em;
+}
+
+.divider span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #205d57;
+}
+
+.return-home {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.return-home a {
+    color: #205d57;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.return-home a:hover {
+    color: #174944;
+    text-decoration: underline;
+}
+.esh-logo {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff; /* Your website green */
+    text-decoration: none;
+    z-index: 1000; /* Always above everything */
+}
+
+.esh-logo:hover {
+    color: #ffffff; /* Darker green on hover */
+
+}
+.esham-description {
+    text-align: center;
+    font-size: 23px; /* ⬅️ bigger font */
+    color: #ffffff;
+    max-width: 80%;
+    margin-bottom: 30px;
+    opacity: 0.95; /* slightly stronger */
+    line-height: 1.6;
+    font-weight: 500; /* slightly bolder for readability */
+}
+
+.back-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #205d57;
+}
+
+.back-link a {
+    color: #205d57;
+    font-weight: bold;
+    text-decoration: none; /* ❌ No underline by default */
+    background: none;       /* ❌ No background */
+    border: none;           /* ❌ No border */
+    padding: 0;             /* ❌ No padding */
+    margin: 0;              /* ❌ No margin */
+    font-size: 14px;        /* same size as text */
+    cursor: pointer;
+    display: inline;        /* ✅ behave like normal text */
+}
+
+.back-link a:hover {
+    background: none;           /* ✅ no background even on hover */
+    color: #174944;             /* Optional: slightly darker color on hover */
+}
