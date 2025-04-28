@@ -242,25 +242,12 @@ button:hover, .login-btn:hover, .google-btn:hover, .register-btn:hover, .back-bt
     margin-top: 10px; /* Add consistent spacing between fields */
     border: 1px solid #ccc;
     border-radius: 8px;
-    font-size: 16px;
-    color: #205d57;
-    background: white;
 }
 
-.landownersignup-container input::placeholder, 
-.Realestatesignup-container input::placeholder {
-    color: #999; /* Same placeholder color as login fields */
-}
-
-/* Adjusting buttons for landowner and real estate developer containers */
-.landownersignup-container button, 
-.Realestatesignup-container button {
-    width: 100%; /* Match the login button width */
+button {
+    width: 100%;
     padding: 12px;
     margin-top: 15px;
-    background-color: #205d57;
-    color: white;
-    border: none;
     border-radius: 8px;
     font-weight: bold;
     font-size: 16px;

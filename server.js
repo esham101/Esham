@@ -50,10 +50,19 @@ app.get("/login", (req, res) => {
 
 
 app.post("/register/landowner", (req, res) => {
-  const { fullname, idnumber, phone, email, password } = req.body;
+  let { fullname, idnumber, phone, email, password } = req.body;
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+      return res.redirect("/register?error=Invalid email format");
+  }
+  // 🔥 أضف هذا السطر: نجهز الرقم مع +966 قبل نرسله للداتا بيز
+  phone = '+966' + phone;
   db.query("SELECT * FROM landowners WHERE email = ?", [email], (err, results) => {
-      if (err) return res.send("Database error!");
+      if (err) {
+  console.error("MySQL Error:", err); // اطبع الخطأ الحقيقي في الكونسول
+  return res.send("Database error!");
+}
 
       if (results.length > 0) {
           return res.redirect("/register?error=Email already exists");
@@ -78,31 +87,46 @@ app.post("/register/landowner", (req, res) => {
 
 
 app.post("/register/realestate", (req, res) => {
-  const { company, businessReg, taxId, address, email, phone, password } = req.body;
+  let { company, businessReg, taxId, address, email, phone, password } = req.body;
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_\-=+~]).{10,15}$/;
+
+  // تحقق من الايميل
+  if (!emailRegex.test(email)) {
+    return res.redirect("/register?error=Invalid email format");
+  }
+
+  // تحقق من الباسورد
+  if (!passwordRegex.test(password)) {
+    return res.redirect("/register?error=Password requirements not met");
+  }
+
+  // تجهيز الرقم مع +966
+  phone = '+966' + phone;
 
   db.query("SELECT * FROM realestates WHERE email = ?", [email], (err, results) => {
-      if (err) return res.send("Database error!");
+    if (err) return res.send("Database error!");
 
-      if (results.length > 0) {
-          return res.redirect("/register?error=Email already exists");
-      }
+    if (results.length > 0) {
+      return res.redirect("/register?error=Email already exists");
+    }
 
-      bcrypt.hash(password, saltRounds, (err, hash) => {
-          if (err) return res.send("Error encrypting password");
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+      if (err) return res.send("Error encrypting password");
 
-          console.log("Hashed RealEstate Password:", hash);
-
-          const insertSql = `
-              INSERT INTO realestates (company_name, business_reg, tax_id, address, email, phone, password)
-              VALUES (?, ?, ?, ?, ?, ?, ?)
-          `;
-          db.query(insertSql, [company, businessReg, taxId, address, email, phone, hash], (err, result) => {
-              if (err) return res.send("Error registering user");
-              res.redirect("/");
-          });
+      const insertSql = `
+        INSERT INTO realestates (company_name, business_reg, tax_id, address, email, phone, password)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+      `;
+      db.query(insertSql, [company, businessReg, taxId, address, email, phone, hash], (err, result) => {
+        if (err) return res.send("Error registering user");
+        res.redirect("/");
       });
+    });
   });
 });
+
 
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
@@ -268,13 +292,6 @@ app.get("/api/lands/:id", (req, res) => {
   });
 });
 
-app.get("/api/session", (req, res) => {
-  if (req.session.user) {
-    res.json({ loggedIn: true, user: req.session.user });
-  } else {
-    res.json({ loggedIn: false });
-  }
-});
 
 
 // =================== LANDOWNER ROLE DUMMY API ROUTES ===================

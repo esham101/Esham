@@ -79,18 +79,38 @@
               <label for="idnumber">Saudi ID Number</label>
               <input type="text" id="idnumber" name="idnumber" required>
 
-              <label for="phone">Phone Number (+966)</label>
-              <input type="text" id="phone" name="phone" required>
-
+              <label for="phone">Phone Number</label>
+              <div cdiv class="phone-wrapper" >
+                  <span style="margin-left: 5px;color: black;">+966</span>
+                  <input 
+                      type="text" 
+                      id="phone" 
+                      name="phone" 
+                      maxlength="9"
+                 
+                      placeholder="5XXXXXXXX"
+                      required
+                  >
+              </div>
+              <script>
+            
+              document.getElementById('phone').addEventListener('input', function () {
+                  this.value = this.value.replace(/\D/g, ''); // Allow only digits
+              });
+              </script>
+        
               <label for="email">Email</label>
               <input type="email" id="email" name="email" required>
 
               <label for="password">Password</label>
               <input type="password" id="password" name="password" required>
-
+              <div class="password-error" style="color: red; font-size: 14px; margin-top: 5px;"></div>
+              
+              
+              
               <div class="terms">
-                <input type="checkbox" id="terms" required>
-                <label for="terms">I accept the terms and agreement</label>
+                  <input type="checkbox" id="terms" required>
+                  <label for="terms">I accept the <a href="Terms.html">terms and agreement</a></label>
               </div>
 
               <button type="submit">Sign Up</button>
@@ -121,8 +141,24 @@
               <label for="email">Email</label>
               <input type="email" id="email" name="email" required>
 
-              <label for="phone">Phone Number (+966)</label>
-              <input type="text" id="phone" name="phone" required>
+              <div cdiv class="phone-wrapper" >
+                <span style="margin-left: 5px;color: black;">+966</span>
+                <input 
+                    type="text" 
+                    id="phone" 
+                    name="phone" 
+                    maxlength="9"
+               
+                    placeholder="5XXXXXXXX"
+                    required
+                >
+            </div>
+            <script>
+          
+            document.getElementById('phone').addEventListener('input', function () {
+                this.value = this.value.replace(/\D/g, ''); // Allow only digits
+            });
+            </script>
 
               <label for="password">Password</label>
               <input type="password" id="password" name="password" required>
