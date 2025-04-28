@@ -73,51 +73,48 @@
             <h2>Landowner Sign Up</h2>
             <div id="register-error" style="color:red; font-weight: bold;"></div>
             <form method="POST" action="/register/landowner">
+              
               <label for="fullname">Full Name</label>
-              <input type="text" id="fullname" name="fullname" required>
-
+              <input type="text" id="fullname" name="fullname" placeholder="Ex: Ahmed Al-Saud" required>
+          
               <label for="idnumber">Saudi ID Number</label>
-              <input type="text" id="idnumber" name="idnumber" required>
-
+              <input type="text" id="idnumber" name="idnumber" placeholder="Ex: 1234567890" required>
+          
               <label for="phone">Phone Number</label>
-              <div cdiv class="phone-wrapper" >
-                  <span style="margin-left: 5px;color: black;">+966</span>
-                  <input 
-                      type="text" 
-                      id="phone" 
-                      name="phone" 
-                      maxlength="9"
-                 
-                      placeholder="5XXXXXXXX"
-                      required
-                  >
+              <div class="phone-wrapper">
+                <span style="margin-left: 5px; color: black;">+966</span>
+                <input 
+                  type="text" 
+                  id="phone" 
+                  name="phone" 
+                  maxlength="9"
+                  placeholder="Ex: 5XXXXXXXX"
+                  required
+                >
               </div>
               <script>
             
-              document.getElementById('phone').addEventListener('input', function () {
-                  this.value = this.value.replace(/\D/g, ''); // Allow only digits
-              });
-              </script>
-        
+                document.getElementById('phone').addEventListener('input', function () {
+                    this.value = this.value.replace(/\D/g, ''); // Allow only digits
+                });
+                </script>
               <label for="email">Email</label>
-              <input type="email" id="email" name="email" required>
-
+              <input type="email" id="email" name="email" placeholder="Ex: example@email.com" required>
+          
               <label for="password">Password</label>
-              <input type="password" id="password" name="password" required>
-              <div class="password-error" style="color: red; font-size: 14px; margin-top: 5px;"></div>
-              
-              
+              <input type="password" id="password" name="password" placeholder="Ex: StrongPassword@123" required>
               
               <div class="terms">
-                  <input type="checkbox" id="terms" required>
-                  <label for="terms">I accept the <a href="Terms.html">terms and agreement</a></label>
+                <input type="checkbox" id="terms" required>
+                <label for="terms">I accept the <a href="Terms.html">terms and agreement</a></label>
               </div>
-
+          
               <button type="submit">Sign Up</button>
+          
               <div class="back-link">
                 Already have an account? <a href="#" class="back-btn">Sign in</a>
-            </div>
-            
+              </div>
+              
             </form>
           </div>
 
@@ -126,57 +123,52 @@
             <h2>Real Estate Sign Up</h2>
             <div id="register-error" style="color:red; font-weight: bold;"></div>
             <form method="POST" action="/register/realestate">
+              
               <label for="company">Company Name</label>
-              <input type="text" id="company" name="company" required>
-
-              <label for="businessReg">Business Registration Number</label>
-              <input type="text" id="businessReg" name="businessReg" required>
-
-              <label for="taxId">Tax Number</label>
-              <input type="text" id="taxId" name="taxId" required>
-
-              <label for="address">Company Address</label>
-              <input type="text" id="address" name="address" required>
-
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" required>
-
-              <div cdiv class="phone-wrapper" >
-                <span style="margin-left: 5px;color: black;">+966</span>
-                <input 
-                    type="text" 
-                    id="phone" 
-                    name="phone" 
-                    maxlength="9"
-               
-                    placeholder="5XXXXXXXX"
-                    required
-                >
-            </div>
-            <script>
+              <input type="text" id="company" name="company" placeholder="Ex: Al-Nakheel Properties" required>
           
-            document.getElementById('phone').addEventListener('input', function () {
-                this.value = this.value.replace(/\D/g, ''); // Allow only digits
-            });
-            </script>
-
+              <label for="businessReg">Business Registration Number</label>
+              <input type="text" id="businessReg" name="businessReg" placeholder="Ex: 1012345678" required>
+          
+              <label for="taxId">Tax Number</label>
+              <input type="text" id="taxId" name="taxId" placeholder="Ex: 300123456700003" required>
+          
+              <label for="address">Company Address</label>
+              <input type="text" id="address" name="address" placeholder="Ex: Riyadh, King Fahad Road" required>
+          
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="Ex: contact@company.com" required>
+          
+              <label for="phone">Phone Number</label>
+              <div class="phone-wrapper">
+                <span style="margin-left: 5px; color: black;">+966</span>
+                <input 
+                  type="text" 
+                  id="phone" 
+                  name="phone" 
+                  maxlength="9"
+                  placeholder="Ex: 5XXXXXXXX"
+                  required
+                >
+              </div>
+          
               <label for="password">Password</label>
-              <input type="password" id="password" name="password" required>
-
+              <input type="password" id="password" name="password" placeholder="Ex: CompanyPassword@123" required>
+          
               <div class="terms">
                 <input type="checkbox" id="terms" required>
-                <label for="terms">I accept the terms and agreement</label>
+                <label for="terms">I accept the <a href="Terms.html">terms and agreement</a></label>
               </div>
-
+          
               <button type="submit">Sign Up</button>
+          
               <div class="back-link">
                 Already have an account? <a href="#" class="back-btn">Sign in</a>
-            </div>
-              
-            
-            
+              </div>
+          
             </form>
           </div>
+          
         </div>
 
       </div>
