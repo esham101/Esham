@@ -56,4 +56,57 @@
   .form-container button:hover {
     background-color: #1c4749;
   }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .field-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .field-wrapper span {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .edit-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  .edit-btn img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .save-button {
+    margin-top: 20px;
+    background-color: #215955;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 25px;
+    width: 100%;
+    transition: background-color 0.3s;
+  }
+  
+  .save-button:hover {
+    background-color: #1c4749;
+  }
+  .edit-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .edit-icon:hover {
+    transform: scale(1.2);
+  }
   

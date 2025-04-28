@@ -42,24 +42,86 @@
     <div class="form-container" style="margin-top: 30px;">
       <h2>Update Account</h2>
       <form method="POST" action="/update-account">
-        <label for="name">New Full Name</label>
-        <input type="text" id="name" name="name" required />
-
-        <button type="submit">Update</button>
+        
+        <div class="form-group">
+          <label for="name">Name</label>
+          <div class="field-wrapper">
+            <span id="display-name"></span> <!-- ✅ This is always visible -->
+            <input type="text" id="name" name="name" readonly style="border: none; background: transparent; display: none;" required />
+            <img src="icons/edit logo.svg" alt="Edit Name" class="edit-icon" onclick="enableField('name')">
+          </div>
+        </div>
+        
+        
+        
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="field-wrapper">
+            <span id="display-email"></span>
+            <input type="email" id="email" name="email" readonly style="border: none; background: transparent; display: none;" required />
+            <img src="icons/edit logo.svg" alt="Edit Email" class="edit-icon" onclick="enableField('email')">
+          </div>
+        </div>
+        
+        
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="field-wrapper">
+            <span id="display-password">********</span> 
+            <input type="password" id="password" name="password" readonly style="border: none; background: transparent; display: none;" required />
+            <img src="icons/edit logo.svg" alt="Edit Password" class="edit-icon" onclick="enableField('password')">
+          </div>
+        </div>
+        
+        
+        
+        <!-- ✅ Final Submit Button -->
+        <button type="submit" class="save-button">Save Changes</button>
+        
       </form>
     </div>
+    
   </main>
   <script>
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("success")) {
-      const successMsg = document.createElement("p");
-      successMsg.textContent = "✅ Name updated successfully!";
-      successMsg.style.color = "#215955";
-      successMsg.style.fontWeight = "bold";
-      successMsg.style.marginBottom = "15px";
-      document.querySelector(".form-container").prepend(successMsg);
-    }
-  </script>
+    function enableField(fieldId) {
+  const input = document.getElementById(fieldId);
+  const span = document.getElementById('display-' + fieldId);
+
+  span.style.display = 'none';    // Hide the static span
+  input.style.display = 'block';  // Show the input
+  input.removeAttribute('readonly');
+  input.style.border = "1px solid #ccc";
+  input.style.backgroundColor = "#fff";
+  input.focus();
+}
+
+// Load current values
+document.addEventListener("DOMContentLoaded", function() {
+  fetch("/api/session") 
+    .then(res => res.json())
+    .then(sessionData => {
+      if (sessionData.loggedIn) {
+        const user = sessionData.user; // ✅ Real logged-in user from session
+
+        document.getElementById('display-name').textContent = user.name;
+        document.getElementById('name').value = user.name;
+
+        document.getElementById('display-email').textContent = user.email || "No email";
+        document.getElementById('email').value = user.email || "";
+
+        document.getElementById('display-password').textContent = "********";
+        document.getElementById('password').value = "";
+      } else {
+        window.location.href = "/login"; // If not logged in, redirect to login page
+      }
+    })
+    .catch(err => console.error("Error fetching session:", err));
+});
+
+
+    </script>
+    
   
 </body>
 </html>
