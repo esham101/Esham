@@ -1,37 +1,34 @@
-// Dashboard-Real-estate.js
 let userId = 1; // Simulate logged in user
 let notifications = [];
 
-const toggleButton = document.getElementById('toggle-btn')
-const sidebar = document.getElementById('sidebar')
+const toggleButton = document.getElementById('toggle-btn');
+const sidebar = document.getElementById('sidebar');
 
-function toggleSidebar(){
-  sidebar.classList.toggle('close')
-  toggleButton.classList.toggle('rotate')
-
-  closeAllSubMenus()
+function toggleSidebar() {
+  sidebar.classList.toggle('close');
+  toggleButton.classList.toggle('rotate');
+  closeAllSubMenus();
 }
 
-function toggleSubMenu(button){
-
-  if(!button.nextElementSibling.classList.contains('show')){
-    closeAllSubMenus()
+function toggleSubMenu(button) {
+  if (!button.nextElementSibling.classList.contains('show')) {
+    closeAllSubMenus();
   }
 
-  button.nextElementSibling.classList.toggle('show')
-  button.classList.toggle('rotate')
+  button.nextElementSibling.classList.toggle('show');
+  button.classList.toggle('rotate');
 
-  if(sidebar.classList.contains('close')){
-    sidebar.classList.toggle('close')
-    toggleButton.classList.toggle('rotate')
+  if (sidebar.classList.contains('close')) {
+    sidebar.classList.toggle('close');
+    toggleButton.classList.toggle('rotate');
   }
 }
 
-function closeAllSubMenus(){
+function closeAllSubMenus() {
   Array.from(sidebar.getElementsByClassName('show')).forEach(ul => {
-    ul.classList.remove('show')
-    ul.previousElementSibling.classList.remove('rotate')
-  })
+    ul.classList.remove('show');
+    ul.previousElementSibling.classList.remove('rotate');
+  });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -41,6 +38,12 @@ document.addEventListener("DOMContentLoaded", function () {
   loadNotifications();
   loadProposals();
   loadRevenue();
+
+  // Load dark mode from localStorage
+  const savedMode = localStorage.getItem("darkMode");
+  if (savedMode === "enabled") {
+    document.body.classList.add("dark-mode");
+  }
 });
 
 function loadProposals() {
@@ -55,25 +58,24 @@ function loadProposals() {
 
       renderProposalsSentChart(sent);
       renderProposalsAcceptedChart(accepted);
+
       if (accepted.length > 0) {
-        loadProjectProgress(accepted[0].id); // Or any valid proposal_id
+        loadProjectProgress(accepted[0].id);
       }
     })
     .catch(err => console.error("Error loading proposals:", err));
 }
 
-
 function loadRevenue() {
   fetch("http://localhost:3000/api/revenue")
     .then(res => res.json())
     .then(data => {
-      populateRevenueTable(data, "revenueData"); // If using a separate revenue table
-      renderRevenueChart(data); // ✅ draw graph here
+      populateRevenueTable(data, "revenueData");
+      renderRevenueChart(data);
     })
     .catch(err => console.error("Error loading revenue:", err));
 }
 
-// You can use a different function if revenue table has different structure
 function populateRevenueTable(data, tableId) {
   const tableBody = document.getElementById(tableId);
   tableBody.innerHTML = "";
@@ -84,31 +86,24 @@ function populateRevenueTable(data, tableId) {
   });
 }
 
-
-// ==== LOAD USER PROFILE ====
 function loadUserProfile() {
   fetch(`http://localhost:3000/api/user/${userId}`)
     .then(res => res.json())
     .then(user => {
-      window.currentUser = user; // store role if needed elsewhere
+      window.currentUser = user;
     });
 }
 
-// ==== SETTINGS ====
 function loadSettings() {
   fetch(`http://localhost:3000/api/settings/${userId}`)
     .then(res => res.json())
     .then(settings => {
       if (settings && 'dark_mode' in settings) {
         applyTheme(settings.dark_mode);
-        // Set the checkbox only if the modal is already open
-        const checkbox = document.getElementById("darkMode");
-        if (checkbox) checkbox.checked = settings.dark_mode;
       }
     })
     .catch(err => console.error("Error loading settings:", err));
 }
-
 
 function saveSettings() {
   const darkMode = document.getElementById("darkMode").checked;
@@ -116,21 +111,22 @@ function saveSettings() {
   fetch("http://localhost:3000/api/settings", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ user_id: userId, dark_mode: darkMode }) // ❌ removed language
+    body: JSON.stringify({ user_id: userId, dark_mode: darkMode })
   })
-  .then(res => res.json())
-  .then(data => {
-    applyTheme(darkMode);
-    alert(data.message);
-    closeModal();
-  })
-  .catch(err => console.error("Settings save error:", err));
+    .then(res => res.json())
+    .then(data => {
+      applyTheme(darkMode);
+      localStorage.setItem("darkMode", darkMode ? "enabled" : "disabled");
+      alert(data.message);
+      closeModal();
+    })
+    .catch(err => console.error("Settings save error:", err));
 }
-
 
 function applyTheme(enabled) {
   const root = document.documentElement;
   if (enabled) {
+    document.body.classList.add("dark-mode");
     root.style.setProperty('--base-clr', '#121212');
     root.style.setProperty('--text-clr', '#ffffff');
     root.style.setProperty('--hover-clr', '#1e1e1e');
@@ -142,6 +138,7 @@ function applyTheme(enabled) {
     root.style.setProperty('--text-clr-light', '#ffffff');
     root.style.setProperty('--dark-border', '#444');
   } else {
+    document.body.classList.remove("dark-mode");
     root.style.setProperty('--base-clr', '#f4f4f4');
     root.style.setProperty('--text-clr', '#000000');
     root.style.setProperty('--hover-clr', '#e6e6e6');
@@ -155,7 +152,6 @@ function applyTheme(enabled) {
   }
 }
 
-// ==== PROFILE MODAL ====
 function openModal(type) {
   const modal = document.getElementById("modal");
   const body = document.getElementById("modal-body");
@@ -165,15 +161,18 @@ function openModal(type) {
       .then(res => res.json())
       .then(user => {
         body.innerHTML = `
-          <h2>👤 Profile (${user.role})</h2>
-          <form id="editProfileForm">
-            <label>Name:</label><br>
-            <input type="text" id="name" value="${user.name}"><br>
-            <label>Email:</label><br>
-            <input type="email" id="email" value="${user.email}"><br>
-            <button type="submit">Save Changes</button>
-          </form>
-        `;
+        <h2>👤 Edit Profile</h2>
+        <form id="editProfileForm" class="modal-form">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" value="${user.name}" placeholder="Enter full name" />
+      
+          <label for="email">Email Address</label>
+          <input type="email" id="email" value="${user.email}" placeholder="Enter email" />
+      
+          <button type="submit" class="modal-button">💾 Save Changes</button>
+        </form>
+      `;
+      
         document.getElementById("editProfileForm").onsubmit = function (e) {
           e.preventDefault();
           const name = document.getElementById("name").value;
@@ -184,42 +183,60 @@ function openModal(type) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id: userId, name, email })
           })
-          .then(res => res.json())
-          .then(data => {
-            alert(data.message);
-            closeModal();
-          });
+            .then(res => res.json())
+            .then(data => {
+              alert(data.message);
+              closeModal();
+            });
         };
       });
-  }
-
-  else if (type === 'settings') {
+  } else if (type === 'settings') {
     body.innerHTML = `
-      <h2>⚙️ Settings</h2>
+    <h2>⚙️ Settings</h2>
+    <form class="modal-form">
       <label>
-        <input type="checkbox" id="darkMode" onchange="toggleDarkMode()"> Dark Mode
+        <input type="checkbox" id="darkMode"> Enable Dark Mode
       </label>
-      <br><br>
-      <button onclick="saveSettings()">Save Settings</button>
-    `;
+      <button onclick="saveSettings()" class="modal-button">💾 Save Settings</button>
+    </form>
+  `;
   
-    // Load previously saved dark mode setting from DB
+
     fetch(`http://localhost:3000/api/settings/${userId}`)
       .then(res => res.json())
       .then(settings => {
-        document.getElementById("darkMode").checked = settings.dark_mode;
+        const checkbox = document.getElementById("darkMode");
+        checkbox.checked = settings.dark_mode;
         applyTheme(settings.dark_mode);
-      });
-  }
 
-  else if (type === 'notifications') {
-    let html = `<h2>🔔 Notifications</h2><ul>`;
-    if (notifications.length === 0) html += `<li>No new notifications</li>`;
-    else notifications.forEach(n => html += `<li>${n.message}</li>`);
-    html += `</ul><button onclick="closeModal()">Close</button>`;
+        checkbox.addEventListener("change", function () {
+          toggleDarkMode(this.checked);
+        });
+      });
+  } else if (type === 'notifications') {
+    let html = `
+      <h2>🔔 Notifications</h2>
+      <div class="modal-form">
+        <ul style="list-style: disc; padding-left: 20px; margin-bottom: 24px;">`;
+    
+    if (notifications.length === 0) {
+      html += `<li>No new notifications</li>`;
+    } else {
+      notifications.forEach(n => {
+        html += `<li style="margin-bottom: 8px;">${n.message}</li>`;
+      });
+    }
+  
+    html += `
+        </ul>
+        <div style="display: flex; justify-content: flex-end;">
+          <button onclick="closeModal()" class="modal-button">Close</button>
+        </div>
+      </div>`;
+    
     body.innerHTML = html;
   }
-
+  
   modal.style.display = "flex";
 }
 
@@ -227,12 +244,11 @@ function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-function toggleDarkMode() {
-  const enabled = document.getElementById("darkMode").checked;
-  applyTheme(enabled);
+function toggleDarkMode(isDark) {
+  applyTheme(isDark);
+  localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
 }
 
-// ==== NOTIFICATIONS ====
 function loadNotifications() {
   fetch(`http://localhost:3000/api/notifications/${userId}`)
     .then(res => res.json())
@@ -255,18 +271,15 @@ function updateNotificationBadge() {
 
 function populateTable(data, tableId) {
   const tableBody = document.getElementById(tableId);
-  tableBody.innerHTML = ""; // clear existing
-
+  tableBody.innerHTML = "";
   data.forEach(item => {
     const row = `<tr><td>${item.name}</td><td>${item.date}</td><td>${item.status}</td></tr>`;
     tableBody.innerHTML += row;
   });
 }
 
-
 function renderRevenueChart(data) {
   const ctx = document.getElementById("revenueChart").getContext("2d");
-
   const labels = data.map(item => item.date);
   const values = data.map(item => item.revenue);
 
@@ -304,8 +317,7 @@ function renderRevenueChart(data) {
 
 function renderProposalsSentChart(data) {
   const ctx = document.getElementById("proposalsSentChart").getContext("2d");
-
-  const monthLabels = [...new Set(data.map(p => p.date.slice(0, 7)))]; // YYYY-MM
+  const monthLabels = [...new Set(data.map(p => p.date.slice(0, 7)))];
   const countMap = {};
 
   monthLabels.forEach(month => {
@@ -341,8 +353,7 @@ function renderProposalsSentChart(data) {
 
 function renderProposalsAcceptedChart(data) {
   const ctx = document.getElementById("proposalsAcceptedChart").getContext("2d");
-
-  const monthLabels = [...new Set(data.map(p => p.date.slice(0, 7)))]; // YYYY-MM
+  const monthLabels = [...new Set(data.map(p => p.date.slice(0, 7)))];
   const countMap = {};
 
   monthLabels.forEach(month => {
@@ -406,3 +417,4 @@ function renderProgressTimeline(data) {
     container.appendChild(block);
   });
 }
+

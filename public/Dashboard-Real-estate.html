@@ -97,36 +97,10 @@
 </li>
 
 <!-- MODAL -->
-<div id="modal" style="
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(0,0,0,0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-">
-  <div id="modal-content" style="
-    background: #ffffff;
-    color: rgb(0, 0, 0);
-    padding: 20px;
-    border-radius: 16px;
-    width: 350px;
-    text-align: left;
-    position: relative;
-  ">
-    <button onclick="closeModal()" style="
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: transparent;
-      border: none;
-      color: white;
-      font-size: 20px;
-      cursor: pointer;
-    ">&times;</button>
-    <div id="modal-body"></div>
+<div id="modal" class="modal-overlay">
+  <div id="modal-content" class="modal-box">
+    <button onclick="closeModal()" class="modal-close-btn">&times;</button>
+    <div id="modal-body" class="modal-body"></div>
   </div>
 </div>
 

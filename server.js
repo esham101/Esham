@@ -132,43 +132,77 @@ app.post("/login", (req, res) => {
   const { email, password } = req.body;
 
   db.query("SELECT * FROM landowners WHERE email = ?", [email], (err, landResults) => {
-      if (err) return res.send("Database error!");
+    if (err) return res.send("Database error!");
 
-      if (landResults.length > 0) {
-          const user = landResults[0];
+    if (landResults.length > 0) {
+      const user = landResults[0];
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (result) {
+          req.session.user = { id: user.id, name: user.name, role: "landowner" };
+          return res.redirect("/");
+        } else {
+          return res.redirect("/login?error=Incorrect password");
+        }
+      });
+    } else {
+      db.query("SELECT * FROM realestates WHERE email = ?", [email], (err, realResults) => {
+        if (err) return res.send("Database error!");
+
+        if (realResults.length > 0) {
+          const user = realResults[0];
           bcrypt.compare(password, user.password, (err, result) => {
-              if (result) {
-                  req.session.user = user;
-                  return res.redirect("/");
-              } else {
-                  return res.redirect("/login?error=Incorrect password");
-              }
+            if (result) {
+              req.session.user = { id: user.id, name: user.company_name, role: "realestate" };
+              return res.redirect("/");
+            } else {
+              return res.redirect("/login?error=Incorrect password");
+            }
           });
-      } else {
-          db.query("SELECT * FROM realestates WHERE email = ?", [email], (err, realResults) => {
-              if (err) return res.send("Database error!");
-
-              if (realResults.length > 0) {
-                  const user = realResults[0];
-                  bcrypt.compare(password, user.password, (err, result) => {
-                      if (result) {
-                          req.session.user = user;
-                          return res.redirect("/");
-                      } else {
-                          return res.redirect("/login?error=Incorrect password");
-                      }
-                  });
-              } else {
-                  return res.redirect("/login?error=Account not found. Please register first.");
-              }
-          });
-      }
+        } else {
+          return res.redirect("/login?error=Account not found. Please register first.");
+        }
+      });
+    }
   });
 });
+
 
 app.get("/logout", (req, res) => {
   req.session.destroy();
   res.redirect("/");
+});
+
+app.get("/update-account", (req, res) => {
+  if (!req.session.user) {
+    return res.redirect("/login");
+  }
+  res.sendFile(path.join(__dirname, "public", "UpdateAccount.html"));
+});
+
+// Handle Update Name request
+app.post("/update-account", (req, res) => {
+  if (!req.session.user) {
+    return res.redirect("/login");
+  }
+
+  const newName = req.body.name;
+  const userId = req.session.user.id;
+  const userRole = req.session.user.role;
+
+  const table = userRole === "landowner" ? "landowners" : "realestates";
+  const nameColumn = userRole === "landowner" ? "name" : "company_name";
+
+  const sql = `UPDATE ${table} SET ${nameColumn} = ? WHERE id = ?`;
+
+  db.query(sql, [newName, userId], (err, result) => {
+    if (err) {
+      console.error("❌ Error updating name:", err);
+      return res.status(500).send("An error occurred while updating your name.");
+    }
+
+    req.session.user.name = newName; // Update session
+    res.redirect("/update-account?success=1");
+  });
 });
 
 // Multer for uploads
@@ -180,6 +214,11 @@ const upload = multer({ storage: storage });
 
 // Add land listing
 app.post("/add-land", upload.fields([{ name: "titleDeed" }, { name: "landImage" }]), (req, res) => {
+  // ✅ Only landowners can access
+  if (!req.session.user || req.session.user.role !== "landowner") {
+    return res.status(403).send("❌ Only landowners can add lands.");
+  }
+
   const {
     streetName, neighborhood, city, landSize,
     height, width, streetWidth, hasBuilding,
@@ -188,7 +227,7 @@ app.post("/add-land", upload.fields([{ name: "titleDeed" }, { name: "landImage" 
 
   const titleDeedPath = "/uploads/" + req.files["titleDeed"][0].filename;
   const landImagePath = "/uploads/" + req.files["landImage"][0].filename;
-  const landownerId = req.session.user?.id || null;
+  const landownerId = req.session.user.id;
 
   const sql = `
     INSERT INTO lands 
@@ -209,18 +248,37 @@ app.post("/add-land", upload.fields([{ name: "titleDeed" }, { name: "landImage" 
   });
 });
 
-// Get all lands
 app.get("/api/lands", (req, res) => {
-  db.query("SELECT * FROM lands ORDER BY id DESC", (err, results) => {
-    if (err) return res.status(500).send("Database error");
+  const sql = `
+    SELECT 
+      lands.*, 
+      landowners.name AS owner_name 
+    FROM lands 
+    LEFT JOIN landowners ON lands.landowner_id = landowners.id 
+    ORDER BY lands.land_id DESC
+  `;
+  
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error("MySQL error:", err);
+      return res.status(500).json({ error: "Database error", details: err.message });
+    }
     res.json(results);
   });
 });
 
+
+
+
 // ✅ Get single land by ID
 app.get("/api/lands/:id", (req, res) => {
   const landId = req.params.id;
-  const sql = "SELECT * FROM lands WHERE id = ?";
+  const sql = `
+    SELECT lands.*, landowners.name AS owner_name
+    FROM lands 
+    LEFT JOIN landowners ON lands.landowner_id = landowners.id
+    WHERE lands.land_id = ?
+  `;
   db.query(sql, [landId], (err, results) => {
     if (err) {
       console.error("MySQL error:", err);
@@ -232,7 +290,6 @@ app.get("/api/lands/:id", (req, res) => {
     res.json(results[0]);
   });
 });
-
 
 
 // =================== AI ROUTES ===================

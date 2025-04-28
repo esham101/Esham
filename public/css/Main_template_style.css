@@ -60,6 +60,129 @@ nav {
     overflow: hidden; /* Ensures any overflow is hidden */
 }
 
+/* 🔘 Profile icon button container */
+.nav-user {
+  position: relative;
+  list-style: none;
+}
+
+/* 🟢 Profile button (deep green with white icon) */
+.nav-user-btn {
+  background-color: #245056; /* Same green as your existing button */
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  transition: background 0.3s ease;
+}
+
+.nav-user-btn:hover {
+  background-color: #1e4347;
+}
+
+.nav-user-btn svg {
+  font-size: 20px;
+}
+
+/* 🔽 Dropdown container */
+.nav-user-dropdown {
+  display: none;
+  position: absolute;
+  top: 120%;
+  right: 0;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  width: 160px;
+  padding: 10px 0;
+  z-index: 999;
+}
+
+/* 🙋‍♂️ User name shown at the top */
+.nav-user-name {
+  font-size: 14px;
+  font-weight: bold;
+  color: #215955;
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+/* 🧩 Dropdown links */
+.nav-user-dropdown a {
+  display: block;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #245056;
+  transition: background-color 0.2s;
+}
+
+.nav-user-dropdown a:hover {
+  background-color: #f0f0f0;
+}
+
+/* 👁️ Show dropdown toggle class */
+.show-dropdown {
+  display: block;
+}
+
+/* Overall nav container */
+nav {
+  background-color: #fff;
+  padding: 1rem 0;
+}
+
+/* Flexbox container inside nav */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Logo + nav links */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+
+/* Main links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links li a {
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.nav-links a:hover {
+  color: #215955;
+}
+
+/* Right section: login/register or profile icon */
+.nav-right {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+
 .logo img {
     margin: 0;
     width: 130px;

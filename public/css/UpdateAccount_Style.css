@@ -1,0 +1,59 @@
+/* ==== Update Account Form ==== */
+.form-container {
+    max-width: 500px;
+    margin: 40px auto;
+    background-color: #f9f9f9;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .form-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 24px;
+    color: #245056;
+  }
+  
+  .form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .form-container input[type="text"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+    transition: border 0.2s;
+  }
+  
+  .form-container input[type="text"]:focus {
+    outline: none;
+    border: 1px solid #215955;
+  }
+  
+  .form-container button {
+    background-color: #215955;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+  }
+  
+  .form-container button:hover {
+    background-color: #1c4749;
+  }
+  
