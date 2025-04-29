@@ -338,6 +338,15 @@ app.get("/api/landowner/lands", (req, res) => {
   });
 });
 
+app.get("/api/session", (req, res) => {
+  if (req.session.user) {
+    res.json({ loggedIn: true, user: req.session.user });
+  } else {
+    res.json({ loggedIn: false });
+  }
+});
+
+
 // Landowner Settings
 app.get("/api/landowner/settings/:id", (req, res) => {
   res.json({ dark_mode: false });
