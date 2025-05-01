@@ -1,3 +1,5 @@
+let userId; // Simulate logged in user
+let notifications = [];
 let userId;
 let currentUser;
 
@@ -12,6 +14,33 @@ function toggleSidebar() {
 }
 window.toggleSidebar = toggleSidebar;
 
+document.addEventListener("DOMContentLoaded", function () {
+  fetch("/api/session")
+    .then(res => res.json())
+    .then(data => {
+      if (data.loggedIn) {
+        userId = data.user.id;  // ✅ realestate_id assigned
+        closeModal();
+        loadUserProfile();
+        loadSettings();
+        loadNotifications();
+        loadProposals();
+        loadRevenue();
+
+        const savedMode = localStorage.getItem("darkMode");
+        if (savedMode === "enabled") {
+          document.body.classList.add("dark-mode");
+        }
+      } else {
+        window.location.href = "/login";
+      }
+    })
+    .catch(err => console.error("Session load error:", err));
+});
+
+
+function loadProposals() {
+  fetch("http://localhost:3000/api/proposals")
 document.addEventListener("DOMContentLoaded", () => {
   fetch("/api/session")
     .then(res => res.json())

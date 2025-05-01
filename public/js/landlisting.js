@@ -44,7 +44,7 @@ function renderLands(lands) {
 
 
                     <a href="land.html?id=${land.land_id}" class="view-link">View</a>
-
+                    
                 </div>
             </div>
         `;

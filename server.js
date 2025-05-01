@@ -17,6 +17,7 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 app.use(session({
   secret: "yourSecretKey",
@@ -87,40 +88,64 @@ app.post("/register/landowner", (req, res) => {
 
 
 app.post("/register/realestate", (req, res) => {
+  console.log("Request Body:", req.body); // Log the incoming request body
+
   let { company, businessReg, taxId, address, email, phone, password } = req.body;
+
+  // Check if all fields are present
+  if (!company || !businessReg || !taxId || !address || !email || !phone || !password) {
+    console.log("Missing fields in request body:", req.body);
+    return res.redirect("/register?error=Missing required fields");
+  }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_\-=+~]).{10,15}$/;
 
-  // تحقق من الايميل
+  // Validate email
   if (!emailRegex.test(email)) {
+    console.log("Invalid email format:", email);
     return res.redirect("/register?error=Invalid email format");
   }
 
-  // تحقق من الباسورد
+  // Validate password
   if (!passwordRegex.test(password)) {
+    console.log("Password does not meet requirements:", password);
     return res.redirect("/register?error=Password requirements not met");
   }
 
-  // تجهيز الرقم مع +966
+  // Format phone number
   phone = '+966' + phone;
 
+  // Check if email already exists
   db.query("SELECT * FROM realestates WHERE email = ?", [email], (err, results) => {
-    if (err) return res.send("Database error!");
+    if (err) {
+      console.error("Database error during email check:", err);
+      return res.send("Database error!");
+    }
 
     if (results.length > 0) {
+      console.log("Email already exists:", email);
       return res.redirect("/register?error=Email already exists");
     }
 
+    // Hash the password
     bcrypt.hash(password, saltRounds, (err, hash) => {
-      if (err) return res.send("Error encrypting password");
+      if (err) {
+        console.error("Error encrypting password:", err);
+        return res.send("Error encrypting password");
+      }
 
+      // Insert into database
       const insertSql = `
         INSERT INTO realestates (company_name, business_reg, tax_id, address, email, phone, password)
         VALUES (?, ?, ?, ?, ?, ?, ?)
       `;
       db.query(insertSql, [company, businessReg, taxId, address, email, phone, hash], (err, result) => {
-        if (err) return res.send("Error registering user");
+        if (err) {
+          console.error("Error inserting real estate record:", err);
+          return res.send("Error registering user");
+        }
+        console.log("Real estate registration successful:", result);
         res.redirect("/");
       });
     });
@@ -128,6 +153,7 @@ app.post("/register/realestate", (req, res) => {
 });
 
 
+// Login Handler
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
 
@@ -138,9 +164,13 @@ app.post("/login", (req, res) => {
       const user = landResults[0];
       bcrypt.compare(password, user.password, (err, result) => {
         if (result) {
-          req.session.user = { id: user.id, name: user.name, email: user.email, role: "landowner" };
-          return res.redirect("/Dashboard-Land-Owner.html");
-          
+          req.session.user = {
+            id: user.landowner_id,
+            name: user.name,
+            email: user.email,
+            role: "landowner"
+          };
+          return res.redirect("/");
         } else {
           return res.redirect("/login?error=Incorrect password");
         }
@@ -153,10 +183,13 @@ app.post("/login", (req, res) => {
           const user = realResults[0];
           bcrypt.compare(password, user.password, (err, result) => {
             if (result) {
-              req.session.user = { id: user.id, name: user.company_name, email: user.email, role: "realestate" };
-              return res.redirect("/Dashboard-Real-estate.html");
-              
-              
+              req.session.user = {
+                id: user.realestate_id,
+                name: user.company_name,
+                email: user.email,
+                role: "realestate"
+              };
+              return res.redirect("/");
             } else {
               return res.redirect("/login?error=Incorrect password");
             }
@@ -168,6 +201,7 @@ app.post("/login", (req, res) => {
     }
   });
 });
+
 
 
 app.get("/logout", (req, res) => {
@@ -183,6 +217,7 @@ app.get("/update-account", (req, res) => {
 });
 
 // Handle Update Name request
+// Update Account Handler
 app.post("/update-account", (req, res) => {
   if (!req.session.user) {
     return res.redirect("/login");
@@ -193,9 +228,10 @@ app.post("/update-account", (req, res) => {
   const userRole = req.session.user.role;
 
   const table = userRole === "landowner" ? "landowners" : "realestates";
+  const idColumn = userRole === "landowner" ? "landowner_id" : "realestate_id";
   const nameColumn = userRole === "landowner" ? "name" : "company_name";
 
-  const sql = `UPDATE ${table} SET ${nameColumn} = ? WHERE id = ?`;
+  const sql = `UPDATE ${table} SET ${nameColumn} = ? WHERE ${idColumn} = ?`;
 
   db.query(sql, [newName, userId], (err, result) => {
     if (err) {
@@ -203,10 +239,11 @@ app.post("/update-account", (req, res) => {
       return res.status(500).send("An error occurred while updating your name.");
     }
 
-    req.session.user.name = newName; // Update session
+    req.session.user.name = newName;
     res.redirect("/update-account?success=1");
   });
 });
+
 
 // Multer for uploads
 const storage = multer.diskStorage({
@@ -228,8 +265,8 @@ app.post("/add-land", upload.fields([{ name: "titleDeed" }, { name: "landImage" 
     pricePerMeter, purpose, facing
   } = req.body;
 
-  const titleDeedPath = "/uploads/" + req.files["titleDeed"][0].filename;
-  const landImagePath = "/uploads/" + req.files["landImage"][0].filename;
+  const titleDeedPath = ("/uploads/" + req.files["titleDeed"][0].filename).trim();
+  const landImagePath = ("/uploads/" + req.files["landImage"][0].filename).trim();
   const landownerId = req.session.user.id;
 
   const sql = `
@@ -253,13 +290,14 @@ app.post("/add-land", upload.fields([{ name: "titleDeed" }, { name: "landImage" 
 
 app.get("/api/lands", (req, res) => {
   const sql = `
-    SELECT 
-      lands.*, 
-      landowners.name AS owner_name 
-    FROM lands 
-    LEFT JOIN landowners ON lands.landowner_id = landowners.id 
-    ORDER BY lands.land_id DESC
-  `;
+  SELECT 
+    lands.*, 
+    landowners.name AS owner_name 
+  FROM lands 
+  LEFT JOIN landowners ON lands.landowner_id = landowners.landowner_id 
+  ORDER BY lands.land_id DESC
+`;
+
   
   db.query(sql, (err, results) => {
     if (err) {
@@ -279,7 +317,7 @@ app.get("/api/lands/:id", (req, res) => {
   const sql = `
     SELECT lands.*, landowners.name AS owner_name
     FROM lands 
-    LEFT JOIN landowners ON lands.landowner_id = landowners.id
+    LEFT JOIN landowners ON lands.landowner_id = landowners.landowner_id
     WHERE lands.land_id = ?
   `;
   db.query(sql, [landId], (err, results) => {
@@ -296,13 +334,16 @@ app.get("/api/lands/:id", (req, res) => {
 
 
 
+
+
 // =================== LANDOWNER ROLE DUMMY API ROUTES ===================
 
 // Landowner User Profile
+// Get Landowner by ID (updated to landowner_id)
 app.get("/api/landowner/user/:id", (req, res) => {
   const userId = req.params.id;
 
-  const sql = "SELECT name FROM landowners WHERE id = ?";
+  const sql = "SELECT name FROM landowners WHERE landowner_id = ?";
   db.query(sql, [userId], (err, results) => {
     if (err) {
       console.error("❌ MySQL error fetching landowner:", err);
@@ -313,9 +354,10 @@ app.get("/api/landowner/user/:id", (req, res) => {
       return res.status(404).json({ error: "Landowner not found" });
     }
 
-    res.json(results[0]); // { name: "Real Name from Database" }
+    res.json(results[0]);
   });
 });
+
 
 app.get("/api/landowner/lands", (req, res) => {
   if (!req.session.user || req.session.user.role !== "landowner") {
