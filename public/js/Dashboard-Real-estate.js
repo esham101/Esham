@@ -1,4 +1,4 @@
-let userId = 1; // Simulate logged in user
+let userId; // Simulate logged in user
 let notifications = [];
 
 const toggleButton = document.getElementById('toggle-btn');
@@ -32,19 +32,29 @@ function closeAllSubMenus() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  closeModal();
-  loadUserProfile();
-  loadSettings();
-  loadNotifications();
-  loadProposals();
-  loadRevenue();
+  fetch("/api/session")
+    .then(res => res.json())
+    .then(data => {
+      if (data.loggedIn) {
+        userId = data.user.id;  // ✅ realestate_id assigned
+        closeModal();
+        loadUserProfile();
+        loadSettings();
+        loadNotifications();
+        loadProposals();
+        loadRevenue();
 
-  // Load dark mode from localStorage
-  const savedMode = localStorage.getItem("darkMode");
-  if (savedMode === "enabled") {
-    document.body.classList.add("dark-mode");
-  }
+        const savedMode = localStorage.getItem("darkMode");
+        if (savedMode === "enabled") {
+          document.body.classList.add("dark-mode");
+        }
+      } else {
+        window.location.href = "/login";
+      }
+    })
+    .catch(err => console.error("Session load error:", err));
 });
+
 
 function loadProposals() {
   fetch("http://localhost:3000/api/proposals")
