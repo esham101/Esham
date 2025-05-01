@@ -139,7 +139,8 @@ app.post("/login", (req, res) => {
       bcrypt.compare(password, user.password, (err, result) => {
         if (result) {
           req.session.user = { id: user.id, name: user.name, email: user.email, role: "landowner" };
-          return res.redirect("/");
+          return res.redirect("/Dashboard-Land-Owner.html");
+          
         } else {
           return res.redirect("/login?error=Incorrect password");
         }
@@ -153,8 +154,9 @@ app.post("/login", (req, res) => {
           bcrypt.compare(password, user.password, (err, result) => {
             if (result) {
               req.session.user = { id: user.id, name: user.company_name, email: user.email, role: "realestate" };
-
-              return res.redirect("/");
+              return res.redirect("/Dashboard-Real-estate.html");
+              
+              
             } else {
               return res.redirect("/login?error=Incorrect password");
             }
@@ -602,6 +604,25 @@ If you are not 100% certain of the answer, respond:
     return "Sorry, I couldn't find an answer.";
   }
 }
+
+// =================== REAL ESTATE DEVELOPER ROLE DUMMY API ROUTES ===================
+// ✅ Developer Proposals
+app.get("/api/realestate/proposals", (req, res) => {
+  res.json([
+    { landowner: "Emaar", date: "2025-04-25", status: "Pending" },
+    { landowner: "Jabal Real Estate", date: "2025-04-23", status: "Accepted" },
+    { landowner: "Elite Builders", date: "2025-04-22", status: "Rejected" }
+  ]);
+});
+
+app.get("/api/realestate/revenue", (req, res) => {
+  res.json([
+    { project: "Tower A", date: "2025-04-10", revenue: 180000 },
+    { project: "Mall West", date: "2025-04-12", revenue: 300000 }
+  ]);
+});
+
+
 
 app.listen(3000, () => {
   console.log("🚀 Server running at http://localhost:3000");

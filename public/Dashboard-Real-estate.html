@@ -4,19 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
-  <link rel="stylesheet" href="css/Dashboard-Real-estate.css">
+  <link rel="stylesheet" href="css/Dashboard-Real-estate.css"> 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script type="text/javascript" src="js/Dashboard-Real-estate.js" defer></script>
+  <script type="module" src="js/data.js"></script>
+  <script type="module" src="js/Dashboard-Real-estate.js" defer></script>
+  <script type="module" src="js/proposal-management.js" defer></script>
+  
 </head>
 <body>
   <nav id="sidebar">
     <ul>
-      <li>
+      <li class="logo-container" style="display: flex; align-items: center; justify-content: space-between;">
         <span class="logo">Esham</span>
-        <button onclick=toggleSidebar() id="toggle-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="m313-480 155 156q11 11 11.5 27.5T468-268q-11 11-28 11t-28-11L228-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l184-184q11-11 27.5-11.5T468-692q11 11 11 28t-11 28L313-480Zm264 0 155 156q11 11 11.5 27.5T732-268q-11 11-28 11t-28-11L492-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l184-184q11-11 27.5-11.5T732-692q11 11 11 28t-11 28L577-480Z"/></svg>
+        <button onclick="toggleSidebar()" id="toggle-btn" style="background: none; border: none; cursor: pointer;">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff">
+            <path d="m313-480 155 156q11 11 11.5 27.5T468-268q-11 11-28 11t-28-11L228-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l184-184q11-11 27.5-11.5T468-692q11 11 11 28t-11 28L313-480Zm264 0 155 156q11 11 11.5 27.5T732-268q-11 11-28 11t-28-11L492-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l184-184q11-11 27.5-11.5T732-692q11 11 11 28t-11 28L577-480Z"/>
+          </svg>
         </button>
       </li>
+      
+      
       <li>
         <a href="Home.html">
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M240-200h120v-200q0-17 11.5-28.5T400-440h160q17 0 28.5 11.5T600-400v200h120v-360L480-740 240-560v360Zm-80 0v-360q0-19 8.5-36t23.5-28l240-180q21-16 48-16t48 16l240 180q15 11 23.5 28t8.5 36v360q0 33-23.5 56.5T720-120H560q-17 0-28.5-11.5T520-160v-200h-80v200q0 17-11.5 28.5T400-120H240q-33 0-56.5-23.5T160-200Zm320-270Z"/></svg>
@@ -35,17 +42,9 @@
       <li>
         <a href="LandListing.html">
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M240-80q-50 0-85-35t-35-85v-120h120v-560l60 60 60-60 60 60 60-60 60 60 60-60 60 60 60-60 60 60 60-60v680q0 50-35 85t-85 35H240Zm480-80q17 0 28.5-11.5T760-200v-560H320v440h360v120q0 17 11.5 28.5T720-160ZM360-600v-80h240v80H360Zm0 120v-80h240v80H360Zm320-120q-17 0-28.5-11.5T640-640q0-17 11.5-28.5T680-680q17 0 28.5 11.5T720-640q0 17-11.5 28.5T680-600Zm0 120q-17 0-28.5-11.5T640-520q0-17 11.5-28.5T680-560q17 0 28.5 11.5T720-520q0 17-11.5 28.5T680-480ZM240-160h360v-80H200v40q0 17 11.5 28.5T240-160Zm-40 0v-80 80Z"/></svg>
-          <span>Proposals</span>
+          <span>Proposal</span>
         </a>
       </li>
-
-      <li>
-        <a href="Projects.html">
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M760-400v-260L560-800 360-660v60h-80v-100l280-200 280 200v300h-80ZM560-800Zm20 160h40v-40h-40v40Zm-80 0h40v-40h-40v40Zm80 80h40v-40h-40v40Zm-80 0h40v-40h-40v40ZM280-220l278 76 238-74q-5-9-14.5-15.5T760-240H558q-27 0-43-2t-33-8l-93-31 22-78 81 27q17 5 40 8t68 4q0-11-6.5-21T578-354l-234-86h-64v220ZM40-80v-440h304q7 0 14 1.5t13 3.5l235 87q33 12 53.5 42t20.5 66h80q50 0 85 33t35 87v40L560-60l-280-78v58H40Zm80-80h80v-280h-80v280Z"/></svg>
-          <span>Project</span>
-        </a>
-      </li>
-
 
 
      <li id="notification-item">
@@ -79,7 +78,7 @@
     
     <!-- Profile & Settings Menu -->
 <li>
-  <a href="#" onclick="openModal('profile')" style="cursor: pointer;">
+  <a href="UpdateAccount.html" style="cursor: pointer;">
     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
       <path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-240v-32q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v32q0 33-23.5 56.5T720-160H240q-33 0-56.5-23.5T160-240Zm80 0h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z"/>
     </svg>
@@ -96,13 +95,6 @@
   </a>
 </li>
 
-<!-- MODAL -->
-<div id="modal" class="modal-overlay">
-  <div id="modal-content" class="modal-box">
-    <button onclick="closeModal()" class="modal-close-btn">&times;</button>
-    <div id="modal-body" class="modal-body"></div>
-  </div>
-</div>
 
 
       <li>
@@ -114,67 +106,99 @@
     </ul>
   </nav>
 
-    <main class="dashboard-container">
-      <!-- Header -->
-      <section class="dashboard-header">
-          <h1>Welcome Nasser! 👋</h1>
-      </section>
-
-        <!-- Dashboard Row: Revenue, Proposals Sent, Proposals Accepted -->
-        <section class="dashboard-row">
-          <div class="dashboard-box">
-              <h2>Revenue</h2>
-              <table>
-                  <thead>
-                      <tr><th>Project</th><th>Date</th><th>Revenue ($)</th></tr>
-                  </thead>
-                  <tbody id="revenueData"></tbody>
-              </table>
-          </div>
-
-          <div class="dashboard-box">
-              <h2>Proposals Sent</h2>
-              <table>
-                  <thead>
-                      <tr><th>Name</th><th>Date</th><th>Status</th></tr>
-                  </thead>
-                  <tbody id="proposalsSentData"></tbody>
-              </table>
-          </div>
-
-          <div class="dashboard-box">
-              <h2>Proposals Accepted</h2>
-              <table>
-                  <thead>
-                      <tr><th>Name</th><th>Date</th><th>Status</th></tr>
-                  </thead>
-                  <tbody id="proposalsAcceptedData"></tbody>
-              </table>
-          </div>
-      </section>
-
-      <!-- Graphs Section -->
-      <section class="graphs">
-          <div class="graph-box">
-              <h3>Revenue Graph</h3>
-              <canvas id="revenueChart"></canvas>
-          </div>
-          <div class="graph-box">
-              <h3>Proposals Sent Graph</h3>
-              <canvas id="proposalsSentChart"></canvas>
-          </div>
-          <div class="graph-box">
-              <h3>Proposals Accepted Graph</h3>
-              <canvas id="proposalsAcceptedChart"></canvas>
-          </div>
-      </section>
-
-<section class="dashboard-box">
-  <h3>Project Progress</h3>
-  <div id="progressTimeline"></div>
-</section>
-
+  <main class="main-content">
+    <div class="dashboard-wrapper">
+      <div class="top-header">
+        <span class="header-icon">
+          <img src="icons/dashboard icon.svg" alt="Dashboard Logo" width="28" height="28">
+        </span>
+        <span class="header-title">Dashboard</span>
+      </div>
       
+      <h1 class="welcome-title"></h1>
+
+  
+      <!-- Top 3 Tables -->
+      <section class="info-cards">
+        <div class="card small-card">
+          <h3>Revenue</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>Date</th>
+                <th>Revenue sar logo</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="revenueData">
+              <!-- Filled by JS -->
+            </tbody>
+          </table>
+        </div>
+  
+        <div class="card small-card">
+          <h3>Proposals Sent</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>landowner</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="proposalsSentData">
+              <!-- Filled by JS -->
+            </tbody>
+          </table>
+        </div>
+  
+        <div class="card small-card">
+          <h3>Proposal Accepted</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>landowner</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="proposalsAcceptedData">
+              <!-- Filled by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+  
+      <!-- Graphs -->
+      <section class="graphs">
+        <div class="card graph-card">
+          <h3>Revenue Graph</h3>
+          <canvas id="revenueChart" width="400" height="300"></canvas>
+        </div>
+        <div class="card graph-card">
+          <h3>Proposals Sent Graph</h3>
+          <canvas id="proposalsSentChart" width="400" height="300"></canvas>
+        </div>
+        <div class="card graph-card">
+          <h3>Proposals Accepted Graph</h3>
+          <canvas id="proposalsAcceptedChart" width="400" height="300"></canvas>
+        </div>
+      </section>
+  
+      <!-- Project Progress -->
+      <section class="full-card">
+        <h2>Project Progress</h2>
+        <div id="progressTimeline"></div>
+      </section>
+      
+  
+    </div>
+    
   </main>
+  
+
+  
 </body>
+
 </html>

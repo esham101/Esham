@@ -9,3 +9,10 @@ const dummyProposals = [
   
   export { dummyProposals };
   
+
+const developerRevenue = [
+  { project: "Project A", revenue: 180000 },
+  { project: "Project B", revenue: 120000 },
+];
+
+export { developerRevenue };
