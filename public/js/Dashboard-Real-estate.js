@@ -1,7 +1,8 @@
 let userId; // Simulate logged in user
 let notifications = [];
-let userId;
 let currentUser;
+// Load Proposals
+import { dummyProposals } from './data.js';
 
 const toggleButton = document.getElementById('toggle-btn');
 const sidebar = document.getElementById('sidebar');
@@ -111,8 +112,6 @@ function renderRevenueChart(data) {
   });
 }
 
-// Load Proposals
-import { dummyProposals } from './data.js';
 
 function loadProposals() {
   const sent = dummyProposals.filter(p => p.status === 'Pending' || p.status === 'Rejected');
@@ -252,4 +251,5 @@ function loadProjectProgress(proposalId) {
         container.appendChild(block);
       });
     });
-}
+}}
+
