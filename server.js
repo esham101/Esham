@@ -665,6 +665,53 @@ app.get("/api/realestate/revenue", (req, res) => {
 });
 
 
+app.post("/api/proposals", (req, res) => {
+  const {
+    landowner_id,
+    realestate_id,
+    title,
+    description,
+    objectives,
+    budget,
+    start_date,
+    duration_value,
+    duration_unit,
+    revenue_split,
+    payment_freq,
+    revenue_type,
+    reporting,
+    email,
+    contact_start_time,
+    contact_end_time,
+    confirmed_info,
+    accepted_terms
+  } = req.body;
+
+  const sql = `
+    INSERT INTO proposals (
+      landowner_id, realestate_id, title, description, objectives, budget,
+      start_date, duration_value, duration_unit, revenue_split,
+      payment_freq, revenue_type, reporting, email,
+      contact_start_time, contact_end_time, confirmed_info, accepted_terms
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+
+  const values = [
+    landowner_id, realestate_id, title, description, objectives, budget,
+    start_date, duration_value, duration_unit, revenue_split,
+    payment_freq, revenue_type, reporting, email,
+    contact_start_time, contact_end_time, confirmed_info, accepted_terms
+  ];
+
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error("Insert failed:", err);
+      return res.status(500).json({ message: "Submission failed" });
+    }
+    res.status(200).json({ message: "Proposal submitted successfully" });
+  });
+});
+
 
 app.listen(3000, () => {
   console.log("🚀 Server running at http://localhost:3000");
