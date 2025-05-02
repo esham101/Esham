@@ -18,10 +18,7 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  font-family: 'Poppins', sans-serif;
   background-color: var(--base-clr);
-  color: var(--text-dark);
-  display: flex;
   color: var(--text-dark);
   display: flex;
 }
@@ -31,22 +28,9 @@ body {
   top: 0;
   left: 0;
   width: 250px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 250px;
   height: 100vh;
   background-color: #245954;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 0;
-  gap: 20px;
-  overflow-y: auto;
-  transition: width 0.3s ease;
-}
-
-#sidebar .logo-container {
   flex-direction: column;
   align-items: center;
   padding: 20px 0;
@@ -66,19 +50,11 @@ body {
   font-size: 22px;
   font-weight: bold;
   color: white;
-#sidebar .logo {
-  font-size: 22px;
-  font-weight: bold;
-  color: white;
 }
 #toggle-btn {
   background: none; /* No background */
   border: none;
   cursor: pointer;
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 5px;
   display: flex;
   align-items: center;
@@ -195,12 +171,10 @@ main {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
-  flex-wrap: wrap;
 }
 
 .small-card {
   flex: 1;
-  background: var(--white);
   background: var(--white);
   padding: 20px;
   border-radius: 12px;
@@ -223,8 +197,6 @@ main {
   text-align: left;
   border-bottom: 1px solid #eee;
   font-size: 14px;
-  border-bottom: 1px solid #eee;
-  font-size: 14px;
 }
 
 .small-card tbody tr:hover {
@@ -236,7 +208,6 @@ main {
 .graphs {
   display: flex;
   gap: 20px;
-  flex-wrap: wrap;
   flex-wrap: wrap;
 }
 
@@ -396,3 +367,4 @@ tbody tr:hover .more-link {
   color: black; /* keep black even on hover */
   text-decoration: underline; /* optional underline if you want */
 }
+

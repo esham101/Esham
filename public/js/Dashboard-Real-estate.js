@@ -1,7 +1,6 @@
-let userId; // Simulate logged in user
-let notifications = [];
+let userId;
 let currentUser;
-// Load Proposals
+
 import { dummyProposals } from './data.js';
 
 const toggleButton = document.getElementById('toggle-btn');
@@ -20,13 +19,12 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(res => res.json())
     .then(data => {
       if (data.loggedIn) {
-        userId = data.user.id;  // ✅ realestate_id assigned
-        closeModal();
-        loadUserProfile();
-        loadSettings();
-        loadNotifications();
-        loadProposals();
+        userId = data.user.id;
+        currentUser = data.user;
+        updateWelcomeMessage(currentUser.name);
+
         loadRevenue();
+        loadProposals();
 
         const savedMode = localStorage.getItem("darkMode");
         if (savedMode === "enabled") {
@@ -39,33 +37,14 @@ document.addEventListener("DOMContentLoaded", function () {
     .catch(err => console.error("Session load error:", err));
 });
 
-
-function loadProposals() {
-  fetch("http://localhost:3000/api/proposals")
-document.addEventListener("DOMContentLoaded", () => {
-  fetch("/api/session")
-    .then(res => res.json())
-    .then(data => {
-      if (data.loggedIn) {
-        userId = data.user.id;
-        currentUser = data.user;
-        updateWelcomeMessage(currentUser.name);
-        loadRevenue();
-        loadProposals();
-      } else {
-        window.location.href = "/login";
-      }
-    });
-});
-
 function updateWelcomeMessage(name) {
   const welcome = document.querySelector(".welcome-title");
   if (welcome) welcome.textContent = `Welcome ${name}! 👋`;
 }
 
-// Load Revenue
+// Load Revenue (specific to developer's portfolio)
 function loadRevenue() {
-  fetch("/api/realestate/revenue")
+  fetch("/api/developer/revenue")
     .then(res => res.json())
     .then(data => {
       populateRevenueTable(data);
@@ -112,55 +91,42 @@ function renderRevenueChart(data) {
   });
 }
 
-
+// 🔵 Proposals
 function loadProposals() {
-  const sent = dummyProposals.filter(p => p.status === 'Pending' || p.status === 'Rejected');
-  const accepted = dummyProposals.filter(p => p.status === 'Accepted');
+  fetch("http://localhost:3000/api/landowner/proposals")
+    .then(res => res.json())
+    .then(data => {
+      const sent = data.filter(p => p.status === 'Pending' || p.status === 'Rejected');
+      const accepted = data.filter(p => p.status === 'Accepted');
 
-  populateTable(sent, "proposalsSentData");
-  populateTable(accepted, "proposalsAcceptedData");
+      populateTable(sent, "proposalsSentData");
+      populateTable(accepted, "proposalsAcceptedData");
 
-  renderProposalsSentChart(sent);
-  renderProposalsAcceptedChart(accepted);
+      renderProposalsSentChart(sent);
+      renderProposalsAcceptedChart(accepted);
 
-  if (accepted.length > 0) {
-    loadProjectProgress(accepted[0].id || 1); // or use dummy id
-  }
+      if (accepted.length > 0) loadProjectProgress(accepted[0].id);
+    })
+    .catch(err => console.error("Error loading proposals:", err));
 }
-
 
 
 function populateTable(data, tableId) {
   const tableBody = document.getElementById(tableId);
   tableBody.innerHTML = "";
-
   data.forEach(item => {
-    const company = item.company || "Unknown";
-    const date = item.date || "N/A";
-    const status = item.status || "Pending";
-
-    tableBody.innerHTML += `
-      <tr>
-        <td>${company}</td>
-        <td>${date}</td>
-        <td>${status}</td>
-      </tr>`;
+    tableBody.innerHTML += `<tr><td>${item.name}</td><td>${item.date}</td><td>${item.status}</td></tr>`;
   });
 }
 
-
-
-
 function renderProposalsSentChart(data) {
   const ctx = document.getElementById("proposalsSentChart").getContext("2d");
-  const monthLabels = [...new Set(data.map(p => (p.date || "").slice(0, 7)).filter(Boolean))];
+  const monthLabels = [...new Set(data.map(p => p.date.slice(0, 7)))];
   const countMap = {};
 
   monthLabels.forEach(month => {
-    countMap[month] = data.filter(p => (p.date || "").startsWith(month)).length;
+    countMap[month] = data.filter(p => p.date.startsWith(month)).length;
   });
-
-  if (window.proposalsSentChart) window.proposalsSentChart.destroy(); // avoid duplicates
 
   window.proposalsSentChart = new Chart(ctx, {
     type: "line",
@@ -186,21 +152,13 @@ function renderProposalsSentChart(data) {
 
 function renderProposalsAcceptedChart(data) {
   const ctx = document.getElementById("proposalsAcceptedChart").getContext("2d");
-
-  // Extract valid months
-  const monthLabels = [...new Set(data.map(p => (p.date || "").slice(0, 7)).filter(Boolean))];
+  const monthLabels = [...new Set(data.map(p => p.date.slice(0, 7)))];
   const countMap = {};
 
   monthLabels.forEach(month => {
-    countMap[month] = data.filter(p => (p.date || "").startsWith(month)).length;
+    countMap[month] = data.filter(p => p.date.startsWith(month)).length;
   });
 
-  // Destroy previous chart instance if exists
-  if (window.proposalsAcceptedChart) {
-    window.proposalsAcceptedChart.destroy();
-  }
-
-  // Create new chart
   window.proposalsAcceptedChart = new Chart(ctx, {
     type: "line",
     data: {
@@ -217,16 +175,12 @@ function renderProposalsAcceptedChart(data) {
     options: {
       responsive: true,
       maintainAspectRatio: true,
-      plugins: { legend: { display: false } },
-      scales: {
-        y: { beginAtZero: true },
-        x: {}
-      }
+      plugins: { legend: { display: false } }
     }
   });
 }
 
-// Project Progression
+// Developer-side project progress tracking
 function loadProjectProgress(proposalId) {
   fetch(`/api/progress/${proposalId}`)
     .then(res => res.json())
@@ -235,7 +189,7 @@ function loadProjectProgress(proposalId) {
       container.innerHTML = "";
 
       if (data.length === 0) {
-        container.innerHTML = "<p>No progress updates yet.</p>";
+        container.innerHTML = "<p>No project progress available.</p>";
         return;
       }
 
@@ -251,5 +205,4 @@ function loadProjectProgress(proposalId) {
         container.appendChild(block);
       });
     });
-}}
-
+}
