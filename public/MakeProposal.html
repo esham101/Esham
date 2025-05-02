@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esham</title>
+    <link rel="stylesheet" href="css/Make_Proposal.css">
+    <script src="script.js" defer></script>
+    <script src="Make_Proposal.js" defer></script>
+
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logonav.jpg" alt="Esham Logo" />
+            </div>
+            <ul class="nav-links">
+              <li><a href="Home.html">Home</a></li>
+              <li><a href="Helper.html">Musahem</a></li>
+              <li><a href="Who.html">Who are we?</a></li>
+              <li><a href="FAQ.html">FAQ</a></li>
+              <li><a href="Contact.html">Contact Us</a></li>
+            </ul>
+
+            <ul class="registeration">
+              <li class="login">
+                  <button type="button" onclick="window.location.href='Registeration.html'">Sign in</button>
+              </li>
+              <li class="register">
+                  <button type="button" onclick="window.location.href='Registeration.html'">Register Now</button>
+              </li>
+          </ul>
+        </nav>
+    </header>
+
+    <section class="proposal-form-section">
+        <h1>Submit Your Development Proposal</h1>
+        <form id="proposalForm">
+          <!-- Basic Info -->
+          <section class="form-section">
+            <h2 class="section-title">Basic Info</h2>
+            <div class="form-group">
+              <label for="title">Proposal Title <span class="required">*</span></label>
+              <input type="text" id="title" name="title" required />
+            </div>
+            <div class="form-group">
+              <label for="detailedText">Proposal Description <span class="required">*</span></label>
+              <textarea id="detailedText" name="detailedText" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="objectives">Objectives / Vision <span class="required">*</span></label>
+              <small class="form-hint">Please describe the purpose and goals of your proposal.</small>
+              <textarea id="objectives" name="objectives" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="budget">Estimated Budget (SAR) <span class="required">*</span></label>
+              <input type="number" id="budget" name="budget" min="0" required />
+            </div>
+            <div class="form-group">
+              <label for="startDate">Expected Start Date <span class="required">*</span></label>
+              <input type="date" id="startDate" name="startDate" required />
+            </div>
+            <div class="form-group">
+              <label for="durationValue">Estimated Duration <span class="required">*</span></label>
+              <div style="display: flex; gap: 10px;">
+                <input type="number" id="durationValue" name="durationValue" min="1" required />
+                <select id="durationUnit" name="durationUnit" required>
+                  <option value="">Select unit</option>
+                  <option value="Weeks">Weeks</option>
+                  <option value="Months">Months</option>
+                  <option value="Years">Years</option>
+                </select>
+              </div>
+            </div>
+          </section>
+    
+          <!-- Revenue Sharing Details -->
+          <section class="form-section">
+            <h2 class="section-title">Revenue Sharing Details</h2>
+            <div class="form-group">
+              <label for="revenueSplit">Percentage of Revenue to Each Party <span class="required">*</span></label>
+              <input type="text" id="revenueSplit" name="revenueSplit" placeholder="e.g., Landowner: 40%, Developer: 60%" required />
+            </div>
+            <div class="form-group">
+              <label for="paymentFreq">Payment Frequency <span class="required">*</span></label>
+              <select id="paymentFreq" name="paymentFreq" required>
+                <option value="">Select frequency</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Quarterly">Quarterly</option>
+                <option value="Annually">Annually</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="revenueType">Revenue Type <span class="required">*</span></label>
+              <select id="revenueType" name="revenueType" required>
+                <option value="">Select type</option>
+                <option value="Net">Net revenue</option>
+                <option value="Gross">Gross revenue</option>
+                <option value="After-deductions">After-tax or after-maintenance deductions</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="reporting">Reporting Requirements <span class="required">*</span></label>
+              <textarea id="reporting" name="reporting" rows="3" placeholder="Will the developer provide financial reports? Include any audit rights." required></textarea>
+            </div>
+          </section>
+    
+          <!-- Contact Preferences -->
+          <section class="form-section">
+            <h2 class="section-title">Contact Preferences</h2>
+            <div class="form-group">
+              <label for="email">Email <span class="required">*</span></label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label>Best Time to Contact <span class="required">*</span></label>
+              <div style="display: flex; gap: 10px;">
+                <select id="startTime" name="startTime" required>
+                  <option value="">Start Time</option>
+                  <option>08:00</option><option>09:00</option><option>10:00</option>
+                  <option>11:00</option><option>12:00</option><option>13:00</option>
+                  <option>14:00</option><option>15:00</option><option>16:00</option>
+                  <option>17:00</option><option>18:00</option>
+                </select>
+                <select id="endTime" name="endTime" required>
+                  <option value="">End Time</option>
+                  <option>09:00</option><option>10:00</option><option>11:00</option>
+                  <option>12:00</option><option>13:00</option><option>14:00</option>
+                  <option>15:00</option><option>16:00</option><option>17:00</option>
+                  <option>18:00</option><option>19:00</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="confirmInfo" required />
+              <label for="confirmInfo">I confirm that all information is accurate.</label>
+            </div>
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="acceptTerms" required />
+              <label for="acceptTerms">
+                I accept the <a href="Privacy& Policy.html" target="_blank">terms and privacy policy</a>.
+              </label>
+            </div>
+          </section>
+    
+          <div class="form-group">
+            <button type="submit">Submit Proposal</button>
+          </div>
+          <p id="responseMessage"></p>
+        </form>
+      </section>
+        </main>
+  
+        
+    
+
+    <footer class="footer">
+      <div class="footer-container">
+        <!-- Logo Section -->
+        <div class="footer-column">
+          <div class="footer-logo">
+              <img src="images/logo.jpg" alt="Esham Logo" />
+          </div>
+        </div>
+    
+        <!-- Esham Links -->
+        <div class="footer-column">
+          <h3 class="footer-title">Esham</h3>
+          <ul class="footer-links">
+            <li><a href="Musahem.html">Musahem</a></li>
+            <li><a href="Join.html">Join Our Team</a></li>
+            <li><a href="Terms.html">Terms and Conditions</a></li>
+          </ul>
+        </div>
+    
+        <!-- Product Links -->
+        <div class="footer-column">
+          <h3 class="footer-title">Product</h3>
+          <ul class="footer-links">
+            <li><a href="Help.html">Help Center</a></li>
+            <li><a href="FAQ.html">FAQs</a></li>
+            <li><a href="Privacy& Policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+    
+        <!-- Contact Section -->
+        <div class="footer-column contact-info">
+          <h3 class="footer-title">Contact Number</h3>
+          <p class="contact-number"><a href="tel:01123456708">011 234 56708</a></p>
+          <p class="working-hours">
+            Official Working Hours<br />
+            Sunday to Thursday: 9:00 AM to 4:00 PM
+          </p>
+        </div>
+      </div>
+    
+      <!-- Footer Description -->
+      <div class="footer-description">
+        <p>
+          Esham is an innovative and authorized digital platform that connects landowners with real estate developers through an integrated system designed to simplify and accelerate the development of real estate projects. The platform empowers stakeholders to communicate effectively, submit proposals, and select the best opportunities for mutual benefit.
+        </p>
+        <p class="footer-disclaimer">
+          Disclaimer: Esham is not an investment website and does not offer any financing or direct investment services. Our role is limited to providing a digital platform that connects landowners with real estate developers, facilitating the process of submitting and reviewing development proposals. All transactions are conducted directly between the parties according to the agreed terms, and the platform assumes no responsibility for any risks associated with agreements between the parties.
+        </p>
+      </div>
+    </footer>
+
+</body>
+</html>
