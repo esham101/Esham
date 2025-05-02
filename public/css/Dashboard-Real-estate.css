@@ -66,10 +66,6 @@ body {
   font-size: 22px;
   font-weight: bold;
   color: white;
-#sidebar .logo {
-  font-size: 22px;
-  font-weight: bold;
-  color: white;
 }
 #toggle-btn {
   background: none; /* No background */

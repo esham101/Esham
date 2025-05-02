@@ -15,12 +15,11 @@ document.addEventListener("DOMContentLoaded", function () {
         currentUser = data.user;
         updateWelcomeMessage(currentUser.name);
 
-        closeModal(); // ✅ Initialize modal system
+        closeModal(); 
         loadUserProfile();
-        loadSettings();
         loadNotifications();
         loadProposals();
-        loadLands(); // Changed to loadLands not "loadRevenue"!
+        loadLands(); 
         
         const savedMode = localStorage.getItem("darkMode");
         if (savedMode === "enabled") {
@@ -79,60 +78,8 @@ function loadUserProfile() {
     .catch(err => console.error("Error loading user profile:", err));
 }
 
-function loadSettings() {
-  fetch(`http://localhost:3000/api/landowner/settings/${userId}`)
-    .then(res => res.json())
-    .then(settings => {
-      if (settings && 'dark_mode' in settings) applyTheme(settings.dark_mode);
-    })
-    .catch(err => console.error("Error loading settings:", err));
-}
 
-function saveSettings() {
-  const darkMode = document.getElementById("darkMode").checked;
-  fetch("http://localhost:3000/api/settings", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ user_id: userId, dark_mode: darkMode })
-  })
-    .then(res => res.json())
-    .then(data => {
-      applyTheme(darkMode);
-      localStorage.setItem("darkMode", darkMode ? "enabled" : "disabled");
-      alert(data.message);
-      closeModal();
-    })
-    .catch(err => console.error("Settings save error:", err));
-}
 
-function applyTheme(enabled) {
-  const root = document.documentElement;
-  if (enabled) {
-    document.body.classList.add("dark-mode");
-    root.style.setProperty('--base-clr', '#121212');
-    root.style.setProperty('--text-clr', '#ffffff');
-    root.style.setProperty('--hover-clr', '#1e1e1e');
-    root.style.setProperty('--line-clr', '#2e7d32');
-    root.style.setProperty('--secondary-text-clr', '#cccccc');
-    root.style.setProperty('--card-bg-light', '#1f1f1f');
-    root.style.setProperty('--dark-shadow', 'rgba(255, 255, 255, 0.05)');
-    root.style.setProperty('--table-header-bg', '#2c2c2c');
-    root.style.setProperty('--text-clr-light', '#ffffff');
-    root.style.setProperty('--dark-border', '#444');
-  } else {
-    document.body.classList.remove("dark-mode");
-    root.style.setProperty('--base-clr', '#f4f4f4');
-    root.style.setProperty('--text-clr', '#000000');
-    root.style.setProperty('--hover-clr', '#e6e6e6');
-    root.style.setProperty('--line-clr', '#215321');
-    root.style.setProperty('--secondary-text-clr', '#b0b3c1');
-    root.style.setProperty('--card-bg-light', '#ffffff');
-    root.style.setProperty('--dark-shadow', 'rgba(0, 0, 0, 0.1)');
-    root.style.setProperty('--table-header-bg', '#253732');
-    root.style.setProperty('--text-clr-light', '#f4f4f4');
-    root.style.setProperty('--dark-border', '#ddd');
-  }
-}
 
 // 🔵 Proposals
 function loadProposals() {
