@@ -1,330 +1,168 @@
-let userId = 1; // Simulate logged in user
+let userId; // Simulate logged in user
 let notifications = [];
+let currentUser;
+// Load Proposals
+import { dummyProposals } from './data.js';
 
 const toggleButton = document.getElementById('toggle-btn');
 const sidebar = document.getElementById('sidebar');
 
+// Sidebar Toggle
 function toggleSidebar() {
   sidebar.classList.toggle('close');
+  document.querySelector('.main-content').classList.toggle('expanded');
   toggleButton.classList.toggle('rotate');
-  closeAllSubMenus();
 }
-
-function toggleSubMenu(button) {
-  if (!button.nextElementSibling.classList.contains('show')) {
-    closeAllSubMenus();
-  }
-
-  button.nextElementSibling.classList.toggle('show');
-  button.classList.toggle('rotate');
-
-  if (sidebar.classList.contains('close')) {
-    sidebar.classList.toggle('close');
-    toggleButton.classList.toggle('rotate');
-  }
-}
-
-function closeAllSubMenus() {
-  Array.from(sidebar.getElementsByClassName('show')).forEach(ul => {
-    ul.classList.remove('show');
-    ul.previousElementSibling.classList.remove('rotate');
-  });
-}
+window.toggleSidebar = toggleSidebar;
 
 document.addEventListener("DOMContentLoaded", function () {
-  closeModal();
-  loadUserProfile();
-  loadSettings();
-  loadNotifications();
-  loadProposals();
-  loadRevenue();
+  fetch("/api/session")
+    .then(res => res.json())
+    .then(data => {
+      if (data.loggedIn) {
+        userId = data.user.id;  // ✅ realestate_id assigned
+        closeModal();
+        loadUserProfile();
+        loadSettings();
+        loadNotifications();
+        loadProposals();
+        loadRevenue();
 
-  // Load dark mode from localStorage
-  const savedMode = localStorage.getItem("darkMode");
-  if (savedMode === "enabled") {
-    document.body.classList.add("dark-mode");
-  }
+        const savedMode = localStorage.getItem("darkMode");
+        if (savedMode === "enabled") {
+          document.body.classList.add("dark-mode");
+        }
+      } else {
+        window.location.href = "/login";
+      }
+    })
+    .catch(err => console.error("Session load error:", err));
 });
+
 
 function loadProposals() {
   fetch("http://localhost:3000/api/proposals")
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("/api/session")
     .then(res => res.json())
     .then(data => {
-      const sent = data.filter(p => p.status === 'Pending' || p.status === 'Rejected');
-      const accepted = data.filter(p => p.status === 'Accepted');
-
-      populateTable(sent, "proposalsSentData");
-      populateTable(accepted, "proposalsAcceptedData");
-
-      renderProposalsSentChart(sent);
-      renderProposalsAcceptedChart(accepted);
-
-      if (accepted.length > 0) {
-        loadProjectProgress(accepted[0].id);
+      if (data.loggedIn) {
+        userId = data.user.id;
+        currentUser = data.user;
+        updateWelcomeMessage(currentUser.name);
+        loadRevenue();
+        loadProposals();
+      } else {
+        window.location.href = "/login";
       }
-    })
-    .catch(err => console.error("Error loading proposals:", err));
+    });
+});
+
+function updateWelcomeMessage(name) {
+  const welcome = document.querySelector(".welcome-title");
+  if (welcome) welcome.textContent = `Welcome ${name}! 👋`;
 }
 
+// Load Revenue
 function loadRevenue() {
-  fetch("http://localhost:3000/api/revenue")
+  fetch("/api/realestate/revenue")
     .then(res => res.json())
     .then(data => {
-      populateRevenueTable(data, "revenueData");
+      populateRevenueTable(data);
       renderRevenueChart(data);
-    })
-    .catch(err => console.error("Error loading revenue:", err));
-}
-
-function populateRevenueTable(data, tableId) {
-  const tableBody = document.getElementById(tableId);
-  tableBody.innerHTML = "";
-
-  data.forEach(item => {
-    const row = `<tr><td>${item.project}</td><td>${item.date}</td><td>${item.revenue}</td></tr>`;
-    tableBody.innerHTML += row;
-  });
-}
-
-function loadUserProfile() {
-  fetch(`http://localhost:3000/api/user/${userId}`)
-    .then(res => res.json())
-    .then(user => {
-      window.currentUser = user;
     });
 }
 
-function loadSettings() {
-  fetch(`http://localhost:3000/api/settings/${userId}`)
-    .then(res => res.json())
-    .then(settings => {
-      if (settings && 'dark_mode' in settings) {
-        applyTheme(settings.dark_mode);
-      }
-    })
-    .catch(err => console.error("Error loading settings:", err));
-}
-
-function saveSettings() {
-  const darkMode = document.getElementById("darkMode").checked;
-
-  fetch("http://localhost:3000/api/settings", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ user_id: userId, dark_mode: darkMode })
-  })
-    .then(res => res.json())
-    .then(data => {
-      applyTheme(darkMode);
-      localStorage.setItem("darkMode", darkMode ? "enabled" : "disabled");
-      alert(data.message);
-      closeModal();
-    })
-    .catch(err => console.error("Settings save error:", err));
-}
-
-function applyTheme(enabled) {
-  const root = document.documentElement;
-  if (enabled) {
-    document.body.classList.add("dark-mode");
-    root.style.setProperty('--base-clr', '#121212');
-    root.style.setProperty('--text-clr', '#ffffff');
-    root.style.setProperty('--hover-clr', '#1e1e1e');
-    root.style.setProperty('--line-clr', '#2e7d32');
-    root.style.setProperty('--secondary-text-clr', '#cccccc');
-    root.style.setProperty('--card-bg-light', '#1f1f1f');
-    root.style.setProperty('--dark-shadow', 'rgba(255, 255, 255, 0.05)');
-    root.style.setProperty('--table-header-bg', '#2c2c2c');
-    root.style.setProperty('--text-clr-light', '#ffffff');
-    root.style.setProperty('--dark-border', '#444');
-  } else {
-    document.body.classList.remove("dark-mode");
-    root.style.setProperty('--base-clr', '#f4f4f4');
-    root.style.setProperty('--text-clr', '#000000');
-    root.style.setProperty('--hover-clr', '#e6e6e6');
-    root.style.setProperty('--line-clr', '#215321');
-    root.style.setProperty('--secondary-text-clr', '#b0b3c1');
-    root.style.setProperty('--card-bg-light', '#ffffff');
-    root.style.setProperty('--dark-shadow', 'rgba(0, 0, 0, 0.1)');
-    root.style.setProperty('--table-header-bg', '#253732');
-    root.style.setProperty('--text-clr-light', '#f4f4f4');
-    root.style.setProperty('--dark-border', '#ddd');
-  }
-}
-
-function openModal(type) {
-  const modal = document.getElementById("modal");
-  const body = document.getElementById("modal-body");
-
-  if (type === 'profile') {
-    fetch(`http://localhost:3000/api/user/${userId}`)
-      .then(res => res.json())
-      .then(user => {
-        body.innerHTML = `
-        <h2>👤 Edit Profile</h2>
-        <form id="editProfileForm" class="modal-form">
-          <label for="name">Full Name</label>
-          <input type="text" id="name" value="${user.name}" placeholder="Enter full name" />
-      
-          <label for="email">Email Address</label>
-          <input type="email" id="email" value="${user.email}" placeholder="Enter email" />
-      
-          <button type="submit" class="modal-button">💾 Save Changes</button>
-        </form>
-      `;
-      
-        document.getElementById("editProfileForm").onsubmit = function (e) {
-          e.preventDefault();
-          const name = document.getElementById("name").value;
-          const email = document.getElementById("email").value;
-
-          fetch("http://localhost:3000/api/user/update", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id: userId, name, email })
-          })
-            .then(res => res.json())
-            .then(data => {
-              alert(data.message);
-              closeModal();
-            });
-        };
-      });
-  } else if (type === 'settings') {
-    body.innerHTML = `
-    <h2>⚙️ Settings</h2>
-    <form class="modal-form">
-      <label>
-        <input type="checkbox" id="darkMode"> Enable Dark Mode
-      </label>
-      <button onclick="saveSettings()" class="modal-button">💾 Save Settings</button>
-    </form>
-  `;
-  
-
-    fetch(`http://localhost:3000/api/settings/${userId}`)
-      .then(res => res.json())
-      .then(settings => {
-        const checkbox = document.getElementById("darkMode");
-        checkbox.checked = settings.dark_mode;
-        applyTheme(settings.dark_mode);
-
-        checkbox.addEventListener("change", function () {
-          toggleDarkMode(this.checked);
-        });
-      });
-  } else if (type === 'notifications') {
-    let html = `
-      <h2>🔔 Notifications</h2>
-      <div class="modal-form">
-        <ul style="list-style: disc; padding-left: 20px; margin-bottom: 24px;">`;
-    
-    if (notifications.length === 0) {
-      html += `<li>No new notifications</li>`;
-    } else {
-      notifications.forEach(n => {
-        html += `<li style="margin-bottom: 8px;">${n.message}</li>`;
-      });
-    }
-  
-    html += `
-        </ul>
-        <div style="display: flex; justify-content: flex-end;">
-          <button onclick="closeModal()" class="modal-button">Close</button>
-        </div>
-      </div>`;
-    
-    body.innerHTML = html;
-  }
-  
-  modal.style.display = "flex";
-}
-
-function closeModal() {
-  document.getElementById("modal").style.display = "none";
-}
-
-function toggleDarkMode(isDark) {
-  applyTheme(isDark);
-  localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
-}
-
-function loadNotifications() {
-  fetch(`http://localhost:3000/api/notifications/${userId}`)
-    .then(res => res.json())
-    .then(data => {
-      notifications = data;
-      updateNotificationBadge();
-    });
-}
-
-function updateNotificationBadge() {
-  const badge = document.getElementById('notif-badge');
-  const count = notifications.length;
-  if (count > 0) {
-    badge.textContent = count;
-    badge.style.display = 'inline-block';
-  } else {
-    badge.style.display = 'none';
-  }
-}
-
-function populateTable(data, tableId) {
-  const tableBody = document.getElementById(tableId);
-  tableBody.innerHTML = "";
+function populateRevenueTable(data) {
+  const table = document.getElementById("revenueData");
+  table.innerHTML = "";
   data.forEach(item => {
-    const row = `<tr><td>${item.name}</td><td>${item.date}</td><td>${item.status}</td></tr>`;
-    tableBody.innerHTML += row;
+    table.innerHTML += `
+      <tr>
+        <td>${item.project}</td>
+        <td>${item.date}</td>
+        <td>${item.revenue.toLocaleString()} SAR</td>
+      </tr>
+    `;
   });
 }
 
 function renderRevenueChart(data) {
   const ctx = document.getElementById("revenueChart").getContext("2d");
-  const labels = data.map(item => item.date);
-  const values = data.map(item => item.revenue);
+  const labels = data.map(d => d.project);
+  const values = data.map(d => d.revenue);
 
   new Chart(ctx, {
     type: "bar",
     data: {
-      labels: labels,
+      labels,
       datasets: [{
         label: "Revenue",
         data: values,
         backgroundColor: "#43A047",
-        borderRadius: 4
+        borderRadius: 5
       }]
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false }
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: { color: '#737373' },
-          grid: { color: '#e5e5e5' }
-        },
-        x: {
-          ticks: { color: '#737373' },
-          grid: { display: false }
-        }
-      }
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true } }
     }
   });
 }
 
+
+function loadProposals() {
+  const sent = dummyProposals.filter(p => p.status === 'Pending' || p.status === 'Rejected');
+  const accepted = dummyProposals.filter(p => p.status === 'Accepted');
+
+  populateTable(sent, "proposalsSentData");
+  populateTable(accepted, "proposalsAcceptedData");
+
+  renderProposalsSentChart(sent);
+  renderProposalsAcceptedChart(accepted);
+
+  if (accepted.length > 0) {
+    loadProjectProgress(accepted[0].id || 1); // or use dummy id
+  }
+}
+
+
+
+function populateTable(data, tableId) {
+  const tableBody = document.getElementById(tableId);
+  tableBody.innerHTML = "";
+
+  data.forEach(item => {
+    const company = item.company || "Unknown";
+    const date = item.date || "N/A";
+    const status = item.status || "Pending";
+
+    tableBody.innerHTML += `
+      <tr>
+        <td>${company}</td>
+        <td>${date}</td>
+        <td>${status}</td>
+      </tr>`;
+  });
+}
+
+
+
+
 function renderProposalsSentChart(data) {
   const ctx = document.getElementById("proposalsSentChart").getContext("2d");
-  const monthLabels = [...new Set(data.map(p => p.date.slice(0, 7)))];
+  const monthLabels = [...new Set(data.map(p => (p.date || "").slice(0, 7)).filter(Boolean))];
   const countMap = {};
 
   monthLabels.forEach(month => {
-    countMap[month] = data.filter(p => p.date.startsWith(month)).length;
+    countMap[month] = data.filter(p => (p.date || "").startsWith(month)).length;
   });
 
-  new Chart(ctx, {
+  if (window.proposalsSentChart) window.proposalsSentChart.destroy(); // avoid duplicates
+
+  window.proposalsSentChart = new Chart(ctx, {
     type: "line",
     data: {
       labels: Object.keys(countMap),
@@ -340,27 +178,30 @@ function renderProposalsSentChart(data) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false }
-      },
-      scales: {
-        y: { beginAtZero: true },
-        x: {}
-      }
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true }, x: {} }
     }
   });
 }
 
 function renderProposalsAcceptedChart(data) {
   const ctx = document.getElementById("proposalsAcceptedChart").getContext("2d");
-  const monthLabels = [...new Set(data.map(p => p.date.slice(0, 7)))];
+
+  // Extract valid months
+  const monthLabels = [...new Set(data.map(p => (p.date || "").slice(0, 7)).filter(Boolean))];
   const countMap = {};
 
   monthLabels.forEach(month => {
-    countMap[month] = data.filter(p => p.date.startsWith(month)).length;
+    countMap[month] = data.filter(p => (p.date || "").startsWith(month)).length;
   });
 
-  new Chart(ctx, {
+  // Destroy previous chart instance if exists
+  if (window.proposalsAcceptedChart) {
+    window.proposalsAcceptedChart.destroy();
+  }
+
+  // Create new chart
+  window.proposalsAcceptedChart = new Chart(ctx, {
     type: "line",
     data: {
       labels: Object.keys(countMap),
@@ -375,10 +216,8 @@ function renderProposalsAcceptedChart(data) {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false }
-      },
+      maintainAspectRatio: true,
+      plugins: { legend: { display: false } },
       scales: {
         y: { beginAtZero: true },
         x: {}
@@ -387,34 +226,30 @@ function renderProposalsAcceptedChart(data) {
   });
 }
 
+// Project Progression
 function loadProjectProgress(proposalId) {
-  fetch(`http://localhost:3000/api/progress/${proposalId}`)
+  fetch(`/api/progress/${proposalId}`)
     .then(res => res.json())
     .then(data => {
-      renderProgressTimeline(data);
-    })
-    .catch(err => console.error("Error loading project progress:", err));
-}
+      const container = document.getElementById("progressTimeline");
+      container.innerHTML = "";
 
-function renderProgressTimeline(data) {
-  const container = document.getElementById("progressTimeline");
-  container.innerHTML = "";
+      if (data.length === 0) {
+        container.innerHTML = "<p>No progress updates yet.</p>";
+        return;
+      }
 
-  if (data.length === 0) {
-    container.innerHTML = "<p>No progress updates found.</p>";
-    return;
-  }
-
-  data.forEach(item => {
-    const block = document.createElement("div");
-    block.className = "progress-item";
-    block.innerHTML = `
-      <h4>${item.stage} (${item.progress_percent}%)</h4>
-      <p>${item.description}</p>
-      <small>Updated: ${new Date(item.updated_at).toLocaleString()}</small>
-      <hr>
-    `;
-    container.appendChild(block);
-  });
-}
+      data.forEach(item => {
+        const block = document.createElement("div");
+        block.className = "progress-item";
+        block.innerHTML = `
+          <h4>${item.stage} (${item.progress_percent}%)</h4>
+          <p>${item.description}</p>
+          <small>${new Date(item.updated_at).toLocaleString()}</small>
+          <hr>
+        `;
+        container.appendChild(block);
+      });
+    });
+}}
 

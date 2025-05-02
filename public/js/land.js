@@ -1,5 +1,7 @@
 const params = new URLSearchParams(window.location.search);
 const landId = params.get("id");
+console.log("✅ land.js is loaded");
+console.log("🆔 Loaded land ID:", landId);
 
 async function loadLand() {
   try {
@@ -67,5 +69,6 @@ document.getElementById("landDescription").insertAdjacentElement("afterend", own
     console.error("Fetch error:", err);
   }
 }
-
-window.addEventListener("DOMContentLoaded", loadLand);
+document.addEventListener("DOMContentLoaded", () => {
+  loadLand();
+});
