@@ -42,14 +42,14 @@ async function startRecording() {
       }
     } catch (error) {
       document.getElementById("loader").classList.add("hidden");
-      document.getElementById("status").innerText = "❌ Something went wrong. Please try again.";
+      document.getElementById("status").innerText = " Something went wrong. Please try again.";
       document.getElementById("aiResponse").innerText = "";
       console.error("Voice error:", error);
     }
   };
 
   mediaRecorder.start();
-  document.getElementById("status").innerText = "🎙️ Recording...";
+  document.getElementById("status").innerText = " Recording...";
 }
 
 function stopRecording() {
@@ -79,13 +79,13 @@ async function sendTypedQuestion() {
 
     if (data.message) {
       document.getElementById("aiResponse").innerText = data.message;
-      document.getElementById("status").innerText = "✅ Answer ready";
+      document.getElementById("status").innerText = "Answer ready";
     } else {
       throw new Error("No message received.");
     }
   } catch (error) {
     document.getElementById("loader").classList.add("hidden");
-    document.getElementById("status").innerText = "❌ Error answering your question.";
+    document.getElementById("status").innerText = " Error answering your question.";
     console.error("Typed question error:", error);
   }
 }

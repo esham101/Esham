@@ -107,7 +107,7 @@ function loadProposals() {
       renderProposalsSentChart(sent);
       renderProposalsAcceptedChart(accepted);
 
-      if (accepted.length > 0) loadProjectProgress(accepted[0].id);
+      
     })
     .catch(err => console.error("Error loading proposals:", err));
 }
@@ -119,7 +119,6 @@ function loadProposalManagement() {
       const table = document.getElementById("proposalManagementData");
       table.innerHTML = "";
 
-      // ✅ FIXED: only show proposals with 'Countered' status
       const counterProposals = data.filter(p =>
         p.revenue_split && p.status === "Countered"
       );
@@ -137,27 +136,31 @@ function loadProposalManagement() {
           <td>${p.revenue_split}</td>
           <td>${p.status}</td>
           <td>
-            <button class="btn-accept" data-id="${p.proposal_id}">Accept</button>
-            <button class="btn-reject" data-id="${p.proposal_id}">Reject</button>
+            <button class="btn-accept-counter" data-id="${p.proposal_id}">Accept</button>
+            <button class="btn-reject-counter" data-id="${p.proposal_id}">Reject</button>
           </td>
         `;
         table.appendChild(row);
       });
 
-      document.querySelectorAll(".btn-accept").forEach(btn =>
-        btn.addEventListener("click", (e) =>
-          handleAcceptCounter(e.target.dataset.id)
-        )
+      // Use class-specific selectors for safety
+      document.querySelectorAll(".btn-accept-counter").forEach(btn =>
+        btn.addEventListener("click", function () {
+          const id = this.dataset.id;
+          handleAcceptCounter(id, this);
+        })
       );
 
-      document.querySelectorAll(".btn-reject").forEach(btn =>
-        btn.addEventListener("click", (e) =>
-          handleRejectCounter(e.target.dataset.id)
-        )
+      document.querySelectorAll(".btn-reject-counter").forEach(btn =>
+        btn.addEventListener("click", function () {
+          const id = this.dataset.id;
+          handleRejectCounter(id, this);
+        })
       );
     })
     .catch(err => console.error("Proposal fetch error:", err));
 }
+
 
 
 
@@ -172,7 +175,7 @@ function populateTable(data, tableId) {
     const counter = item.counter_split ? `<br><strong>Counter:</strong> ${item.counter_split}` : "";
 
     const action = item.counter_split && item.status === "Pending"
-      ? `<button class="btn-accept-counter" data-id="${item.id}">Accept Counter</button>`
+      ? `<button class="btn-accept-counter" data-id="${item.proposal_id}">Accept Counter</button>`
       : "";
 
     tableBody.innerHTML += `
@@ -183,15 +186,23 @@ function populateTable(data, tableId) {
       </tr>`;
   });
 
-  // Add accept counter button listener
+  // ✅ Bind event listeners only to the newly inserted buttons
   document.querySelectorAll(".btn-accept-counter").forEach(btn =>
-    btn.addEventListener("click", handleAcceptCounter)
+    btn.addEventListener("click", function () {
+      const proposalId = this.dataset.id;
+      handleAcceptCounter(proposalId, this);
+    })
   );
 }
 
-function handleAcceptCounter(event) {
-  const proposalId = event.target.dataset.id;
-  event.target.disabled = true; // Disable immediately
+
+function handleAcceptCounter(proposalId, button) {
+  if (!proposalId || !button) {
+    console.error("Missing proposalId or button element.");
+    return;
+  }
+
+  button.disabled = true;
 
   fetch(`/api/proposals/${proposalId}/accept-counter`, {
     method: "PUT"
@@ -203,13 +214,18 @@ function handleAcceptCounter(event) {
     })
     .catch(err => {
       console.error("Error accepting counter offer:", err);
-      event.target.disabled = false; // Re-enable if error
+      button.disabled = false; // Re-enable if error
     });
 }
 
-function handleRejectCounter(event) {
-  const proposalId = event.target.dataset.id;
-  event.target.disabled = true;
+
+function handleRejectCounter(proposalId, button) {
+  if (!proposalId || !button) {
+    console.error("Missing proposalId or button element.");
+    return;
+  }
+
+  button.disabled = true;
 
   fetch(`/api/proposals/${proposalId}/reject-counter`, {
     method: "PUT"
@@ -222,28 +238,34 @@ function handleRejectCounter(event) {
     })
     .catch(err => {
       console.error("Error rejecting counter offer:", err);
-      event.target.disabled = false;
+      button.disabled = false;
     });
 }
 
+
+
+let sentChartInstance = null;
 
 function renderProposalsSentChart(data) {
   const ctx = document.getElementById("proposalsSentChart")?.getContext("2d");
   if (!ctx) return;
 
-  // Safely get month from submitted_at
+  // Destroy existing chart instance if it exists
+  if (sentChartInstance) {
+    sentChartInstance.destroy();
+  }
+
   const validDates = data
     .filter(p => p.submitted_at)
-    .map(p => new Date(p.submitted_at).toISOString().slice(0, 7)); // "YYYY-MM"
+    .map(p => new Date(p.submitted_at).toISOString().slice(0, 7));
 
   const monthLabels = [...new Set(validDates)];
   const countMap = {};
-
   monthLabels.forEach(month => {
     countMap[month] = validDates.filter(d => d.startsWith(month)).length;
   });
 
-  new Chart(ctx, {
+  sentChartInstance = new Chart(ctx, {
     type: "line",
     data: {
       labels: Object.keys(countMap),
@@ -268,9 +290,16 @@ function renderProposalsSentChart(data) {
   });
 }
 
+let acceptedChartInstance = null;
+
 function renderProposalsAcceptedChart(data) {
   const ctx = document.getElementById("proposalsAcceptedChart")?.getContext("2d");
   if (!ctx) return;
+
+  // Destroy existing chart instance if it exists
+  if (acceptedChartInstance) {
+    acceptedChartInstance.destroy();
+  }
 
   const validDates = data
     .filter(p => p.submitted_at)
@@ -278,12 +307,11 @@ function renderProposalsAcceptedChart(data) {
 
   const monthLabels = [...new Set(validDates)];
   const countMap = {};
-
   monthLabels.forEach(month => {
     countMap[month] = validDates.filter(d => d.startsWith(month)).length;
   });
 
-  new Chart(ctx, {
+  acceptedChartInstance = new Chart(ctx, {
     type: "line",
     data: {
       labels: Object.keys(countMap),
@@ -309,32 +337,7 @@ function renderProposalsAcceptedChart(data) {
 }
 
 
-// Developer-side project progress tracking
-function loadProjectProgress(proposalId) {
-  fetch(`/api/progress/${proposalId}`)
-    .then(res => res.json())
-    .then(data => {
-      const container = document.getElementById("progressTimeline");
-      container.innerHTML = "";
 
-      if (data.length === 0) {
-        container.innerHTML = "<p>No project progress available.</p>";
-        return;
-      }
-
-      data.forEach(item => {
-        const block = document.createElement("div");
-        block.className = "progress-item";
-        block.innerHTML = `
-          <h4>${item.stage} (${item.progress_percent}%)</h4>
-          <p>${item.description}</p>
-          <small>${new Date(item.updated_at).toLocaleString()}</small>
-          <hr>
-        `;
-        container.appendChild(block);
-      });
-    });
-}
 
 
 function logout() {
