@@ -12,10 +12,10 @@ document.addEventListener("DOMContentLoaded", function () {
           ? "/Dashboard-Land-Owner.html"
           : "/Dashboard-Real-estate.html";
 
-        nav.innerHTML = `
+          nav.innerHTML = `
           <li class="nav-user">
             <button class="nav-user-btn" onclick="toggleUserMenu()">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" stroke-linejoin="round" stroke-linecap="round" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                 <circle cx="12" cy="7" r="4"></circle>
                 <path d="M5.5 21a9 9 0 0 1 13 0"></path>
               </svg>
@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
           </li>
         `;
+        
       }
     });
 });

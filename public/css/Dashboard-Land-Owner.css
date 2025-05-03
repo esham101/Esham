@@ -414,3 +414,13 @@ tbody tr:hover .more-link {
 .btn-counter:hover {
   background-color: #949494;
 }
+.btn-show {
+  background-color: #215321;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-top: 4px;
+}

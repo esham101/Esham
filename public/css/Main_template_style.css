@@ -332,3 +332,6 @@ nav {
 .ai-link:hover {
   text-decoration: underline;
 }
+.nav-right .login button {
+  font-weight: bold;
+}

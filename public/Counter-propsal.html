@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Esham</title>
-    <link rel="stylesheet" href="css/Main_template_style.css">
-    <link rel="stylesheet" href="css/Committee.css">
+    <link rel="stylesheet" href="css/Counter-Proposal.css">
+    <script src="js/Counter-Proposal.js" defer></script>
+
     <script src="js/sessionNavbar.js" defer></script>
+
 </head>
 <body>
     <header>
@@ -28,17 +30,75 @@
             </ul>
         </nav>
     </header>
-
-    <main>
-        <main>
-            <div class="construction-container">
-                <h1>We're Working on Something Great!</h1>
-                <p>Our website is currently under construction. We are working hard to bring you an amazing experience.</p>
-                <img src="images\Construction.jpg" alt="Under Construction">
-                <p>Stay tuned for updates. If you have any inquiries, feel free to <a href="contact.html">contact us</a>.</p>
-            </div>
+<main>
+    <section class="proposal-form-section">
+        <h1>Submit Your Development Proposal</h1>
+        <form id="proposalForm">
+            <!-- Hidden IDs -->
+            <input type="hidden" id="proposalId" name="proposal_id" />
+            <input type="hidden" id="landId" name="land_id" />
+            <input type="hidden" id="landownerId" name="landowner_id" />
+          
+            <!-- Read-only Fields -->
+            <label>Title</label>
+            <input type="text" id="title" readonly />
+          
+            <label>Description</label>
+            <textarea id="description" readonly></textarea>
+          
+            <label>Objectives</label>
+            <textarea id="objectives" readonly></textarea>
+          
+            <label>Budget</label>
+            <input type="number" id="budget" readonly />
+          
+            <label>Start Date</label>
+            <input type="date" id="startDate" readonly />
+          
+            <label>Duration</label>
+            <input type="number" id="durationValue" readonly />
+            <input type="text" id="durationUnit" readonly />
+          
+            <label>Email</label>
+            <input type="email" id="email" readonly />
+          
+            <label>Contact Time</label>
+            <input type="text" id="startTime" readonly />
+            <input type="text" id="endTime" readonly />
+          
+            <!-- Editable Fields -->
+            <label>Percentage of Revenue to Each Party *</label>
+            <input type="text" id="revenueSplit" required />
+          
+            <label>Payment Frequency *</label>
+            <select id="paymentFreq" required>
+              <option value="">Select</option>
+              <option value="Monthly">Monthly</option>
+              <option value="Quarterly">Quarterly</option>
+              <option value="Annually">Annually</option>
+            </select>
+          
+            <label>Revenue Type *</label>
+            <select id="revenueType" required>
+              <option value="">Select</option>
+              <option value="Net">Net</option>
+              <option value="Gross">Gross</option>
+              <option value="After-deductions">After-deductions</option>
+            </select>
+          
+            <label>Reporting Requirements *</label>
+            <textarea id="reporting" required></textarea>
+          
+            <button type="submit">Submit Counter Proposal</button>
+          </form>
+          
+          
+        
+      </section>
         </main>
-    </main>
+  
+        
+    
 
     <footer class="footer">
       <div class="footer-container">

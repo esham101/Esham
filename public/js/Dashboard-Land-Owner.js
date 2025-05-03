@@ -136,6 +136,11 @@ function loadProposalManagement() {
       const table = document.getElementById("proposalManagementData");
       table.innerHTML = "";
 
+      if (data.length === 0) {
+        table.innerHTML = `<tr><td colspan="6" style="text-align:center;">No proposals available.</td></tr>`;
+        return;
+      }
+
       data.forEach(proposal => {
         const formattedDate = proposal.date
           ? new Date(proposal.date).toISOString().split("T")[0]
@@ -145,22 +150,24 @@ function loadProposalManagement() {
         row.innerHTML = `
           <td>${proposal.name || 'N/A'}</td>
           <td>${proposal.street || 'N/A'}</td>
-          <td>${proposal.title || 'Untitled'}</td>
+          <td>
+            ${proposal.title || 'Untitled'}
+            <br>
+            <button class="btn-show" onclick="viewProposal(${proposal.id})">Show Proposal</button>
+          </td>
           <td>${formattedDate}</td>
           <td>${proposal.status}</td>
           <td>
-  ${proposal.status === 'Pending' ? `
-    <button class="btn-accept" data-id="${proposal.id}">Accept</button>
-    <button class="btn-reject" data-id="${proposal.id}">Reject</button>
-  ` : ''}
-  <button class="btn-counter" data-id="${proposal.id}">Counter</button>
-</td>
-
+            ${proposal.status === 'Pending' ? `
+              <button class="btn-accept" data-id="${proposal.id}">Accept</button>
+              <button class="btn-reject" data-id="${proposal.id}">Reject</button>
+            ` : ''}
+            <button class="btn-counter" data-id="${proposal.id}">Counter</button>
+          </td>
         `;
         table.appendChild(row);
       });
 
-      // Add event listeners after rows are created
       document.querySelectorAll(".btn-accept").forEach(btn =>
         btn.addEventListener("click", handleAccept)
       );
@@ -173,6 +180,7 @@ function loadProposalManagement() {
     })
     .catch(err => console.error("Error loading proposal management data:", err));
 }
+
 
 
 // 🔽 Place the new functions RIGHT AFTER that
@@ -201,21 +209,20 @@ function handleReject(event) {
 
 function handleCounter(event) {
   const proposalId = event.target.dataset.id;
-  const counterAmount = prompt("Enter your counter offer amount:");
-  if (!counterAmount) return;
+  if (!proposalId) {
+    alert("Proposal ID missing.");
+    return;
+  }
 
-  fetch(`/api/proposals/${proposalId}/counter`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ counter_offer: counterAmount }),
-  })
-    .then(res => res.json())
-    .then(() => {
-      alert("Counter offer submitted.");
-      loadProposalManagement();
-    })
-    .catch(err => console.error("Error submitting counter offer:", err));
+  // Redirect to the correctly named HTML file
+  window.location.href = `Counter-propsal.html?proposal_id=${proposalId}`;
 }
+
+function viewProposal(proposalId) {
+  window.location.href = `View-Proposal.html?proposal_id=${proposalId}`;
+}
+
+
 
 
 
@@ -386,3 +393,6 @@ function renderProgressTimeline(data) {
   });
 }
 
+window.viewProposal = function(proposalId) {
+  window.location.href = `View-Proposal.html?proposal_id=${proposalId}`;
+};

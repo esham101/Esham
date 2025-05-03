@@ -438,6 +438,61 @@ app.get("/api/landowner/proposals", (req, res) => {
   });
 });
 
+app.post("/api/landowner/counter-proposal", (req, res) => {
+  if (!req.session.user || req.session.user.role !== "landowner") {
+    return res.status(403).json({ message: "Unauthorized" });
+  }
+
+  const {
+    proposal_id,
+    land_id,
+    landowner_id,
+    revenue_split,
+    payment_freq,
+    revenue_type,
+    reporting
+  } = req.body;
+
+  const sql = `
+  UPDATE proposals
+  SET status = 'Countered',
+      revenue_split = ?,
+      payment_freq = ?,
+      revenue_type = ?,
+      reporting = ?,
+      submitted_at = NOW()
+  WHERE proposal_id = ? AND landowner_id = ? AND land_id = ?
+`;
+
+  db.query(sql, [
+    revenue_split, payment_freq, revenue_type, reporting,
+    proposal_id, landowner_id, land_id
+  ], (err) => {
+    if (err) {
+      console.error("❌ Error updating proposal with counter offer:", err);
+      return res.status(500).json({ message: "Database update failed" });
+    }
+    res.json({ message: "Counter proposal submitted successfully" });
+  });
+});
+
+app.get('/api/proposals/:id', (req, res) => {
+  const proposalId = req.params.id;
+  const query = 'SELECT * FROM proposals WHERE proposal_id = ?';
+
+  db.query(query, [proposalId], (err, results) => {
+    if (err) {
+      console.error('Error fetching proposal by ID:', err);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'Proposal not found' });
+    }
+
+    res.json(results[0]);
+  });
+});
 
 
 app.get("/api/realestate/proposals/accepted", (req, res) => {
@@ -918,17 +973,43 @@ app.put("/api/proposals/:id/reject", (req, res) => {
 // Counter Offer
 app.put("/api/proposals/:id/counter", (req, res) => {
   const proposalId = req.params.id;
-  const { counter_offer } = req.body;
-  db.query(
-    "UPDATE proposals SET counter_offer = ?, status = 'Countered' WHERE proposal_id = ?",
-    [counter_offer, proposalId],
-    (err) => {
-      if (err) return res.status(500).json({ error: "Failed to send counter offer" });
-      res.json({ success: true });
+
+  db.query(`
+    UPDATE proposals
+    SET status = 'Countered',
+        counter_offer = NULL
+    WHERE proposal_id = ?
+
+  `, [proposalId], (err, result) => {
+    if (err) {
+      console.error("Error updating proposal counter_offer:", err);
+      return res.status(500).json({ message: "Update failed" });
     }
-  );
+    res.json({ message: "Counter offer updated" });
+  });
 });
 
+// Accept counter proposal
+app.put("/api/proposals/:id/accept-counter", (req, res) => {
+  const proposalId = req.params.id;
+  const sql = `UPDATE proposals SET status = 'Accepted' WHERE proposal_id = ?`;
+
+  db.query(sql, [proposalId], (err, result) => {
+    if (err) return res.status(500).json({ message: "Error updating proposal" });
+    res.json({ message: "Counter offer accepted." });
+  });
+});
+
+// Reject counter proposal
+app.put("/api/proposals/:id/reject-counter", (req, res) => {
+  const proposalId = req.params.id;
+  const sql = `UPDATE proposals SET status = 'Rejected' WHERE proposal_id = ?`;
+
+  db.query(sql, [proposalId], (err, result) => {
+    if (err) return res.status(500).json({ message: "Error updating proposal" });
+    res.json({ message: "Counter offer rejected." });
+  });
+});
 
 
 app.listen(3000, () => {

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Proposal</title>
+  <link rel="stylesheet" href="css/Main_template_style.css">
+  <link rel="stylesheet" href="css/Counter-Proposal.css">
+  <script src="js/View-Proposal.js" defer></script>
+  <script src="js/sessionNavbar.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+          <div class="nav-container">
+            <!-- Logo + Links -->
+            <div class="nav-left">
+              <div class="logo">
+                <img src="images/logonav.jpg" alt="Esham Logo" />
+              </div>
+              <ul class="nav-links">
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="Helper.html">Musahem</a></li>
+                <li><a href="Who.html">Who are we?</a></li>
+                <li><a href="FAQ.html">FAQ</a></li>
+                <li><a href="Contact.html">Contact Us</a></li>
+              </ul>
+            </div>
+        
+            <!-- Right side: login/register OR profile icon -->
+            <ul class="nav-right" id="nav-right">
+              <li class="login">
+                <button onclick="window.location.href='Registeration.html'">Sign in</button>
+            </ul>
+          </div>
+        </nav>
+        
+      </header>
+
+  <main>
+    <section class="proposal-form-section">
+      <h1>Proposal Details</h1>
+      <form id="viewProposalForm">
+        <label>Title</label>
+        <input type="text" id="title" readonly />
+      
+        <label>Description</label>
+        <textarea id="description" readonly></textarea>
+      
+        <label>Objectives</label>
+        <textarea id="objectives" readonly></textarea>
+      
+        <label>Budget</label>
+        <input type="number" id="budget" readonly />
+      
+        <label>Start Date</label>
+        <input type="date" id="startDate" readonly />
+      
+        <label>Duration</label>
+        <input type="number" id="durationValue" readonly />
+        <input type="text" id="durationUnit" readonly />
+      
+        <label>Email</label>
+        <input type="email" id="email" readonly />
+      
+        <label>Contact Time</label>
+        <input type="text" id="startTime" readonly />
+        <input type="text" id="endTime" readonly />
+      
+        <label>Revenue Split</label>
+        <input type="text" id="revenueSplit" readonly />
+      
+        <label>Payment Frequency</label>
+        <input type="text" id="paymentFreq" readonly />
+      
+        <label>Revenue Type</label>
+        <input type="text" id="revenueType" readonly />
+      
+        <label>Reporting Requirements</label>
+        <textarea id="reporting" readonly></textarea>
+      </form>
+      
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-column">
+        <div class="footer-logo">
+          <img src="images/logo.jpg" alt="Esham Logo" />
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3 class="footer-title">Esham</h3>
+        <ul class="footer-links">
+          <li><a href="Musahem.html">Musahem</a></li>
+          <li><a href="Join.html">Join Our Team</a></li>
+          <li><a href="Terms.html">Terms and Conditions</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3 class="footer-title">Product</h3>
+        <ul class="footer-links">
+          <li><a href="Help.html">Help Center</a></li>
+          <li><a href="FAQ.html">FAQs</a></li>
+          <li><a href="Privacy& Policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-column contact-info">
+        <h3 class="footer-title">Contact Number</h3>
+        <p class="contact-number"><a href="tel:01123456708">011 234 56708</a></p>
+        <p class="working-hours">
+          Official Working Hours<br />
+          Sunday to Thursday: 9:00 AM to 4:00 PM
+        </p>
+      </div>
+    </div>
+    <div class="footer-description">
+      <p>
+        Esham is an innovative and authorized digital platform that connects landowners with real estate developers through an integrated system designed to simplify and accelerate the development of real estate projects.
+      </p>
+      <p class="footer-disclaimer">
+        Disclaimer: Esham is not an investment website and does not offer any financing or direct investment services. All transactions are conducted directly between the parties according to the agreed terms.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

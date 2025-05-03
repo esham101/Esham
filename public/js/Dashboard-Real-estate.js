@@ -23,6 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         loadRevenue();
         loadProposals();
+        loadProposalManagement();
+
 
         const savedMode = localStorage.getItem("darkMode");
         if (savedMode === "enabled") {
@@ -110,15 +112,118 @@ function loadProposals() {
     .catch(err => console.error("Error loading proposals:", err));
 }
 
+function loadProposalManagement() {
+  fetch("/api/realestate/proposals")
+    .then(res => res.json())
+    .then(data => {
+      const table = document.getElementById("proposalManagementData");
+      table.innerHTML = "";
+
+      // ✅ FIXED: only show proposals with 'Countered' status
+      const counterProposals = data.filter(p =>
+        p.revenue_split && p.status === "Countered"
+      );
+
+      if (counterProposals.length === 0) {
+        table.innerHTML = `<tr><td colspan="5" style="text-align:center;">No counter proposals available.</td></tr>`;
+        return;
+      }
+
+      counterProposals.forEach(p => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${p.owner_name}</td>
+          <td>${p.title}</td>
+          <td>${p.revenue_split}</td>
+          <td>${p.status}</td>
+          <td>
+            <button class="btn-accept" data-id="${p.proposal_id}">Accept</button>
+            <button class="btn-reject" data-id="${p.proposal_id}">Reject</button>
+          </td>
+        `;
+        table.appendChild(row);
+      });
+
+      document.querySelectorAll(".btn-accept").forEach(btn =>
+        btn.addEventListener("click", (e) =>
+          handleAcceptCounter(e.target.dataset.id)
+        )
+      );
+
+      document.querySelectorAll(".btn-reject").forEach(btn =>
+        btn.addEventListener("click", (e) =>
+          handleRejectCounter(e.target.dataset.id)
+        )
+      );
+    })
+    .catch(err => console.error("Proposal fetch error:", err));
+}
+
+
+
 
 function populateTable(data, tableId) {
   const tableBody = document.getElementById(tableId);
   tableBody.innerHTML = "";
+
   data.forEach(item => {
     const name = item.owner_name || "N/A";
     const date = item.submitted_at ? new Date(item.submitted_at).toISOString().split("T")[0] : "N/A";
-    tableBody.innerHTML += `<tr><td>${name}</td><td>${date}</td><td>${item.status}</td></tr>`;
+    const counter = item.counter_split ? `<br><strong>Counter:</strong> ${item.counter_split}` : "";
+
+    const action = item.counter_split && item.status === "Pending"
+      ? `<button class="btn-accept-counter" data-id="${item.id}">Accept Counter</button>`
+      : "";
+
+    tableBody.innerHTML += `
+      <tr>
+        <td>${name}</td>
+        <td>${date}</td>
+        <td>${item.status}${counter}<br>${action}</td>
+      </tr>`;
   });
+
+  // Add accept counter button listener
+  document.querySelectorAll(".btn-accept-counter").forEach(btn =>
+    btn.addEventListener("click", handleAcceptCounter)
+  );
+}
+
+function handleAcceptCounter(event) {
+  const proposalId = event.target.dataset.id;
+  event.target.disabled = true; // Disable immediately
+
+  fetch(`/api/proposals/${proposalId}/accept-counter`, {
+    method: "PUT"
+  })
+    .then(res => res.json())
+    .then(() => {
+      alert("Counter offer accepted.");
+      loadProposals(); // Refresh view
+    })
+    .catch(err => {
+      console.error("Error accepting counter offer:", err);
+      event.target.disabled = false; // Re-enable if error
+    });
+}
+
+function handleRejectCounter(event) {
+  const proposalId = event.target.dataset.id;
+  event.target.disabled = true;
+
+  fetch(`/api/proposals/${proposalId}/reject-counter`, {
+    method: "PUT"
+  })
+    .then(res => res.json())
+    .then(() => {
+      alert("Counter proposal rejected.");
+      loadProposalManagement();
+      loadProposals();
+    })
+    .catch(err => {
+      console.error("Error rejecting counter offer:", err);
+      event.target.disabled = false;
+    });
 }
 
 
@@ -230,3 +335,4 @@ function loadProjectProgress(proposalId) {
       });
     });
 }
+
