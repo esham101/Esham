@@ -336,3 +336,13 @@ function loadProjectProgress(proposalId) {
     });
 }
 
+
+function logout() {
+  fetch('/logout', { method: 'POST' }) // or 'GET' if your backend uses that
+    .then(() => {
+      window.location.href = '/Home.html'; // Redirect to Home after logging out
+    })
+    .catch(err => {
+      console.error('Logout failed:', err);
+    });
+}
