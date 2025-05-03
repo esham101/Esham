@@ -1,8 +1,6 @@
 let userId;
 let currentUser;
 
-import { dummyProposals } from './data.js';
-
 const toggleButton = document.getElementById('toggle-btn');
 const sidebar = document.getElementById('sidebar');
 
@@ -44,7 +42,8 @@ function updateWelcomeMessage(name) {
 
 // Load Revenue (specific to developer's portfolio)
 function loadRevenue() {
-  fetch("/api/developer/revenue")
+  fetch("/api/realestate/revenue")
+
     .then(res => res.json())
     .then(data => {
       populateRevenueTable(data);
@@ -93,7 +92,8 @@ function renderRevenueChart(data) {
 
 // 🔵 Proposals
 function loadProposals() {
-  fetch("http://localhost:3000/api/landowner/proposals")
+  fetch("/api/realestate/proposals")
+
     .then(res => res.json())
     .then(data => {
       const sent = data.filter(p => p.status === 'Pending' || p.status === 'Rejected');
@@ -115,20 +115,30 @@ function populateTable(data, tableId) {
   const tableBody = document.getElementById(tableId);
   tableBody.innerHTML = "";
   data.forEach(item => {
-    tableBody.innerHTML += `<tr><td>${item.name}</td><td>${item.date}</td><td>${item.status}</td></tr>`;
+    const name = item.owner_name || "N/A";
+    const date = item.submitted_at ? new Date(item.submitted_at).toISOString().split("T")[0] : "N/A";
+    tableBody.innerHTML += `<tr><td>${name}</td><td>${date}</td><td>${item.status}</td></tr>`;
   });
 }
 
+
 function renderProposalsSentChart(data) {
-  const ctx = document.getElementById("proposalsSentChart").getContext("2d");
-  const monthLabels = [...new Set(data.map(p => p.date.slice(0, 7)))];
+  const ctx = document.getElementById("proposalsSentChart")?.getContext("2d");
+  if (!ctx) return;
+
+  // Safely get month from submitted_at
+  const validDates = data
+    .filter(p => p.submitted_at)
+    .map(p => new Date(p.submitted_at).toISOString().slice(0, 7)); // "YYYY-MM"
+
+  const monthLabels = [...new Set(validDates)];
   const countMap = {};
 
   monthLabels.forEach(month => {
-    countMap[month] = data.filter(p => p.date.startsWith(month)).length;
+    countMap[month] = validDates.filter(d => d.startsWith(month)).length;
   });
 
-  window.proposalsSentChart = new Chart(ctx, {
+  new Chart(ctx, {
     type: "line",
     data: {
       labels: Object.keys(countMap),
@@ -145,21 +155,30 @@ function renderProposalsSentChart(data) {
       responsive: true,
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
-      scales: { y: { beginAtZero: true }, x: {} }
+      scales: {
+        y: { beginAtZero: true },
+        x: { ticks: { autoSkip: true, maxRotation: 0 } }
+      }
     }
   });
 }
 
 function renderProposalsAcceptedChart(data) {
-  const ctx = document.getElementById("proposalsAcceptedChart").getContext("2d");
-  const monthLabels = [...new Set(data.map(p => p.date.slice(0, 7)))];
+  const ctx = document.getElementById("proposalsAcceptedChart")?.getContext("2d");
+  if (!ctx) return;
+
+  const validDates = data
+    .filter(p => p.submitted_at)
+    .map(p => new Date(p.submitted_at).toISOString().slice(0, 7)); // "YYYY-MM"
+
+  const monthLabels = [...new Set(validDates)];
   const countMap = {};
 
   monthLabels.forEach(month => {
-    countMap[month] = data.filter(p => p.date.startsWith(month)).length;
+    countMap[month] = validDates.filter(d => d.startsWith(month)).length;
   });
 
-  window.proposalsAcceptedChart = new Chart(ctx, {
+  new Chart(ctx, {
     type: "line",
     data: {
       labels: Object.keys(countMap),
@@ -174,11 +193,16 @@ function renderProposalsAcceptedChart(data) {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: true,
-      plugins: { legend: { display: false } }
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true },
+        x: { ticks: { autoSkip: true, maxRotation: 0 } }
+      }
     }
   });
 }
+
 
 // Developer-side project progress tracking
 function loadProjectProgress(proposalId) {

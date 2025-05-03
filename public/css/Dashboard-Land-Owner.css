@@ -367,3 +367,50 @@ tbody tr:hover .more-link {
   color: black; /* keep black even on hover */
   text-decoration: underline; /* optional underline if you want */
 }
+.btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+
+.btn-accept,
+.btn-reject,
+.btn-counter {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: 500;
+  margin-right: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Accept = Green */
+.btn-accept {
+  background-color: #4CAF50;
+}
+.btn-accept:hover {
+  background-color: #45a049;
+}
+
+/* Reject = Red */
+.btn-reject {
+  background-color: #f44336;
+}
+.btn-reject:hover {
+  background-color: #e53935;
+}
+
+/* Counter = Orange */
+.btn-counter {
+  background-color: #949494;
+}
+.btn-counter:hover {
+  background-color: #949494;
+}

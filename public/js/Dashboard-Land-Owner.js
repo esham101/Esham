@@ -1,6 +1,6 @@
 let userId;
 let currentUser;
-let notifications = [];
+
 
 const toggleButton = document.getElementById('toggle-btn');
 const sidebar = document.getElementById('sidebar');
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         closeModal(); 
         loadUserProfile();
-        loadNotifications();
+        loadProposalManagement(); // after loadProposals
         loadProposals();
         loadLands(); 
         
@@ -100,13 +100,125 @@ function loadProposals() {
     .catch(err => console.error("Error loading proposals:", err));
 }
 
-function populateTable(data, tableId) {
+function populateTable(data, tableId, mode = "basic") {
   const tableBody = document.getElementById(tableId);
   tableBody.innerHTML = "";
+
   data.forEach(item => {
-    tableBody.innerHTML += `<tr><td>${item.name}</td><td>${item.date}</td><td>${item.status}</td></tr>`;
+    const date = item.date ? new Date(item.date).toISOString().split("T")[0] : "N/A";
+
+
+    if (mode === "management") {
+      tableBody.innerHTML += `
+        <tr>
+          <td>${item.developer_name || 'N/A'}</td>
+          <td>${item.street || 'N/A'}</td>
+          <td>${item.title}</td>
+          <td>${date}</td>
+          <td>${item.status}</td>
+        </tr>`;
+    } else {
+      tableBody.innerHTML += `
+        <tr>
+          <td>${item.name || item.developer_name || 'N/A'}</td>
+          <td>${date}</td>
+          <td>${item.status}</td>
+        </tr>`;
+    }
   });
 }
+
+// 🔽 After this function (in your existing code)
+function loadProposalManagement() {
+  fetch("http://localhost:3000/api/landowner/proposals")
+    .then(res => res.json())
+    .then(data => {
+      const table = document.getElementById("proposalManagementData");
+      table.innerHTML = "";
+
+      data.forEach(proposal => {
+        const formattedDate = proposal.date
+          ? new Date(proposal.date).toISOString().split("T")[0]
+          : "N/A";
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${proposal.name || 'N/A'}</td>
+          <td>${proposal.street || 'N/A'}</td>
+          <td>${proposal.title || 'Untitled'}</td>
+          <td>${formattedDate}</td>
+          <td>${proposal.status}</td>
+          <td>
+  ${proposal.status === 'Pending' ? `
+    <button class="btn-accept" data-id="${proposal.id}">Accept</button>
+    <button class="btn-reject" data-id="${proposal.id}">Reject</button>
+  ` : ''}
+  <button class="btn-counter" data-id="${proposal.id}">Counter</button>
+</td>
+
+        `;
+        table.appendChild(row);
+      });
+
+      // Add event listeners after rows are created
+      document.querySelectorAll(".btn-accept").forEach(btn =>
+        btn.addEventListener("click", handleAccept)
+      );
+      document.querySelectorAll(".btn-reject").forEach(btn =>
+        btn.addEventListener("click", handleReject)
+      );
+      document.querySelectorAll(".btn-counter").forEach(btn =>
+        btn.addEventListener("click", handleCounter)
+      );
+    })
+    .catch(err => console.error("Error loading proposal management data:", err));
+}
+
+
+// 🔽 Place the new functions RIGHT AFTER that
+function handleAccept(event) {
+  const proposalId = event.target.dataset.id;
+  fetch(`/api/proposals/${proposalId}/accept`, { method: "PUT" })
+    .then(res => res.json())
+    .then(() => {
+      alert("Proposal accepted!");
+      loadProposalManagement();
+      loadProposals(); 
+    })
+    .catch(err => console.error("Error accepting proposal:", err));
+}
+
+function handleReject(event) {
+  const proposalId = event.target.dataset.id;
+  fetch(`/api/proposals/${proposalId}/reject`, { method: "PUT" })
+    .then(res => res.json())
+    .then(() => {
+      alert("Proposal rejected.");
+      loadProposalManagement();
+    })
+    .catch(err => console.error("Error rejecting proposal:", err));
+}
+
+function handleCounter(event) {
+  const proposalId = event.target.dataset.id;
+  const counterAmount = prompt("Enter your counter offer amount:");
+  if (!counterAmount) return;
+
+  fetch(`/api/proposals/${proposalId}/counter`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ counter_offer: counterAmount }),
+  })
+    .then(res => res.json())
+    .then(() => {
+      alert("Counter offer submitted.");
+      loadProposalManagement();
+    })
+    .catch(err => console.error("Error submitting counter offer:", err));
+}
+
+
+
 
 function renderProposalsSentChart(data) {
   const ctx = document.getElementById("proposalsSentChart").getContext("2d");
@@ -202,10 +314,6 @@ function populateLandListingTable(data, tableId) {
 
 
 
-
-
-
-
 function renderRevenueChart(data) {
   const ctx = document.getElementById("revenueChart").getContext("2d");
   const labels = data.map(item => `Land #${item.land_id}`);
@@ -231,26 +339,6 @@ function renderRevenueChart(data) {
   });
 }
 
-// 🔵 Notifications
-function loadNotifications() {
-  fetch(`http://localhost:3000/api/notifications/${userId}`)
-    .then(res => res.json())
-    .then(data => {
-      notifications = data;
-      updateNotificationBadge();
-    });
-}
-
-function updateNotificationBadge() {
-  const badge = document.getElementById('notif-badge');
-  const count = notifications.length;
-  if (count > 0) {
-    badge.textContent = count;
-    badge.style.display = 'inline-block';
-  } else {
-    badge.style.display = 'none';
-  }
-}
 
 // 🔵 Modal
 function openModal(type) {
@@ -297,3 +385,4 @@ function renderProgressTimeline(data) {
     container.appendChild(block);
   });
 }
+

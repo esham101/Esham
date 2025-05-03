@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Esham</title>
     <link rel="stylesheet" href="css/Make_Proposal.css">
-    <script src="script.js" defer></script>
-    <script src="Make_Proposal.js" defer></script>
+    <script src="js/Make_Proposal.js" defer></script>
 
 </head>
 <body>
@@ -37,6 +36,10 @@
     <section class="proposal-form-section">
         <h1>Submit Your Development Proposal</h1>
         <form id="proposalForm">
+          <!-- Hidden IDs -->
+          <input type="hidden" id="landId" name="land_id" />
+          <input type="hidden" id="landownerId" name="landowner_id" />
+        
           <!-- Basic Info -->
           <section class="form-section">
             <h2 class="section-title">Basic Info</h2>
@@ -44,28 +47,32 @@
               <label for="title">Proposal Title <span class="required">*</span></label>
               <input type="text" id="title" name="title" required />
             </div>
+        
             <div class="form-group">
               <label for="detailedText">Proposal Description <span class="required">*</span></label>
-              <textarea id="detailedText" name="detailedText" rows="4" required></textarea>
+              <textarea id="detailedText" name="description" rows="4" required></textarea>
             </div>
+        
             <div class="form-group">
               <label for="objectives">Objectives / Vision <span class="required">*</span></label>
-              <small class="form-hint">Please describe the purpose and goals of your proposal.</small>
               <textarea id="objectives" name="objectives" rows="3" required></textarea>
             </div>
+        
             <div class="form-group">
               <label for="budget">Estimated Budget (SAR) <span class="required">*</span></label>
               <input type="number" id="budget" name="budget" min="0" required />
             </div>
+        
             <div class="form-group">
               <label for="startDate">Expected Start Date <span class="required">*</span></label>
-              <input type="date" id="startDate" name="startDate" required />
+              <input type="date" id="startDate" name="start_date" required />
             </div>
+        
             <div class="form-group">
               <label for="durationValue">Estimated Duration <span class="required">*</span></label>
               <div style="display: flex; gap: 10px;">
-                <input type="number" id="durationValue" name="durationValue" min="1" required />
-                <select id="durationUnit" name="durationUnit" required>
+                <input type="number" id="durationValue" name="duration_value" min="1" required />
+                <select id="durationUnit" name="duration_unit" required>
                   <option value="">Select unit</option>
                   <option value="Weeks">Weeks</option>
                   <option value="Months">Months</option>
@@ -74,38 +81,41 @@
               </div>
             </div>
           </section>
-    
-          <!-- Revenue Sharing Details -->
+        
+          <!-- Revenue Sharing -->
           <section class="form-section">
             <h2 class="section-title">Revenue Sharing Details</h2>
             <div class="form-group">
               <label for="revenueSplit">Percentage of Revenue to Each Party <span class="required">*</span></label>
-              <input type="text" id="revenueSplit" name="revenueSplit" placeholder="e.g., Landowner: 40%, Developer: 60%" required />
+              <input type="text" id="revenueSplit" name="revenue_split" placeholder="e.g., Landowner: 40%, Developer: 60%" required />
             </div>
+        
             <div class="form-group">
               <label for="paymentFreq">Payment Frequency <span class="required">*</span></label>
-              <select id="paymentFreq" name="paymentFreq" required>
+              <select id="paymentFreq" name="payment_freq" required>
                 <option value="">Select frequency</option>
                 <option value="Monthly">Monthly</option>
                 <option value="Quarterly">Quarterly</option>
                 <option value="Annually">Annually</option>
               </select>
             </div>
+        
             <div class="form-group">
               <label for="revenueType">Revenue Type <span class="required">*</span></label>
-              <select id="revenueType" name="revenueType" required>
+              <select id="revenueType" name="revenue_type" required>
                 <option value="">Select type</option>
                 <option value="Net">Net revenue</option>
                 <option value="Gross">Gross revenue</option>
                 <option value="After-deductions">After-tax or after-maintenance deductions</option>
               </select>
             </div>
+        
             <div class="form-group">
               <label for="reporting">Reporting Requirements <span class="required">*</span></label>
               <textarea id="reporting" name="reporting" rows="3" placeholder="Will the developer provide financial reports? Include any audit rights." required></textarea>
             </div>
           </section>
-    
+        
           <!-- Contact Preferences -->
           <section class="form-section">
             <h2 class="section-title">Contact Preferences</h2>
@@ -113,17 +123,18 @@
               <label for="email">Email <span class="required">*</span></label>
               <input type="email" id="email" name="email" required />
             </div>
+        
             <div class="form-group">
               <label>Best Time to Contact <span class="required">*</span></label>
               <div style="display: flex; gap: 10px;">
-                <select id="startTime" name="startTime" required>
+                <select id="startTime" name="contact_start_time" required>
                   <option value="">Start Time</option>
                   <option>08:00</option><option>09:00</option><option>10:00</option>
                   <option>11:00</option><option>12:00</option><option>13:00</option>
                   <option>14:00</option><option>15:00</option><option>16:00</option>
                   <option>17:00</option><option>18:00</option>
                 </select>
-                <select id="endTime" name="endTime" required>
+                <select id="endTime" name="contact_end_time" required>
                   <option value="">End Time</option>
                   <option>09:00</option><option>10:00</option><option>11:00</option>
                   <option>12:00</option><option>13:00</option><option>14:00</option>
@@ -132,6 +143,7 @@
                 </select>
               </div>
             </div>
+        
             <div class="form-group checkbox-group">
               <input type="checkbox" id="confirmInfo" required />
               <label for="confirmInfo">I confirm that all information is accurate.</label>
@@ -143,12 +155,14 @@
               </label>
             </div>
           </section>
-    
+        
+          <!-- Submit -->
           <div class="form-group">
             <button type="submit">Submit Proposal</button>
           </div>
           <p id="responseMessage"></p>
         </form>
+        
       </section>
         </main>
   

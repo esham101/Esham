@@ -398,19 +398,118 @@ app.get("/api/landowner/settings/:id", (req, res) => {
 
 // Landowner Proposals
 app.get("/api/landowner/proposals", (req, res) => {
-  res.json([
-    { name: "Landowner Company A", date: "2025-04-20", status: "Pending" },
-    { name: "Landowner Company B", date: "2025-04-22", status: "Accepted" }
-  ]);
+  if (!req.session.user || req.session.user.role !== "landowner") {
+    return res.status(403).json({ message: "Unauthorized" });
+  }
+
+  const landownerId = req.session.user.id;
+
+  const sql = `
+    SELECT 
+      proposals.proposal_id,
+      proposals.title,
+      proposals.submitted_at AS date,
+      proposals.status,
+      realestates.company_name AS developer_name,
+      lands.street_name
+    FROM proposals
+    JOIN realestates ON proposals.realestate_id = realestates.realestate_id
+    JOIN lands ON proposals.land_id = lands.land_id
+    WHERE proposals.landowner_id = ?
+    ORDER BY proposals.submitted_at DESC
+  `;
+
+  db.query(sql, [landownerId], (err, results) => {
+    if (err) {
+      console.error("MySQL error:", err);
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    const formatted = results.map(p => ({
+      id: p.proposal_id,
+      name: p.developer_name,
+      street: p.street_name,
+      title: p.title,
+      date: p.date ? new Date(p.date).toISOString().split("T")[0] : "N/A",
+      status: p.status
+    }));
+
+    res.json(formatted);
+  });
 });
+
+
+
+app.get("/api/realestate/proposals/accepted", (req, res) => {
+  if (!req.session.user || req.session.user.role !== "realestate") {
+    return res.status(403).json({ message: "Unauthorized" });
+  }
+
+  const realestateId = req.session.user.id;
+
+  const sql = `
+    SELECT 
+      proposals.title,
+      proposals.submitted_at AS date,
+      proposals.status,
+      landowners.name AS landowner_name
+    FROM proposals
+    JOIN landowners ON proposals.landowner_id = landowners.landowner_id
+    WHERE proposals.realestate_id = ? AND proposals.status = 'Accepted'
+    ORDER BY proposals.submitted_at DESC
+  `;
+
+  db.query(sql, [realestateId], (err, results) => {
+    if (err) {
+      console.error("Accepted proposals query error:", err);
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    const formatted = results.map(row => ({
+      name: row.landowner_name,
+      date: new Date(row.date).toISOString().split("T")[0],
+      status: row.status
+    }));
+
+    res.json(formatted);
+  });
+});
+
 
 // Landowner Revenue
 app.get("/api/landowner/revenue", (req, res) => {
-  res.json([
-    { project: "Landowner Land 1", date: "2025-04-21", revenue: 100000 },
-    { project: "Landowner Land 2", date: "2025-04-23", revenue: 200000 }
-  ]);
+  if (!req.session.user || req.session.user.role !== "landowner") {
+    return res.status(403).json({ message: "Unauthorized" });
+  }
+
+  const landownerId = req.session.user.id;
+
+  const sql = `
+    SELECT 
+      proposals.title AS project,
+      proposals.submitted_at AS date,
+      proposals.budget AS revenue
+    FROM proposals
+    WHERE landowner_id = ? AND status = 'Accepted'
+    ORDER BY proposals.submitted_at DESC
+  `;
+
+  db.query(sql, [landownerId], (err, results) => {
+    if (err) {
+      console.error("Revenue query error:", err);
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    const formatted = results.map(row => ({
+      project: row.project,
+      date: new Date(row.date).toISOString().split("T")[0],
+      revenue: row.revenue
+    }));
+
+    res.json(formatted);
+  });
 });
+
 
 // Landowner Properties
 app.get("/api/landowner/properties", (req, res) => {
@@ -650,25 +749,66 @@ If you are not 100% certain of the answer, respond:
 // =================== REAL ESTATE DEVELOPER ROLE DUMMY API ROUTES ===================
 // ✅ Developer Proposals
 app.get("/api/realestate/proposals", (req, res) => {
-  res.json([
-    { landowner: "Emaar", date: "2025-04-25", status: "Pending" },
-    { landowner: "Jabal Real Estate", date: "2025-04-23", status: "Accepted" },
-    { landowner: "Elite Builders", date: "2025-04-22", status: "Rejected" }
-  ]);
+  if (!req.session.user || req.session.user.role !== "realestate") {
+    return res.status(403).json({ message: "Unauthorized" });
+  }
+
+  const developerId = req.session.user.id;
+  const sql = `
+    SELECT proposals.*, lands.street_name, landowners.name AS owner_name
+    FROM proposals
+    JOIN lands ON proposals.land_id = lands.land_id
+    JOIN landowners ON proposals.landowner_id = landowners.landowner_id
+    WHERE proposals.realestate_id = ?
+    ORDER BY proposals.submitted_at DESC
+  `;
+
+  db.query(sql, [developerId], (err, results) => {
+    if (err) return res.status(500).json({ message: "Database error" });
+    res.json(results);
+  });
 });
 
+
 app.get("/api/realestate/revenue", (req, res) => {
-  res.json([
-    { project: "Tower A", date: "2025-04-10", revenue: 180000 },
-    { project: "Mall West", date: "2025-04-12", revenue: 300000 }
-  ]);
+  if (!req.session.user || req.session.user.role !== "realestate") {
+    return res.status(403).json({ message: "Unauthorized" });
+  }
+
+  const realestateId = req.session.user.id;
+
+  const sql = `
+    SELECT 
+      proposals.title AS project,
+      proposals.submitted_at AS date,
+      proposals.budget AS revenue
+    FROM proposals
+    WHERE realestate_id = ? AND status = 'Accepted'
+    ORDER BY proposals.submitted_at DESC
+  `;
+
+  db.query(sql, [realestateId], (err, results) => {
+    if (err) {
+      console.error("Revenue query error:", err);
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    const formatted = results.map(row => ({
+      project: row.project,
+      date: new Date(row.date).toISOString().split("T")[0],
+      revenue: row.revenue
+    }));
+
+    res.json(formatted);
+  });
 });
+
 
 
 app.post("/api/proposals", (req, res) => {
   const {
-    landowner_id,
     realestate_id,
+    land_id,
     title,
     description,
     objectives,
@@ -687,30 +827,108 @@ app.post("/api/proposals", (req, res) => {
     accepted_terms
   } = req.body;
 
-  const sql = `
+  // 🔍 Step 1: Get landowner_id using land_id
+  db.query("SELECT landowner_id FROM lands WHERE land_id = ?", [land_id], (err, results) => {
+    if (err) {
+      console.error("Error fetching landowner_id:", err);
+      return res.status(500).json({ message: "Database error (landowner lookup)" });
+    }
+
+    if (results.length === 0) {
+      return res.status(400).json({ message: "Invalid land_id — land not found" });
+    }
+
+    const landowner_id = results[0].landowner_id;
+
+    // ✅ Step 2: Proceed to insert the proposal
+    const sql = `
     INSERT INTO proposals (
-      landowner_id, realestate_id, title, description, objectives, budget,
-      start_date, duration_value, duration_unit, revenue_split,
+      landowner_id, realestate_id, land_id, title, description, objectives,
+      budget, start_date, duration_value, duration_unit, revenue_split,
       payment_freq, revenue_type, reporting, email,
-      contact_start_time, contact_end_time, confirmed_info, accepted_terms
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      contact_start_time, contact_end_time, confirmed_info, accepted_terms, status, submitted_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending', NOW())
   `;
+  
 
   const values = [
-    landowner_id, realestate_id, title, description, objectives, budget,
-    start_date, duration_value, duration_unit, revenue_split,
+    landowner_id, realestate_id, land_id, title, description, objectives,
+    budget, start_date, duration_value, duration_unit, revenue_split,
     payment_freq, revenue_type, reporting, email,
     contact_start_time, contact_end_time, confirmed_info, accepted_terms
   ];
+  
 
-  db.query(sql, values, (err, result) => {
-    if (err) {
-      console.error("Insert failed:", err);
-      return res.status(500).json({ message: "Submission failed" });
-    }
-    res.status(200).json({ message: "Proposal submitted successfully" });
+    db.query(sql, values, (err, result) => {
+      if (err) {
+        console.error("Insert failed:", err);
+        return res.status(500).json({ message: "Submission failed" });
+      }
+
+      res.status(200).json({ message: "Proposal submitted successfully" });
+    });
   });
 });
+
+
+app.get("/api/landowner/proposals", (req, res) => {
+  if (!req.session.user || req.session.user.role !== "landowner") {
+    return res.status(403).json({ message: "Unauthorized" });
+  }
+
+  const landownerId = req.session.user.id;
+
+  const sql = `
+    SELECT proposals.*, realestates.company_name AS developer_name, lands.street_name
+    FROM proposals
+    JOIN lands ON proposals.land_id = lands.land_id
+    JOIN realestates ON proposals.realestate_id = realestates.realestate_id
+    WHERE proposals.landowner_id = ?
+    ORDER BY proposals.submitted_at DESC
+  `;
+
+  db.query(sql, [landownerId], (err, results) => {
+    if (err) {
+      console.error("MySQL error:", err);
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    res.json(results);
+  });
+});
+
+// Accept Proposal
+app.put("/api/proposals/:id/accept", (req, res) => {
+  const proposalId = req.params.id;
+  db.query("UPDATE proposals SET status = 'Accepted' WHERE proposal_id = ?", [proposalId], (err) => {
+    if (err) return res.status(500).json({ error: "Failed to accept proposal" });
+    res.json({ success: true });
+  });
+});
+
+// Reject Proposal
+app.put("/api/proposals/:id/reject", (req, res) => {
+  const proposalId = req.params.id;
+  db.query("UPDATE proposals SET status = 'Rejected' WHERE proposal_id = ?", [proposalId], (err) => {
+    if (err) return res.status(500).json({ error: "Failed to reject proposal" });
+    res.json({ success: true });
+  });
+});
+
+// Counter Offer
+app.put("/api/proposals/:id/counter", (req, res) => {
+  const proposalId = req.params.id;
+  const { counter_offer } = req.body;
+  db.query(
+    "UPDATE proposals SET counter_offer = ?, status = 'Countered' WHERE proposal_id = ?",
+    [counter_offer, proposalId],
+    (err) => {
+      if (err) return res.status(500).json({ error: "Failed to send counter offer" });
+      res.json({ success: true });
+    }
+  );
+});
+
 
 
 app.listen(3000, () => {

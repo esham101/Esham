@@ -43,7 +43,9 @@ function renderLands(lands) {
 
   <div class="proposal-actions">
     <a href="land-Realestate.html?id=${land.land_id}" class="view-link">View</a>
-    <a href="MakeProposal.html?id=${land.land_id}" class="view-link">Make A Proposal</a>
+    <a href="MakeProposal.html?land_id=${land.land_id}&landowner_id=${land.landowner_id}" class="view-link">Make A Proposal</a>
+
+
   </div>
 </div>
 
