@@ -55,36 +55,48 @@ app.post("/register/landowner", (req, res) => {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-      return res.redirect("/register?error=Invalid email format");
+    return res.redirect("/register?error=Invalid email format");
   }
-  // 🔥 أضف هذا السطر: نجهز الرقم مع +966 قبل نرسله للداتا بيز
-  phone = '+966' + phone;
-  db.query("SELECT * FROM landowners WHERE email = ?", [email], (err, results) => {
-      if (err) {
-  console.error("MySQL Error:", err); // اطبع الخطأ الحقيقي في الكونسول
-  return res.send("Database error!");
-}
 
-      if (results.length > 0) {
-          return res.redirect("/register?error=Email already exists");
+  phone = '+966' + phone;
+
+  db.query("SELECT * FROM landowners WHERE email = ?", [email], (err, results) => {
+    if (err) {
+      console.error("MySQL Error:", err);
+      return res.send("Database error!");
+    }
+
+    if (results.length > 0) {
+      console.log("Email already exists:", email);
+      return res.redirect("/register?error=Email already exists");
+    }
+
+    // ✅ Email does not exist — continue to hash and insert
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+      if (err) {
+        console.error("Error encrypting password:", err);
+        return res.send("Error encrypting password");
       }
 
-      bcrypt.hash(password, saltRounds, (err, hash) => {
-          if (err) return res.send("Error encrypting password");
+      console.log("Hashed Landowner Password:", hash);
 
-          console.log("Hashed Landowner Password:", hash);
+      const insertSql = `
+        INSERT INTO landowners (name, id_number, phone, email, password)
+        VALUES (?, ?, ?, ?, ?)
+      `;
 
-          const insertSql = `
-              INSERT INTO landowners (name, id_number, phone, email, password)
-              VALUES (?, ?, ?, ?, ?)
-          `;
-          db.query(insertSql, [fullname, idnumber, phone, email, hash], (err, result) => {
-              if (err) return res.send("Error registering user");
-              res.redirect("/");
-          });
+      db.query(insertSql, [fullname, idnumber, phone, email, hash], (err, result) => {
+        if (err) {
+          console.error("Error registering user:", err);
+          return res.send("Error registering user");
+        }
+
+        res.redirect("/");
       });
+    });
   });
 });
+
 
 
 app.post("/register/realestate", (req, res) => {
@@ -1010,6 +1022,28 @@ app.put("/api/proposals/:id/reject-counter", (req, res) => {
     res.json({ message: "Counter offer rejected." });
   });
 });
+
+
+// Contact Us route
+app.post("/contact", (req, res) => {
+  const { FirstName, LastName, Email, PhoneNumber, Message } = req.body;
+
+  const sql = `
+    INSERT INTO contact_messages (first_name, last_name, email, phone, message)
+    VALUES (?, ?, ?, ?, ?)
+  `;
+
+  db.query(sql, [FirstName, LastName, Email, PhoneNumber, Message], (err) => {
+    if (err) {
+      console.error("❌ Error saving contact message:", err);
+      return res.status(500).json({ success: false, message: "Database error" });
+    }
+    res.json({ success: true, message: "Message received successfully!" });
+  });
+});
+
+
+
 
 
 app.listen(3000, () => {

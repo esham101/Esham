@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
         currentUser = data.user;
         updateWelcomeMessage(currentUser.name);
 
-        closeModal(); 
         loadUserProfile();
         loadProposalManagement(); // after loadProposals
         loadProposals();
@@ -63,8 +62,8 @@ function closeAllSubMenus() {
 
 // 🔵 Dashboard sections
 function updateWelcomeMessage(name) {
-  const welcomeTitle = document.getElementById("welcomeTitle");
-  if (welcomeTitle) welcomeTitle.innerHTML = `Welcome ${name}! 👋`;
+  const welcome = document.querySelector(".welcome-title");
+  if (welcome) welcome.textContent = `Welcome ${name}! 👋`;
 }
 
 function loadUserProfile() {
@@ -346,22 +345,6 @@ function renderRevenueChart(data) {
   });
 }
 
-
-// 🔵 Modal
-function openModal(type) {
-  const modal = document.getElementById("modal");
-  const body = document.getElementById("modal-body");
-  modal.style.display = "flex";
-
-  if (type === 'profile') {
-    body.innerHTML = `<p>Edit Profile (to be implemented)</p>`;
-  }
-}
-
-function closeModal() {
-  document.getElementById("modal").style.display = "none";
-}
-
 function loadProjectProgress(proposalId) {
   fetch(`http://localhost:3000/api/progress/${proposalId}`)
     .then(res => res.json())
@@ -396,3 +379,14 @@ function renderProgressTimeline(data) {
 window.viewProposal = function(proposalId) {
   window.location.href = `View-Proposal.html?proposal_id=${proposalId}`;
 };
+
+
+function logout() {
+  fetch('/logout', { method: 'POST' }) // or 'GET' if your backend uses that
+    .then(() => {
+      window.location.href = '/Home.html'; // Redirect to Home after logging out
+    })
+    .catch(err => {
+      console.error('Logout failed:', err);
+    });
+}
