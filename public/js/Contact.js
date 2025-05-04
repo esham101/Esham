@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector(".form-box");
 
-  // Create a message box once
+
   let messageBox = document.createElement("div");
   messageBox.id = "formMessage";
   messageBox.style.marginBottom = "20px";
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const phone = document.getElementById("imgis").value.trim();
     const message = document.getElementById("i5vyy").value.trim();
 
-    // Validation
+
     if (!firstName || !lastName || !email || !phone || !message) {
       showMessage("Please fill in all fields.", false);
       return;

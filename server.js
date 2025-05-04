@@ -11,7 +11,7 @@ require("dotenv").config();
 const saltRounds = 10;
 const app = express();
 
-// Dynamic import for node-fetch (ESM compatibility)
+
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 app.use(bodyParser.json());
@@ -71,7 +71,7 @@ app.post("/register/landowner", (req, res) => {
       return res.redirect("/register?error=Email already exists");
     }
 
-    // ✅ Email does not exist — continue to hash and insert
+
     bcrypt.hash(password, saltRounds, (err, hash) => {
       if (err) {
         console.error("Error encrypting password:", err);
@@ -100,11 +100,11 @@ app.post("/register/landowner", (req, res) => {
 
 
 app.post("/register/realestate", (req, res) => {
-  console.log("Request Body:", req.body); // Log the incoming request body
+  console.log("Request Body:", req.body); 
 
   let { company, businessReg, taxId, address, email, phone, password } = req.body;
 
-  // Check if all fields are present
+
   if (!company || !businessReg || !taxId || !address || !email || !phone || !password) {
     console.log("Missing fields in request body:", req.body);
     return res.redirect("/register?error=Missing required fields");
@@ -113,22 +113,22 @@ app.post("/register/realestate", (req, res) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_\-=+~]).{10,15}$/;
 
-  // Validate email
+
   if (!emailRegex.test(email)) {
     console.log("Invalid email format:", email);
     return res.redirect("/register?error=Invalid email format");
   }
 
-  // Validate password
+
   if (!passwordRegex.test(password)) {
     console.log("Password does not meet requirements:", password);
     return res.redirect("/register?error=Password requirements not met");
   }
 
-  // Format phone number
+  
   phone = '+966' + phone;
 
-  // Check if email already exists
+  
   db.query("SELECT * FROM realestates WHERE email = ?", [email], (err, results) => {
     if (err) {
       console.error("Database error during email check:", err);
@@ -140,14 +140,14 @@ app.post("/register/realestate", (req, res) => {
       return res.redirect("/register?error=Email already exists");
     }
 
-    // Hash the password
+    
     bcrypt.hash(password, saltRounds, (err, hash) => {
       if (err) {
         console.error("Error encrypting password:", err);
         return res.send("Error encrypting password");
       }
 
-      // Insert into database
+     
       const insertSql = `
         INSERT INTO realestates (company_name, business_reg, tax_id, address, email, phone, password)
         VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -165,7 +165,7 @@ app.post("/register/realestate", (req, res) => {
 });
 
 
-// Login Handler
+
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
 
@@ -228,8 +228,7 @@ app.get("/update-account", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "UpdateAccount.html"));
 });
 
-// Handle Update Name request
-// Update Account Handler
+
 app.post("/update-account", (req, res) => {
   if (!req.session.user) {
     return res.redirect("/login");
@@ -257,16 +256,16 @@ app.post("/update-account", (req, res) => {
 });
 
 
-// Multer for uploads
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "public/uploads/"),
   filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname)
 });
 const upload = multer({ storage: storage });
 
-// Add land listing
+
 app.post("/add-land", upload.fields([{ name: "titleDeed" }, { name: "landImage" }]), (req, res) => {
-  // ✅ Only landowners can access
+
   if (!req.session.user || req.session.user.role !== "landowner") {
     return res.status(403).send("❌ Only landowners can add lands.");
   }
@@ -323,7 +322,7 @@ app.get("/api/lands", (req, res) => {
 
 
 
-// ✅ Get single land by ID
+
 app.get("/api/lands/:id", (req, res) => {
   const landId = req.params.id;
   const sql = `
@@ -348,10 +347,7 @@ app.get("/api/lands/:id", (req, res) => {
 
 
 
-// =================== LANDOWNER ROLE DUMMY API ROUTES ===================
 
-// Landowner User Profile
-// Get Landowner by ID (updated to landowner_id)
 app.get("/api/landowner/user/:id", (req, res) => {
   const userId = req.params.id;
 
@@ -403,12 +399,12 @@ app.get("/api/session", (req, res) => {
 });
 
 
-// Landowner Settings
+
 app.get("/api/landowner/settings/:id", (req, res) => {
   res.json({ dark_mode: false });
 });
 
-// Landowner Proposals
+
 app.get("/api/landowner/proposals", (req, res) => {
   if (!req.session.user || req.session.user.role !== "landowner") {
     return res.status(403).json({ message: "Unauthorized" });
@@ -543,7 +539,7 @@ app.get("/api/realestate/proposals/accepted", (req, res) => {
 });
 
 
-// Landowner Revenue
+
 app.get("/api/landowner/revenue", (req, res) => {
   if (!req.session.user || req.session.user.role !== "landowner") {
     return res.status(403).json({ message: "Unauthorized" });
@@ -578,7 +574,7 @@ app.get("/api/landowner/revenue", (req, res) => {
 });
 
 
-// Landowner Properties
+
 app.get("/api/landowner/properties", (req, res) => {
   res.json([
     { property_name: "Landowner Villa", owner_name: "Owner Y", status: "Active", monthly_rent: 4000, description: "Nice villa for landowner." }
@@ -586,7 +582,7 @@ app.get("/api/landowner/properties", (req, res) => {
 });
 
 
-// =================== AI ROUTES ===================
+
 
 app.post("/voice-question", upload.single("audio"), async (req, res) => {
   try {
@@ -646,7 +642,7 @@ app.post("/text-question", async (req, res) => {
   }
 });
 
-// ✅ OpenAI Assistant Helper
+
 async function askGPT(question) {
   const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
@@ -789,8 +785,7 @@ If you are not completely sure about the answer:
   }
 }
 
-// =================== REAL ESTATE DEVELOPER ROLE DUMMY API ROUTES ===================
-// ✅ Developer Proposals
+
 app.get("/api/realestate/proposals", (req, res) => {
   if (!req.session.user || req.session.user.role !== "realestate") {
     return res.status(403).json({ message: "Unauthorized" });
@@ -870,7 +865,7 @@ app.post("/api/proposals", (req, res) => {
     accepted_terms
   } = req.body;
 
-  // 🔍 Step 1: Get landowner_id using land_id
+
   db.query("SELECT landowner_id FROM lands WHERE land_id = ?", [land_id], (err, results) => {
     if (err) {
       console.error("Error fetching landowner_id:", err);
@@ -883,7 +878,7 @@ app.post("/api/proposals", (req, res) => {
 
     const landowner_id = results[0].landowner_id;
 
-    // ✅ Step 2: Proceed to insert the proposal
+
     const sql = `
     INSERT INTO proposals (
       landowner_id, realestate_id, land_id, title, description, objectives,
@@ -940,7 +935,7 @@ app.get("/api/landowner/proposals", (req, res) => {
   });
 });
 
-// Accept Proposal
+
 app.put("/api/proposals/:id/accept", (req, res) => {
   const proposalId = req.params.id;
   db.query("UPDATE proposals SET status = 'Accepted' WHERE proposal_id = ?", [proposalId], (err) => {
@@ -949,7 +944,7 @@ app.put("/api/proposals/:id/accept", (req, res) => {
   });
 });
 
-// Reject Proposal
+
 app.put("/api/proposals/:id/reject", (req, res) => {
   const proposalId = req.params.id;
   db.query("UPDATE proposals SET status = 'Rejected' WHERE proposal_id = ?", [proposalId], (err) => {
@@ -958,7 +953,7 @@ app.put("/api/proposals/:id/reject", (req, res) => {
   });
 });
 
-// Counter Offer
+
 app.put("/api/proposals/:id/counter", (req, res) => {
   const proposalId = req.params.id;
 
@@ -977,7 +972,7 @@ app.put("/api/proposals/:id/counter", (req, res) => {
   });
 });
 
-// Accept counter proposal
+
 app.put("/api/proposals/:id/accept-counter", (req, res) => {
   const proposalId = req.params.id;
   const sql = `UPDATE proposals SET status = 'Accepted' WHERE proposal_id = ?`;
@@ -988,7 +983,7 @@ app.put("/api/proposals/:id/accept-counter", (req, res) => {
   });
 });
 
-// Reject counter proposal
+
 app.put("/api/proposals/:id/reject-counter", (req, res) => {
   const proposalId = req.params.id;
   const sql = `UPDATE proposals SET status = 'Rejected' WHERE proposal_id = ?`;
@@ -1000,7 +995,7 @@ app.put("/api/proposals/:id/reject-counter", (req, res) => {
 });
 
 
-// Contact Us route
+
 app.post("/contact", (req, res) => {
   const { FirstName, LastName, Email, PhoneNumber, Message } = req.body;
 

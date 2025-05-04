@@ -1,8 +1,7 @@
-// Make initializePagination global
 window.initializePagination = function () {
-    const itemsPerRow = 3; // Number of items per row in the grid
-    const rowsPerPage = 5; // Maximum rows per page
-    const itemsPerPage = itemsPerRow * rowsPerPage; // Total items per page
+    const itemsPerRow = 3; 
+    const rowsPerPage = 5; 
+    const itemsPerPage = itemsPerRow * rowsPerPage; 
     const paginationContainer = document.getElementById('pagination');
 
     let leftArrow, rightArrow;
@@ -18,7 +17,7 @@ window.initializePagination = function () {
             property.style.display = index >= start && index < end ? 'block' : 'none';
         });
 
-        // Update active button state
+        
         document.querySelectorAll('.pagination button').forEach((btn) => {
             btn.classList.remove('active');
         });
@@ -29,9 +28,9 @@ window.initializePagination = function () {
     }
 
     function createPaginationButtons() {
-        paginationContainer.innerHTML = ""; // Clear existing
+        paginationContainer.innerHTML = ""; 
 
-        // Left Arrow
+    
         leftArrow = document.createElement('button');
         leftArrow.textContent = '‹';
         leftArrow.classList.add('arrow');
@@ -44,7 +43,7 @@ window.initializePagination = function () {
         });
         paginationContainer.appendChild(leftArrow);
 
-        // Page Numbers
+    
         for (let i = 1; i <= totalPages; i++) {
             const button = document.createElement('button');
             button.textContent = i;
@@ -59,7 +58,7 @@ window.initializePagination = function () {
             paginationContainer.appendChild(button);
         }
 
-        // Right Arrow
+    
         rightArrow = document.createElement('button');
         rightArrow.textContent = '›';
         rightArrow.classList.add('arrow');
@@ -72,7 +71,7 @@ window.initializePagination = function () {
         paginationContainer.appendChild(rightArrow);
     }
 
-    // Run pagination setup
+   
     createPaginationButtons();
     showPage(currentPage);
 };

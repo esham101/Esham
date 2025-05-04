@@ -1,20 +1,20 @@
-let allLands = []; // Global storage for all fetched lands
+let allLands = [];
 
-// Load all lands on page load
+
 window.addEventListener("DOMContentLoaded", async () => {
     try {
         const res = await fetch("/api/lands");
         allLands = await res.json();
 
-        renderLands(allLands);        // show everything
-        setupFilters();               // activate filters
-        initializePagination();       // if using pagination
+        renderLands(allLands);        
+        setupFilters();              
+        initializePagination();       
     } catch (error) {
         console.error("Failed to fetch lands:", error);
     }
 });
 
-// Render the list of lands
+
 function renderLands(lands) {
     const container = document.querySelector(".property-grid");
     container.innerHTML = "";
@@ -51,10 +51,10 @@ function renderLands(lands) {
         container.appendChild(div);
     });
 
-    initializePagination(); // reset pagination when list changes
+    initializePagination(); 
 }
 
-// Setup facing filter buttons
+
 function setupFilters() {
     const buttons = document.querySelectorAll('.filter-button');
 
@@ -65,7 +65,7 @@ function setupFilters() {
 
     buttons.forEach(button => {
         button.addEventListener('click', () => {
-            // Update active style
+        
             buttons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
 

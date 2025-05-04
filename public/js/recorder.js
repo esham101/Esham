@@ -58,7 +58,7 @@ function stopRecording() {
   }
 }
 
-// Typed Question Handler
+
 async function sendTypedQuestion() {
   const input = document.getElementById("typedQuestion").value.trim();
   if (!input) return;

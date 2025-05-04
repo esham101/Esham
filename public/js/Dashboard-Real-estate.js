@@ -4,7 +4,7 @@ let currentUser;
 const toggleButton = document.getElementById('toggle-btn');
 const sidebar = document.getElementById('sidebar');
 
-// Sidebar Toggle
+
 function toggleSidebar() {
   sidebar.classList.toggle('close');
   document.querySelector('.main-content').classList.toggle('expanded');
@@ -42,7 +42,7 @@ function updateWelcomeMessage(name) {
   if (welcome) welcome.textContent = `Welcome ${name}! 👋`;
 }
 
-// Load Revenue (specific to developer's portfolio)
+
 function loadRevenue() {
   fetch("/api/realestate/revenue")
 
@@ -92,7 +92,7 @@ function renderRevenueChart(data) {
   });
 }
 
-// 🔵 Proposals
+
 function loadProposals() {
   fetch("/api/realestate/proposals")
 
@@ -143,7 +143,7 @@ function loadProposalManagement() {
         table.appendChild(row);
       });
 
-      // Use class-specific selectors for safety
+
       document.querySelectorAll(".btn-accept-counter").forEach(btn =>
         btn.addEventListener("click", function () {
           const id = this.dataset.id;
@@ -186,7 +186,7 @@ function populateTable(data, tableId) {
       </tr>`;
   });
 
-  // ✅ Bind event listeners only to the newly inserted buttons
+
   document.querySelectorAll(".btn-accept-counter").forEach(btn =>
     btn.addEventListener("click", function () {
       const proposalId = this.dataset.id;
@@ -210,11 +210,11 @@ function handleAcceptCounter(proposalId, button) {
     .then(res => res.json())
     .then(() => {
       alert("Counter offer accepted.");
-      loadProposals(); // Refresh view
+      loadProposals(); 
     })
     .catch(err => {
       console.error("Error accepting counter offer:", err);
-      button.disabled = false; // Re-enable if error
+      button.disabled = false; 
     });
 }
 
@@ -250,7 +250,7 @@ function renderProposalsSentChart(data) {
   const ctx = document.getElementById("proposalsSentChart")?.getContext("2d");
   if (!ctx) return;
 
-  // Destroy existing chart instance if it exists
+
   if (sentChartInstance) {
     sentChartInstance.destroy();
   }
@@ -296,14 +296,14 @@ function renderProposalsAcceptedChart(data) {
   const ctx = document.getElementById("proposalsAcceptedChart")?.getContext("2d");
   if (!ctx) return;
 
-  // Destroy existing chart instance if it exists
+ 
   if (acceptedChartInstance) {
     acceptedChartInstance.destroy();
   }
 
   const validDates = data
     .filter(p => p.submitted_at)
-    .map(p => new Date(p.submitted_at).toISOString().slice(0, 7)); // "YYYY-MM"
+    .map(p => new Date(p.submitted_at).toISOString().slice(0, 7)); 
 
   const monthLabels = [...new Set(validDates)];
   const countMap = {};
@@ -341,9 +341,9 @@ function renderProposalsAcceptedChart(data) {
 
 
 function logout() {
-  fetch('/logout', { method: 'POST' }) // or 'GET' if your backend uses that
+  fetch('/logout', { method: 'POST' }) 
     .then(() => {
-      window.location.href = '/Home.html'; // Redirect to Home after logging out
+      window.location.href = '/Home.html'; 
     })
     .catch(err => {
       console.error('Logout failed:', err);

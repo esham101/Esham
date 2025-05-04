@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const realEstateSignup = document.querySelector(".Realestatesignup-container");
     const registerButtons = document.querySelectorAll(".register-btn");
     const roleDescription = document.querySelector(".esham-description");
-    const registerTitle = document.querySelector(".left-panel h2"); // 🔥 Register As: heading
+    const registerTitle = document.querySelector(".left-panel h2"); 
     const landownerBtn = document.getElementById("landowner-register");
     const realestateBtn = document.getElementById("realestate-register");
     const backBtns = document.querySelectorAll(".back-btn");
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         landownerSignup.style.display = "block";
         realEstateSignup.style.display = "none";
         registerButtons.forEach(btn => btn.style.display = "none");
-        registerTitle.style.display = "none"; // 🔥 Hide "Register As:" heading
+        registerTitle.style.display = "none"; 
         roleDescription.innerText = "As a Landowner, you can easily connect with real estate developers to unlock the potential of your land and transform it into successful projects.";
     });
 
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         landownerSignup.style.display = "none";
         realEstateSignup.style.display = "block";
         registerButtons.forEach(btn => btn.style.display = "none");
-        registerTitle.style.display = "none"; // 🔥 Hide "Register As:" heading
+        registerTitle.style.display = "none"; 
         roleDescription.innerText = "As a Real Estate Developer, you can discover available lands, propose projects, and collaborate with landowners to drive real estate innovation.";
     });
 
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
             landownerSignup.style.display = "none";
             realEstateSignup.style.display = "none";
             registerButtons.forEach(btn => btn.style.display = "flex");
-            registerTitle.style.display = "block"; // 🔥 Show "Register As:" again
+            registerTitle.style.display = "block"; 
             roleDescription.innerText = originalText;
         });
     });

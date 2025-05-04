@@ -5,7 +5,7 @@ let currentUser;
 const toggleButton = document.getElementById('toggle-btn');
 const sidebar = document.getElementById('sidebar');
 
-// 🔵 DOMContentLoaded (only one)
+
 document.addEventListener("DOMContentLoaded", function () {
   fetch("http://localhost:3000/api/session")
     .then(res => res.json())
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         updateWelcomeMessage(currentUser.name);
 
         loadUserProfile();
-        loadProposalManagement(); // after loadProposals
+        loadProposalManagement(); 
         loadProposals();
         loadLands(); 
         
@@ -25,13 +25,13 @@ document.addEventListener("DOMContentLoaded", function () {
           document.body.classList.add("dark-mode");
         }
       } else {
-        window.location.href = "/login"; // Not logged in, redirect
+        window.location.href = "/login"; 
       }
     })
     .catch(err => console.error("Session load error:", err));
 });
 
-// 🔵 Sidebar
+
 function toggleSidebar() {
   sidebar.classList.toggle('close');
   document.querySelector('.main-content').classList.toggle('expanded');
@@ -60,7 +60,7 @@ function closeAllSubMenus() {
   });
 }
 
-// 🔵 Dashboard sections
+
 function updateWelcomeMessage(name) {
   const welcome = document.querySelector(".welcome-title");
   if (welcome) welcome.textContent = `Welcome ${name}! 👋`;
@@ -80,7 +80,7 @@ function loadUserProfile() {
 
 
 
-// 🔵 Proposals
+
 function loadProposals() {
   fetch("http://localhost:3000/api/landowner/proposals")
     .then(res => res.json())
@@ -127,7 +127,7 @@ function populateTable(data, tableId, mode = "basic") {
   });
 }
 
-// 🔽 After this function (in your existing code)
+
 function loadProposalManagement() {
   fetch("http://localhost:3000/api/landowner/proposals")
     .then(res => res.json())
@@ -182,7 +182,7 @@ function loadProposalManagement() {
 
 
 
-// 🔽 Place the new functions RIGHT AFTER that
+
 function handleAccept(event) {
   const proposalId = event.target.dataset.id;
   fetch(`/api/proposals/${proposalId}/accept`, { method: "PUT" })
@@ -213,7 +213,7 @@ function handleCounter(event) {
     return;
   }
 
-  // Redirect to the correctly named HTML file
+
   window.location.href = `Counter-propsal.html?proposal_id=${proposalId}`;
 }
 
@@ -287,12 +287,12 @@ function renderProposalsAcceptedChart(data) {
   });
 }
 
-// 🔵 Lands Listing
+
 function loadLands() {
   fetch("http://localhost:3000/api/landowner/lands")
     .then(res => res.json())
     .then(data => {
-      populateLandListingTable(data, "revenueData"); // ✅
+      populateLandListingTable(data, "revenueData"); 
       renderRevenueChart(data);
     })
     .catch(err => console.error("Error loading lands:", err));
@@ -382,9 +382,9 @@ window.viewProposal = function(proposalId) {
 
 
 function logout() {
-  fetch('/logout', { method: 'POST' }) // or 'GET' if your backend uses that
+  fetch('/logout', { method: 'POST' }) 
     .then(() => {
-      window.location.href = '/Home.html'; // Redirect to Home after logging out
+      window.location.href = '/Home.html'; 
     })
     .catch(err => {
       console.error('Logout failed:', err);

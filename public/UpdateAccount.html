@@ -8,11 +8,11 @@
   <link rel="stylesheet" href="css/Registeration.css" />
   <script src="js/sessionNavbar.js" defer></script>
   <link rel="stylesheet" href="css/UpdateAccount_Style.css" />
- <!-- ✅ For dynamic navbar -->
+
 </head>
 <body>
 
-  <!-- ✅ Header/Navbar from Home.html -->
+
   <header>
     <nav>
       <div class="logo">
@@ -37,7 +37,7 @@
     </nav>
   </header>
 
-  <!-- ✅ Update Account Form -->
+
   <main>
     <div class="form-container" style="margin-top: 30px;">
       <h2>Update Account</h2>
@@ -46,7 +46,7 @@
         <div class="form-group">
           <label for="name">Name</label>
           <div class="field-wrapper">
-            <span id="display-name"></span> <!-- ✅ This is always visible -->
+            <span id="display-name"></span> 
             <input type="text" id="name" name="name" readonly style="border: none; background: transparent; display: none;" required />
             <img src="icons/edit logo.svg" alt="Edit Name" class="edit-icon" onclick="enableField('name')">
           </div>
@@ -76,7 +76,7 @@
         
         
         
-        <!-- ✅ Final Submit Button -->
+   
         <button type="submit" class="save-button">Save Changes</button>
         
       </form>
@@ -88,21 +88,21 @@
   const input = document.getElementById(fieldId);
   const span = document.getElementById('display-' + fieldId);
 
-  span.style.display = 'none';    // Hide the static span
-  input.style.display = 'block';  // Show the input
+  span.style.display = 'none';    
+  input.style.display = 'block';  
   input.removeAttribute('readonly');
   input.style.border = "1px solid #ccc";
   input.style.backgroundColor = "#fff";
   input.focus();
 }
 
-// Load current values
+
 document.addEventListener("DOMContentLoaded", function() {
   fetch("/api/session") 
     .then(res => res.json())
     .then(sessionData => {
       if (sessionData.loggedIn) {
-        const user = sessionData.user; // ✅ Real logged-in user from session
+        const user = sessionData.user; 
 
         document.getElementById('display-name').textContent = user.name;
         document.getElementById('name').value = user.name;
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('display-password').textContent = "********";
         document.getElementById('password').value = "";
       } else {
-        window.location.href = "/login"; // If not logged in, redirect to login page
+        window.location.href = "/login"; 
       }
     })
     .catch(err => console.error("Error fetching session:", err));

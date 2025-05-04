@@ -1,7 +1,6 @@
-// js/proposal-management.js
 import { dummyProposals } from './data.js';
 
-// Render Proposal Management Table
+
 function renderProposalManagement() {
   const container = document.getElementById("proposalManagement");
   if (!container) return;
@@ -35,7 +34,7 @@ function renderProposalManagement() {
   attachActionListeners();
 }
 
-// Attach click listeners to Accept/Reject
+
 function attachActionListeners() {
   const container = document.getElementById("proposalManagement");
   if (!container) return;
@@ -55,7 +54,7 @@ function attachActionListeners() {
   });
 }
 
-// Update Status
+
 function updateStatus(row, newStatus) {
   const index = row.getAttribute("data-index");
   if (index !== null) {
@@ -64,5 +63,5 @@ function updateStatus(row, newStatus) {
   }
 }
 
-// Load when page ready
+
 document.addEventListener("DOMContentLoaded", renderProposalManagement);
