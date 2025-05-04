@@ -424,3 +424,110 @@ tbody tr:hover .more-link {
   cursor: pointer;
   margin-top: 4px;
 }
+
+@media (max-width: 992px) {
+  .welcome-title {
+    font-size: 22px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-title {
+    font-size: 20px;
+  }
+
+  .dashboard-wrapper {
+    padding: 20px;
+  }
+
+  .graph-card h3,
+  .full-card h2 {
+    font-size: 16px;
+  }
+
+  .btn,
+  .btn-counter,
+  .btn-reject,
+  .btn-accept {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  .btn-show {
+    font-size: 10px;
+    padding: 5px 8px;
+  }
+}
+
+@media (max-width: 576px) {
+  #sidebar {
+    position: absolute;
+    height: 100%;
+    z-index: 1000;
+    transition: left 0.3s ease;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .main-content.expanded {
+    margin-left: 0;
+  }
+
+  .info-cards,
+  .graphs {
+    flex-direction: column;
+  }
+
+  .small-card,
+  .graph-card,
+  .full-card {
+    padding: 15px;
+  }
+
+  .top-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .sar-symbol {
+    width: 16px;
+    height: 16px;
+  }
+
+  .more-link {
+    font-size: 12px;
+  }
+
+  .header-title {
+    font-size: 18px;
+  }
+
+  .welcome-title {
+    font-size: 20px;
+  }
+
+  .breadcrumb {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .btn {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .btn-show {
+    font-size: 10px;
+    padding: 4px 7px;
+  }
+
+  .btn-accept,
+  .btn-reject,
+  .btn-counter {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+}

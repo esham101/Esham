@@ -167,3 +167,92 @@ main {
     color: #666;
   }
   
+  @media (max-width: 992px) {
+    main {
+      padding: 1.5rem;
+    }
+  
+    .property-grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+  
+    .property-item img {
+      height: 180px;
+    }
+  
+    .property-details h3 {
+      font-size: 1.1rem;
+    }
+  
+    .price-line {
+      font-size: 1.1rem;
+    }
+  
+    .sar-symbol {
+      width: 18px;
+      height: 18px;
+    }
+  
+    .owner img {
+      width: 36px;
+      height: 36px;
+    }
+  
+    .view-link {
+      font-size: 0.9rem;
+      padding: 0.3rem 0.6rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    main {
+      padding: 1rem;
+    }
+  
+    .property-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .property-item img {
+      height: 160px;
+    }
+  
+    .property-details {
+      padding: 0.8rem;
+    }
+  
+    .property-details h3 {
+      font-size: 1rem;
+    }
+  
+    .property-details .tags,
+    .property-details .location,
+    .land-meta {
+      font-size: 0.8rem;
+    }
+  
+    .price-line {
+      font-size: 1rem;
+    }
+  
+    .sar-symbol {
+      width: 16px;
+      height: 16px;
+    }
+  
+    .owner img {
+      width: 32px;
+      height: 32px;
+    }
+  
+    .owner span {
+      font-size: 0.85rem;
+    }
+  
+    .view-link {
+      font-size: 0.8rem;
+      padding: 0.25rem 0.5rem;
+    }
+  }
+  

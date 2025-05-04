@@ -417,3 +417,107 @@ nav {
 input, textarea, select, button {
   font-family: inherit;
 }
+
+@media (max-width: 1024px) {
+  .footer-description {
+    margin-left: 10rem;
+    margin-right: 10rem;
+  }
+
+  .footer-logo img {
+    margin-left: 100px;
+  }
+
+  .proposal-form-section {
+    margin: 30px 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  nav,
+  .nav-container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .nav-left,
+  .nav-right {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .register button {
+    width: 100%;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-logo img {
+    margin-left: 0;
+  }
+
+  .footer-description {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+
+  .proposal-form-section {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-description {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    font-size: 9px;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .form-group button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .registeration {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-container {
+    gap: 10px;
+  }
+
+  .footer-title {
+    font-size: 16px;
+  }
+
+  .contact-number {
+    font-size: 16px;
+  }
+
+  .nav-user-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .nav-user-btn svg {
+    font-size: 18px;
+  }
+}

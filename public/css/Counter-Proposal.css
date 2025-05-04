@@ -238,3 +238,88 @@ form button:hover {
 .ai-link:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 992px) {
+    .proposal-form-section {
+      padding: 15px;
+      margin: 30px auto;
+    }
+  
+    .footer-container {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 30px;
+    }
+  
+    .footer-logo img {
+      margin: 20px 0 10px 0;
+    }
+  
+    .footer-description {
+      margin-left: 5rem;
+      margin-right: 5rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .proposal-form-section {
+      padding: 15px;
+      margin: 20px 10px;
+    }
+  
+    form label {
+      font-size: 14px;
+    }
+  
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="number"],
+    form input[type="date"],
+    form textarea,
+    form select {
+      font-size: 13px;
+      padding: 8px;
+    }
+  
+    form button {
+      font-size: 14px;
+      padding: 10px 16px;
+    }
+  
+    .footer-logo img {
+      max-width: 100px;
+      margin: 10px auto;
+    }
+  
+    .footer-description {
+      font-size: 9px;
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+  
+    .footer-column {
+      min-width: auto;
+      width: 100%;
+    }
+  
+    .footer-title {
+      font-size: 16px;
+    }
+  
+    .footer-links a {
+      font-size: 13px;
+    }
+  
+    .contact-number {
+      font-size: 16px;
+    }
+  
+    .working-hours {
+      font-size: 10px;
+    }
+  
+    .footer-disclaimer {
+      font-size: 9px;
+    }
+  }
+  

@@ -110,3 +110,77 @@
     transform: scale(1.2);
   }
   
+  @media (max-width: 768px) {
+    .form-container {
+      padding: 25px 30px;
+      margin: 30px 20px;
+    }
+  
+    .form-container h2 {
+      font-size: 22px;
+    }
+  
+    .form-container input[type="text"] {
+      padding: 10px 14px;
+      font-size: 14px;
+    }
+  
+    .form-container button,
+    .save-button {
+      font-size: 15px;
+      padding: 11px;
+    }
+  
+    .field-wrapper span {
+      font-size: 15px;
+    }
+  
+    .edit-icon,
+    .edit-btn img {
+      width: 18px;
+      height: 18px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .form-container {
+      padding: 20px;
+      margin: 20px 15px;
+    }
+  
+    .form-container h2 {
+      font-size: 20px;
+    }
+  
+    .form-container label {
+      font-size: 14px;
+    }
+  
+    .form-container input[type="text"] {
+      padding: 9px 12px;
+      font-size: 13px;
+    }
+  
+    .form-container button,
+    .save-button {
+      font-size: 14px;
+      padding: 10px;
+    }
+  
+    .field-wrapper {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+    }
+  
+    .field-wrapper span {
+      font-size: 14px;
+    }
+  
+    .edit-icon,
+    .edit-btn img {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  

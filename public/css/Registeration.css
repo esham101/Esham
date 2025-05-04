@@ -374,3 +374,137 @@ button {
     background: none;           /* ✅ no background even on hover */
     color: #174944;             /* Optional: slightly darker color on hover */
 }
+
+@media (max-width: 992px) {
+    .main-container {
+      flex-direction: column;
+      height: auto;
+    }
+  
+    .left-panel,
+    .right-panel {
+      width: 100%;
+      height: auto;
+    }
+  
+    .left-panel {
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+  
+    .left-panel h2 {
+      font-size: 24px;
+    }
+  
+    .register-btn {
+      width: 100%;
+      max-width: 300px;
+    }
+  
+    .esh-logo {
+      top: 15px;
+      left: 20px;
+      font-size: 20px;
+    }
+  
+    .esham-description {
+      font-size: 20px;
+      max-width: 100%;
+      margin-bottom: 20px;
+      padding: 0 10px;
+    }
+  
+    .login-container,
+    .signup-container {
+      padding: 40px 30px;
+    }
+  
+    h2 {
+      font-size: 24px;
+    }
+  
+    input,
+    button {
+      font-size: 15px;
+      padding: 10px;
+    }
+  
+    .terms {
+      font-size: 13px;
+    }
+  
+    .return-home a,
+    .back-link a {
+      font-size: 13px;
+    }
+  
+    .divider span {
+      font-size: 13px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .left-panel {
+      padding: 2rem 1rem;
+    }
+  
+    .left-panel h2 {
+      font-size: 20px;
+    }
+  
+    .register-btn {
+      width: 100%;
+      font-size: 14px;
+      padding: 12px;
+    }
+  
+    .esh-logo {
+      font-size: 18px;
+      top: 12px;
+      left: 15px;
+    }
+  
+    .esham-description {
+      font-size: 18px;
+      padding: 0 10px;
+    }
+  
+    .login-container,
+    .signup-container {
+      padding: 30px 20px;
+    }
+  
+    h2 {
+      font-size: 22px;
+    }
+  
+    label {
+      font-size: 14px;
+    }
+  
+    input,
+    button {
+      font-size: 14px;
+      padding: 9px;
+    }
+  
+    .terms {
+      font-size: 12px;
+    }
+  
+    .google-btn img {
+      width: 18px;
+      height: 18px;
+      margin-right: 8px;
+    }
+  
+    .return-home a,
+    .back-link a {
+      font-size: 12px;
+    }
+  
+    .divider span {
+      font-size: 12px;
+    }
+  }
+  

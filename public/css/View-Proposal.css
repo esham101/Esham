@@ -173,3 +173,88 @@ footer {
   font-size: 10px;
   line-height: 1.8;
 }
+
+@media (max-width: 992px) {
+  nav {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .proposal-form-section {
+    padding: 15px;
+    margin: 30px 20px;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .footer-description {
+    margin: 0 5%;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .nav-links a {
+    padding: 0.5rem 0;
+    font-size: 15px;
+  }
+
+  .proposal-form-section {
+    margin: 20px 10px;
+    padding: 15px;
+  }
+
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="number"],
+  form input[type="date"],
+  form textarea {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  footer {
+    font-size: 11px;
+    padding: 30px 15px;
+  }
+
+  .footer-title {
+    font-size: 14px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+  }
+
+  .footer-logo img {
+    max-width: 100px;
+    margin-top: 20px;
+  }
+
+  .footer-description {
+    margin: 0 1rem;
+    font-size: 9px;
+  }
+}

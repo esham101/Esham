@@ -179,3 +179,122 @@
     stroke: #163e3b;
   }
   
+  @media (max-width: 992px) {
+    .land-detail-page {
+      padding: 0 15px;
+    }
+  
+    .land-gallery {
+      height: 350px;
+    }
+  
+    .land-info-box {
+      padding: 24px;
+    }
+  
+    .land-info-box h1 {
+      font-size: 24px;
+    }
+  
+    .land-owner-name {
+      font-size: 0.95rem;
+    }
+  
+    .land-specs li {
+      font-size: 15px;
+    }
+  
+    .price {
+      font-size: 16px;
+    }
+  
+    .deed-link {
+      font-size: 14px;
+      padding: 8px 14px;
+    }
+  
+    .back-wrapper {
+      padding: 0 15px;
+    }
+  
+    .back-button {
+      font-size: 15px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .land-detail-page {
+      padding: 0 10px;
+    }
+  
+    .land-gallery {
+      height: 250px;
+      border-radius: 10px;
+    }
+  
+    .land-info-box {
+      padding: 20px;
+    }
+  
+    .land-info-box h1 {
+      font-size: 20px;
+    }
+  
+    .land-owner-name {
+      font-size: 0.9rem;
+    }
+  
+    .location {
+      font-size: 0.85rem;
+    }
+  
+    .land-specs li {
+      font-size: 14px;
+    }
+  
+    .land-description {
+      font-size: 14px;
+    }
+  
+    .price {
+      font-size: 15px;
+    }
+  
+    .sar-symbol {
+      height: 16px;
+    }
+  
+    .deed-link {
+      font-size: 13px;
+      padding: 7px 12px;
+    }
+  
+    .popup {
+      padding: 8px;
+    }
+  
+    .popup img {
+      max-height: 60vh;
+    }
+  
+    .close-btn {
+      width: 26px;
+      height: 26px;
+      font-size: 16px;
+    }
+  
+    .back-wrapper {
+      padding: 0 10px;
+    }
+  
+    .back-button {
+      font-size: 14px;
+      gap: 6px;
+    }
+  
+    .back-button svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  

@@ -195,15 +195,166 @@ main {
 justify-content: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     main {
-        width: 95%;
+      width: 90%;
     }
-    .board-members {
-        flex-direction: column;
-        align-items: center;
+  
+    .welcome-container {
+      margin-left: 100px;
+      margin-right: 50px;
     }
+  
+    .welcome-container h1 {
+      font-size: 32px;
+    }
+  
+    .welcome-container p {
+      font-size: 18px;
+      margin-right: 100px;
+    }
+  
+    .what-container {
+      margin-left: 100px;
+      margin-right: 100px;
+    }
+  
+    .what-container h2 {
+      font-size: 26px;
+      margin-left: 10px;
+    }
+  
+    .board-container h2 {
+      font-size: 26px;
+    }
+  
+    .authorized-container {
+      margin-left: 50px;
+    }
+  
+    .authorized-container h2 {
+      margin-left: 50px;
+    }
+  
+    .authorized-content {
+      margin-left: 50px;
+      gap: 100px;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .partners-container {
+      margin-left: 50px;
+    }
+  
+    .partners-container h2 {
+      margin-left: 50px;
+    }
+  
     .partners-logos {
-        flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
     }
-}
+  }
+  
+  @media (max-width: 576px) {
+    main {
+      width: 100%;
+      padding: 10px 0;
+    }
+  
+    .welcome-container {
+      margin-left: 20px;
+      margin-right: 20px;
+      padding: 15px;
+    }
+  
+    .welcome-container h1 {
+      font-size: 26px;
+    }
+  
+    .welcome-container p {
+      font-size: 16px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  
+    .what-container {
+      margin-left: 20px;
+      margin-right: 20px;
+      padding: 15px;
+    }
+  
+    .what-container h2 {
+      font-size: 22px;
+      margin-left: 10px;
+    }
+  
+    .offerland,
+    .offerdev {
+      font-size: 16px;
+      padding: 4px 8px;
+    }
+  
+    .board-container {
+      margin-left: 10px;
+      margin-right: 10px;
+      padding: 15px;
+    }
+  
+    .board-container h2 {
+      font-size: 22px;
+    }
+  
+    .member {
+      width: 100%;
+    }
+  
+    .authorized-container {
+      margin-left: 10px;
+      padding: 15px;
+    }
+  
+    .authorized-container h2 {
+      margin-left: 0;
+      font-size: 20px;
+    }
+  
+    .authorized-content {
+      margin-left: 0;
+      gap: 30px;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .authorized-content img {
+      width: 100%;
+      max-width: 300px;
+    }
+  
+    .authorized-text p {
+      font-size: 16px;
+    }
+  
+    .authorized-text a {
+      font-size: 14px;
+    }
+  
+    .partners-container {
+      margin-left: 10px;
+      padding: 15px;
+    }
+  
+    .partners-container h2 {
+      margin-left: 0;
+      font-size: 20px;
+    }
+  
+    .partners-logos {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+  
