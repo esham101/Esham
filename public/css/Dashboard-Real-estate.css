@@ -42,7 +42,7 @@ body {
 #sidebar .logo-container {
   display: flex;
   align-items: center;
-  justify-content: center; /* center logo and button */
+  justify-content: center;
   gap: 8px;
 }
 
@@ -52,7 +52,7 @@ body {
   color: white;
 }
 #toggle-btn {
-  background: none; /* No background */
+  background: none;
   border: none;
   cursor: pointer;
   padding: 5px;
@@ -62,7 +62,7 @@ body {
 }
 
 #toggle-btn svg {
-  fill: white; /* Make the icon itself white */
+  fill: white;
   width: 24px;
   height: 24px;
 }
@@ -83,11 +83,11 @@ body {
   padding-left: 0;
   display: flex;
   flex-direction: column;
-  gap: 20px; /* <<< More space between options */
+  gap: 20px;
 }
 
 #sidebar ul li {
-  margin-bottom: 0; /* because gap already added */
+  margin-bottom: 0;
 }
 
 #sidebar ul li a {
@@ -106,12 +106,11 @@ body {
   transition: 0.3s;
 }
 
-/* Sidebar closed state */
 #sidebar.close {
   width: 80px;
 }
 #sidebar.close ul li span {
-  display: none; /* hide text */
+  display: none;
 }
 
 #sidebar.close ul li a {
@@ -119,11 +118,9 @@ body {
 }
 
 #sidebar.close #toggle-btn {
-  transform: rotate(180deg); /* optional: rotate the toggle button */
+  transform: rotate(180deg);
 }
 
-
-/* Main Area */
 main {
   flex: 1;
   padding: 20px 20px 20px 10px;
@@ -132,7 +129,6 @@ main {
   gap: 20px;
 }
 
-/* Big white container */
 .dashboard-wrapper {
   background: var(--white);
   padding: 30px;
@@ -143,7 +139,6 @@ main {
   gap: 30px;
 }
 
-/* Breadcrumb */
 .breadcrumb {
   background: var(--white);
   border-radius: 10px;
@@ -156,7 +151,6 @@ main {
   color: var(--main-color);
 }
 
-/* Welcome Title */
 .welcome-title {
   font-size: 28px;
   color: var(--text-dark);
@@ -166,7 +160,6 @@ main {
   gap: 8px;
 }
 
-/* Top Info Tables */
 .info-cards {
   display: flex;
   gap: 20px;
@@ -204,7 +197,6 @@ main {
   color: var(--white);
 }
 
-/* Graphs */
 .graphs {
   display: flex;
   gap: 20px;
@@ -226,7 +218,6 @@ main {
   font-size: 18px;
 }
 
-/* Full Width Cards */
 .full-card {
   background: var(--white);
   padding: 20px;
@@ -239,12 +230,10 @@ main {
   margin-bottom: 20px;
 }
 
-/* Progress Timeline */
 #progressTimeline {
   margin-top: 10px;
 }
 
-/* Proposal Management Table */
 .full-card table {
   width: 100%;
   border-collapse: collapse;
@@ -262,7 +251,6 @@ main {
   color: #ffffff;
 }
 
-/* Accept/Reject Buttons */
 .accept-btn, .reject-btn {
   padding: 6px 10px;
   border-radius: 6px;
@@ -281,7 +269,6 @@ main {
   color: #ffffff;
 }
 
-/* Responsive Fixes */
 @media(max-width: 768px) {
   #sidebar {
     width: 60px;
@@ -307,26 +294,26 @@ main {
 
 .graph-card canvas {
   width: 100% !important;
-  height: 250px !important; /* 🎯 Fix the tall chart */
+  height: 250px !important;
   max-height: 250px;
 }
 
 .top-header {
   display: flex;
   align-items: center;
-  gap: 10px; /* spacing between icon and text */
+  gap: 10px;
   color:#215955
 }
 
 .header-icon img {
   width: 28px;
   height: 28px;
-  object-fit: contain; /* ensures the SVG doesn't stretch weirdly */
+  object-fit: contain;
   color:#215955
 }
 
 .header-title {
-  font-size: 24px; /* adjust if needed */
+  font-size: 24px;
   font-weight: bold;
   margin: 0;
 }
@@ -338,8 +325,9 @@ table tbody tr {
 table tbody tr:hover {
   transform: translateY(-4px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  background-color: #f9f9f9; /* Optional: make it slightly lighter on hover */
+  background-color: #f9f9f9;
 }
+
 .sar-symbol {
   display: inline-block;
   width: 20px;
@@ -359,13 +347,13 @@ tbody tr:hover .sar-symbol {
   text-decoration: none;
   font-weight: bold;
   font-size: 14px;
-  margin-left: 12px; /* Move it away from the Riyal */
+  margin-left: 12px;
   transition: color 0.3s;
 }
 
 tbody tr:hover .more-link {
-  color: black; /* keep black even on hover */
-  text-decoration: underline; /* optional underline if you want */
+  color: black;
+  text-decoration: underline;
 }
 
 .btn {
@@ -377,7 +365,6 @@ tbody tr:hover .more-link {
   cursor: pointer;
   margin-right: 5px;
 }
-
 
 .btn-accept-counter,
 .btn-reject-counter,
@@ -392,7 +379,6 @@ tbody tr:hover .more-link {
   transition: background-color 0.2s ease;
 }
 
-/* Accept = Green */
 .btn-accept-counter {
   background-color: #4CAF50;
 }
@@ -400,7 +386,6 @@ tbody tr:hover .more-link {
   background-color: #45a049;
 }
 
-/* Reject = Red */
 .btn-reject-counter {
   background-color: #f44336;
 }
@@ -408,7 +393,6 @@ tbody tr:hover .more-link {
   background-color: #e53935;
 }
 
-/* Counter = Orange */
 .btn-counter {
   background-color: #949494;
 }

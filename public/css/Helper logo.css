@@ -4,7 +4,7 @@
     right: 25px;
     width: 60px;
     height: 60px;
-    background-color: rgba(2, 107, 93, 1); /* Your theme color */
+    background-color: rgba(2, 107, 93, 1); 
     border-radius: 50%;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     display: flex;
@@ -22,6 +22,6 @@
   
   
   .helper-button:hover {
-    background-color: rgba(1, 79, 67, 1); /* Darker on hover */
+    background-color: rgba(1, 79, 67, 1); 
   }
   

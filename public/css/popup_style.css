@@ -25,7 +25,7 @@
     pointer-events: auto;
 }
 
-/* Overlay */
+
 .popup-overlay {
     position: fixed;
     top: 0;
@@ -44,7 +44,7 @@
     pointer-events: auto;
 }
 
-/* Popup content scroll */
+
 .popup-content {
     overflow-y: auto;
     flex-grow: 1;
@@ -52,7 +52,7 @@
     max-height: 100%;
 }
 
-/* Scrollbar styling */
+
 .popup-content::-webkit-scrollbar {
     width: 10px;
 }
@@ -72,7 +72,7 @@
     background-color: #014f45;
 }
 
-/* Close Button */
+
 #closePopup {
     position: absolute;
     top: 10px;
@@ -83,7 +83,7 @@
     cursor: pointer;
 }
 
-/* Add Land Button */
+
 .add-land-btn {
     position: absolute;
     right: 30px;
@@ -102,7 +102,7 @@
     background-color: #014f45;
 }
 
-/* File input styling */
+
 input[type="file"] {
     display: none;
 }
@@ -130,7 +130,7 @@ input[type="file"]:focus + label {
 form {
     display: flex;
     flex-direction: column;
-    gap: 12px; /* space between fields */
+    gap: 12px; 
 }
 
 #addLandForm input[type="text"],
@@ -166,7 +166,7 @@ button.submit-btn:hover {
     background-color: #014f45;
 }
 
-/* Align file labels side by side if you want */
+
 .file-buttons {
     display: flex;
     gap: 10px;

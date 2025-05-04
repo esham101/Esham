@@ -1,39 +1,35 @@
-
-/* Make sure navbar blends into the background */
 nav {
-    background: transparent; /* Ensure nav has no solid background */
+    background: transparent;
     padding: 15px 0;
     position: absolute;
     top: 0;
     width: 100%;
 }
 
-/* Adjust the search container to fit well */
 .search__container {
-    margin-top: 100px; /* Adjust spacing based on navbar height */
+    margin-top: 100px;
+    margin-bottom: 30px;
 }
 
-/* Ensure text is readable over the background */
 .search__title {
-    font-size: 100px;
+    font-size: 48px;
     font-weight: 700;
-    color: white; /* Ensure text is visible over background */
+    color: white;
     margin-bottom: 20px;
 }
 
-/* Search bar styling */
 .search__wrapper {
     display: flex;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.9); /* Light background for contrast */
+    background-color: rgba(255, 255, 255, 0.95);
     border-radius: 50px;
     border: 2px solid #ddd;
     padding: 5px;
     width: 500px;
     position: relative;
+    padding-right: 50px;
 }
 
-/* Input styling */
 .search__input {
     flex: 1;
     border: none;
@@ -45,27 +41,36 @@ nav {
     background: transparent;
 }
 
-/* Button inside input */
 .search__button {
-    background: none;
+    width: 50px;
+    height: 50px;
+    background-color: #026b5d;
     border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    padding: 10px;
     position: absolute;
-    right: 15px;
-    font-size: 18px;
-    color: #026b5d;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: background-color 0.3s ease-in-out;
 }
 
-/* Ensure the button does not shrink */
-.search__button img {
-    width: 20px;
-    height: 20px;
+.search__button:hover {
+    background-color: #014f43;
 }
-/* Header section with background */
+
+.search__button img {
+    width: 40px;
+    height: 35px;
+    filter: invert(100%);
+}
+
 .header {
     background: url('../images/Riyadh.jpg') center/cover no-repeat;
-    height: 500px; /* Adjust height based on design */
+    height: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,116 +80,35 @@ nav {
     width: 100%;
 }
 
-/* Make sure navbar blends into the background */
-nav {
-    background: transparent; /* Ensure nav has no solid background */
-    padding: 15px 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-}
-
-/* Adjust the search container to fit well */
-.search__container {
-    margin-top: 100px; /* Adjust spacing based on navbar height */
-}
-
-/* Ensure text is readable over the background */
-.search__title {
-    font-size: 48px;
-    font-weight: 700;
-    color: white; /* Ensure text is visible over background */
-    margin-bottom: 20px;
-}
-
-/* Search bar styling */
-.search__button {
-    width: 50px; /* Make the button smaller */
-    height: 50px;
-    background-color: #026b5d; /* Same green color */
-    border: none;
-    border-radius: 50%; /* Keeps it circular */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    position: absolute;
-    right: 0px; /* Moves it closer to the right edge of the search bar */
-    top: 50%;
-    transform: translateY(-50%); /* Centers it vertically */
-    transition: background-color 0.3s ease-in-out;
-}
-
-/* Hover effect */
-.search__button:hover {
-    background-color: #014f43; /* Darker green */
-}
-
-/* Adjust icon size */
-.search__button img {
-    width: 40px; /* Smaller icon */
-    height: 35px;
-    filter: invert(100%); /* Makes the icon white */
-}
-
-/* Adjust the search bar wrapper to ensure alignment */
-.search__wrapper {
-    display: flex;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.95); /* Less transparency */
-    border-radius: 50px;
-    border: 2px solid #ddd;
-    padding: 5px;
-    width: 500px;
-    position: relative;
-    padding-right: 50px; /* Keeps space for the button */
-}
-
-
-/* Ensure input stays inside properly */
-.search__input {
-    flex: 1;
-    border: none;
-    outline: none;
-    padding: 12px 20px;
-    font-size: 16px;
-    border-radius: 50px;
-    width: 100%;
-    background: transparent;
-}
-
-/* Keep "Sign in" aligned in the same spot */
 .login {
     display: flex;
     align-items: center;
 }
-.login button{
-    background: none; /* Remove button background */
-    border: none; /* Remove border */
-    color: #245056; /* Match navbar text color */
-    font-size: 17px; /* Adjust font size */
-    cursor: pointer; /* Make it clickable */
-    padding: 0; /* Remove padding */
-    text-decoration: none; /* Remove underline */
+
+.login button {
+    background: none;
+    border: none;
+    color: #245056;
+    font-size: 17px;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: none;
     font-weight: 600;
 }
 
-/* Style "Sign in" as a clickable text (removes button styles) */
 .login a {
-    color: #245056; /* Same color as navbar text */
+    color: #245056 !important;
     font-size: 16px;
-    text-decoration: none; /* No underline initially */
+    text-decoration: none;
     cursor: pointer;
-    padding: 10px 15px; /* Keep spacing similar to Register button */
-    display: inline-block; /* Ensures proper spacing */
+    padding: 10px 15px;
+    display: inline-block;
 }
 
-/* Hover effect to indicate clickability */
 .login a:hover {
-    text-decoration: underline; /* Underline on hover */
+    text-decoration: underline;
 }
 
-/* Register button remains styled */
 .register button {
     padding: 8px 15px;
     border-radius: 20px;
@@ -195,35 +119,18 @@ nav {
     transition: background 0.3s ease-in-out;
 }
 
-/* Hover effect for Register button */
 .register button:hover {
     background-color: #014f43;
 }
-/* Ensure all navbar links are white */
 
-/* Ensure "Sign in" is styled correctly */
-.login a {
-    color: #245056 !important; /* Make "Sign in" white */
-    font-size: 16px;
-    text-decoration: none;
-    cursor: pointer;
-    padding: 10px 15px;
-    display: inline-block;
-}
-
-/* Ensure all navbar links are white and remove forced underlines */
 .nav-links a,
 .registeration a {
-    color: white !important; /* Keep text white */
-    text-decoration: none !important; /* Remove default underlines */
+    color: white !important;
+    text-decoration: none !important;
     font-size: 16px;
 }
 
-/* REMOVE the extra hover effect */
 .nav-links a:hover,
 .registeration a:hover {
-    text-decoration: none !important; /* Ensure no additional underline is applied */
-}
-.search__container {
-    margin-bottom: 30px; /* Adjust this value to increase spacing */
+    text-decoration: none !important;
 }

@@ -1,4 +1,4 @@
-/* --- Layout & Grid --- */
+
 main {
     padding: 2rem;
   }
@@ -14,7 +14,7 @@ main {
     gap: 1.5rem;
   }
   
-  /* --- Property Item Styling --- */
+
   .property-item {
     background-color: #fff;
     border-radius: 8px;
@@ -38,7 +38,7 @@ main {
     color: #fff;
   }
   
-  /* --- Buttons --- */
+
   .view-link {
     text-decoration: none;
     font-weight: bold;
@@ -58,7 +58,7 @@ main {
   }
   
   
-  /* --- Image --- */
+
   .property-item img {
     width: 100%;
     height: 200px;
@@ -66,7 +66,7 @@ main {
     border-bottom: 1px solid #ddd;
   }
   
-  /* --- Details --- */
+
   .property-details {
     padding: 1rem;
   }
@@ -111,7 +111,7 @@ main {
     transition: color 0.3s;
   }
   
-  /* --- Price & SAR Icon --- */
+
   .price-line {
     display: flex;
     align-items: center;
@@ -143,7 +143,7 @@ main {
   }
   
   
-  /* --- Land Meta Info --- */
+
   .land-meta {
     margin: 0.5rem 0;
     font-size: 0.9rem;
@@ -174,7 +174,7 @@ main {
   }
   
   .owner {
-    position: relative; /* Important so .proposal-actions uses it as reference */
+    position: relative; 
   }
   
   @media (max-width: 992px) {

@@ -14,8 +14,8 @@ header {
 
 nav {
     display: flex;
-    justify-content: center; /* Centers the content horizontally */
-    align-items: center; /* Aligns items vertically */
+    justify-content: center; 
+    align-items: center; 
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
@@ -43,32 +43,32 @@ nav {
 .register button {
     background-color: #215955;
     border-radius: 25px;
-    width: 130px; /* Fixed width */
-    height: 50px; /* Fixed height */
+    width: 130px; 
+    height: 50px; 
     font-size: 16px;
     font-weight: 500;
     font-family: 'Inter', sans-serif;
     color: #fff;
     border: none;
-    padding: 0; /* Removes extra padding to fit text properly */
+    padding: 0; 
     cursor: pointer;
-    display: flex; /* Ensures text alignment using flexbox */
-    justify-content: center; /* Centers text horizontally */
-    align-items: center; /* Centers text vertically */
-    text-align: center; /* Aligns the text in the middle */
-    white-space: nowrap; /* Prevents text wrapping to the next line */
-    overflow: hidden; /* Ensures any overflow is hidden */
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    text-align: center; 
+    white-space: nowrap; 
+    overflow: hidden; 
 }
 
-/* 🔘 Profile icon button container */
+
 .nav-user {
   position: relative;
   list-style: none;
 }
 
-/* 🟢 Profile button (deep green with white icon) */
+
 .nav-user-btn {
-  background-color: #245056; /* Same green as your existing button */
+  background-color: #245056; 
   border: none;
   border-radius: 50%;
   width: 42px;
@@ -89,7 +89,7 @@ nav {
   font-size: 20px;
 }
 
-/* 🔽 Dropdown container */
+
 .nav-user-dropdown {
   display: none;
   position: absolute;
@@ -103,7 +103,7 @@ nav {
   z-index: 999;
 }
 
-/* 🙋‍♂️ User name shown at the top */
+
 .nav-user-name {
   font-size: 14px;
   font-weight: bold;
@@ -112,7 +112,7 @@ nav {
   border-bottom: 1px solid #eee;
 }
 
-/* 🧩 Dropdown links */
+
 .nav-user-dropdown a {
   display: block;
   padding: 10px 15px;
@@ -127,18 +127,18 @@ nav {
   background-color: #f0f0f0;
 }
 
-/* 👁️ Show dropdown toggle class */
+
 .show-dropdown {
   display: block;
 }
 
-/* Overall nav container */
+
 nav {
   background-color: #fff;
   padding: 1rem 0;
 }
 
-/* Flexbox container inside nav */
+
 .nav-container {
   display: flex;
   justify-content: space-between;
@@ -148,7 +148,7 @@ nav {
   padding: 0 1rem;
 }
 
-/* Logo + nav links */
+
 .nav-left {
   display: flex;
   align-items: center;
@@ -156,7 +156,7 @@ nav {
 }
 
 
-/* Main links */
+
 .nav-links {
   list-style: none;
   display: flex;
@@ -174,7 +174,7 @@ nav {
   color: #215955;
 }
 
-/* Right section: login/register or profile icon */
+
 .nav-right {
   list-style: none;
   display: flex;
@@ -215,7 +215,7 @@ nav {
   bottom: 0;
   width: 0%;
   height: 1px;
-  background-color: #215955; /* Underline color */
+  background-color: #215955; 
   transition: width 0.3s ease-in-out;
 }
 
@@ -229,7 +229,7 @@ nav {
 
 
 .footer {
-  background-color: #253732; /* Dark green background */
+  background-color: #253732; 
   color: #FAFAFA;
   padding: 40px 20px;
   font-family: 'Inter', sans-serif;
@@ -253,7 +253,7 @@ nav {
   max-width: 120px;
   margin-top: 30px;
   margin-bottom: 10px;
-  margin-left: 200px; /* Moved image more to the right */
+  margin-left: 200px;
 }
 
 .footer-title {

@@ -1,21 +1,18 @@
-/* Filter Container */
 .filter-container {
     display: flex;
-    justify-content: space-between; /* Align buttons & sort on opposite ends */
+    justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    max-width: 1200px; /* Matches property grid width */
+    max-width: 1200px;
     margin: 0 auto 1rem auto;
     border-bottom: 1px solid #ddd;
 }
 
-/* Filter Buttons Group (Ensures Even Spacing) */
 .filter-buttons {
     display: flex;
-    gap: 143px; /* Ensures even spacing between filter buttons */
+    gap: 143px;
 }
 
-/* Filter Button Styles */
 .filter-button {
     font-size: 16px;
     font-weight: 500;
@@ -26,7 +23,6 @@
     transition: color 0.3s ease-in-out;
 }
 
-/* Underline Hover Effect (Shorter than Button Width) */
 .filter-button:hover {
     color: rgba(33, 89, 85, 1);
 }
@@ -37,13 +33,12 @@
     left: 50%;
     bottom: -2px;
     height: 2px;
-    width: 50%; /* Ensures underline is shorter than text */
+    width: 50%;
     background-color: rgba(33, 89, 85, 1);
     transform: translateX(-50%);
     transition: width 0.3s ease-in-out;
 }
 
-/* Active Filter Button */
 .filter-button.active {
     color: rgba(33, 89, 85, 1);
 }
@@ -59,7 +54,6 @@
     transform: translateX(-50%);
 }
 
-/* Sort By Section */
 .sort-by {
     font-size: 1rem;
     font-weight: 500;
@@ -69,20 +63,17 @@
     align-items: center;
     position: relative;
     gap: 0.5rem;
-    margin-left: auto; /* Pushes it to the right */
+    margin-left: auto;
 }
 
-/* Sort By Hover Effect */
 .sort-by:hover {
     color: rgba(33, 89, 85, 1);
 }
 
-/* Sort Dropdown */
 .sort-by:hover .dropdown-menu {
     display: block;
 }
 
-/* Dropdown Menu */
 .dropdown-menu {
     display: none;
     position: absolute;
@@ -99,7 +90,6 @@
     width: 100px;
 }
 
-/* Dropdown Item */
 .dropdown-item {
     padding: 0.5rem 1rem;
     font-size: 1rem;
@@ -115,58 +105,57 @@
 
 @media (max-width: 992px) {
     .filter-container {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
     }
-  
+
     .filter-buttons {
-      gap: 60px;
-      flex-wrap: wrap;
+        gap: 60px;
+        flex-wrap: wrap;
     }
-  
+
     .sort-by {
-      margin-left: 0;
-      align-self: flex-end;
+        margin-left: 0;
+        align-self: flex-end;
     }
-  
+
     .dropdown-menu {
-      width: 120px;
+        width: 120px;
     }
-  }
-  
-  @media (max-width: 576px) {
+}
+
+@media (max-width: 576px) {
     .filter-container {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0.75rem;
-      padding: 0.75rem 1rem;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
     }
-  
+
     .filter-buttons {
-      flex-direction: column;
-      gap: 12px;
+        flex-direction: column;
+        gap: 12px;
     }
-  
+
     .filter-button {
-      font-size: 15px;
-      text-align: left;
+        font-size: 15px;
+        text-align: left;
     }
-  
+
     .sort-by {
-      font-size: 14px;
-      align-self: flex-start;
+        font-size: 14px;
+        align-self: flex-start;
     }
-  
+
     .dropdown-menu {
-      width: 100%;
-      max-width: 180px;
+        width: 100%;
+        max-width: 180px;
     }
-  
+
     .dropdown-item {
-      font-size: 14px;
-      padding: 0.4rem 0.75rem;
+        font-size: 14px;
+        padding: 0.4rem 0.75rem;
     }
-  }
-  
+}
