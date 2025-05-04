@@ -45,3 +45,73 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const landownerForm = document.querySelector('form[action="/register/landowner"]');
+    const realEstateForm = document.querySelector('form[action="/register/realestate"]');
+  
+    // Common validation function
+    function validateForm(formType, form) {
+      const errorDiv = document.getElementById("register-error");
+      errorDiv.innerText = '';
+  
+      const fullName = form.querySelector('input[name="fullname"], input[name="company"]')?.value.trim();
+      const idNumber = form.querySelector('input[name="idnumber"]')?.value.trim();
+      const phone = form.querySelector('input[name="phone"]')?.value.trim();
+      const email = form.querySelector('input[name="email"]')?.value.trim();
+      const password = form.querySelector('input[name="password"]')?.value;
+      const terms = form.querySelector('input[type="checkbox"]').checked;
+  
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_\-+=~]).{10,15}$/;
+  
+      if (!fullName || (formType === 'landowner' && fullName.split(' ').length < 2)) {
+        errorDiv.innerText = "Please enter your full name (first and last name).";
+        return false;
+      }
+  
+      if (formType === 'landowner' && (!idNumber || !/^\d{10}$/.test(idNumber))) {
+        errorDiv.innerText = "Saudi ID must be a 10-digit number.";
+        return false;
+      }
+  
+      if (!/^[5]\d{8}$/.test(phone)) {
+        errorDiv.innerText = "Phone number must start with 5 and be 9 digits long.";
+        return false;
+      }
+  
+      if (!emailRegex.test(email)) {
+        errorDiv.innerText = "Please enter a valid email address.";
+        return false;
+      }
+  
+      if (!passwordRegex.test(password)) {
+        errorDiv.innerText = "Password must be 10–15 characters long, include 1 uppercase, 1 lowercase, and 1 special character.";
+        return false;
+      }
+  
+      if (!terms) {
+        errorDiv.innerText = "You must accept the terms and agreement.";
+        return false;
+      }
+  
+      return true;
+    }
+  
+    if (landownerForm) {
+      landownerForm.addEventListener('submit', function (e) {
+        if (!validateForm('landowner', landownerForm)) {
+          e.preventDefault();
+        }
+      });
+    }
+  
+    if (realEstateForm) {
+      realEstateForm.addEventListener('submit', function (e) {
+        if (!validateForm('realestate', realEstateForm)) {
+          e.preventDefault();
+        }
+      });
+    }
+  });
+  
