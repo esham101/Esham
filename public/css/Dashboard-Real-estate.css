@@ -368,3 +368,60 @@ tbody tr:hover .more-link {
   text-decoration: underline; /* optional underline if you want */
 }
 
+.btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+
+.btn-accept-counter,
+.btn-reject-counter,
+.btn-counter {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: 500;
+  margin-right: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Accept = Green */
+.btn-accept-counter {
+  background-color: #4CAF50;
+}
+.btn-accept-counter:hover {
+  background-color: #45a049;
+}
+
+/* Reject = Red */
+.btn-reject-counter {
+  background-color: #f44336;
+}
+.btn-reject-counter:hover {
+  background-color: #e53935;
+}
+
+/* Counter = Orange */
+.btn-counter {
+  background-color: #949494;
+}
+.btn-counter:hover {
+  background-color: #949494;
+}
+.btn-show {
+  background-color: #215321;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-top: 4px;
+}

@@ -11,72 +11,71 @@ header {
     padding: 1rem 0;
 }
 
-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-}
+/* ✅ Fix missing dropdown styles on this page */
 
-.logo img {
-    width: 130px;
-    height: auto;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
-}
-
-.nav-links li a {
-    color: #333;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
+.nav-user {
     position: relative;
-    transition: color 0.3s;
-}
-
-.nav-links a:hover {
-    color: #215955;
-}
-
-.nav-links a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0%;
-    height: 1px;
-    background-color: #215955;
-    transition: width 0.3s ease-in-out;
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-.nav-right {
     list-style: none;
-    display: flex;
-    gap: 1rem;
-}
-
-.nav-right button {
-    background-color: #215955;
-    color: white;
+  }
+  
+  .nav-user-btn {
+    background-color: #245056;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-weight: 500;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-}
-
-.nav-right button:hover {
-    background-color: #1c4946;
-}
+    color: white;
+  }
+  
+  .nav-user-btn svg {
+    stroke: white;
+    width: 22px;
+    height: 22px;
+  }
+  
+  .nav-user-dropdown {
+    display: none;
+    position: absolute;
+    top: 120%;
+    right: 0;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 160px;
+    padding: 10px 0;
+    z-index: 999;
+  }
+  
+  .nav-user-dropdown a {
+    display: block;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #245056;
+    transition: background-color 0.2s;
+  }
+  
+  .nav-user-dropdown a:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .nav-user-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #215955;
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .show-dropdown {
+    display: block;
+  }
+  
 
 /* Form Section */
 .proposal-form-section {
