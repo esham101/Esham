@@ -134,3 +134,96 @@ nav {
 .registeration a:hover {
     text-decoration: none !important;
 }
+
+@media (max-width: 768px) {
+    .search__title {
+      font-size: 36px;
+    }
+  
+    .search__wrapper {
+      width: 90%;
+      padding-right: 45px;
+    }
+  
+    .search__input {
+      font-size: 15px;
+      padding: 10px 16px;
+    }
+  
+    .search__button {
+      width: 45px;
+      height: 45px;
+    }
+  
+    .search__button img {
+      width: 28px;
+      height: 28px;
+    }
+  
+    .header {
+      height: 400px;
+      padding: 1rem;
+    }
+  
+    .login button {
+      font-size: 15px;
+    }
+  
+    .register button {
+      padding: 6px 12px;
+      font-size: 14px;
+    }
+  
+    .nav-links a,
+    .registeration a {
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .search__title {
+      font-size: 28px;
+    }
+  
+    .search__wrapper {
+      width: 100%;
+      padding: 4px;
+      padding-right: 45px;
+    }
+  
+    .search__input {
+      font-size: 14px;
+      padding: 10px 14px;
+    }
+  
+    .search__button {
+      width: 40px;
+      height: 40px;
+    }
+  
+    .search__button img {
+      width: 24px;
+      height: 24px;
+    }
+  
+    .header {
+      height: 350px;
+      padding: 0 1rem;
+    }
+  
+    .login a {
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+  
+    .register button {
+      padding: 6px 10px;
+      font-size: 13px;
+    }
+  
+    .nav-links a,
+    .registeration a {
+      font-size: 13px;
+    }
+  }
+  

@@ -182,3 +182,87 @@ body {
       background-position: 0% 50%;
   }
 }
+
+@media (max-width: 768px) {
+  main {
+    padding: 2rem 1.5rem;
+  }
+
+  .controls {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  #micBtn, #stopBtn {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .typed-input {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .typed-input input {
+    width: 100%;
+  }
+
+  .typed-input button {
+    width: 100%;
+  }
+
+  .response-box {
+    padding: 1rem;
+  }
+
+  .response-box p {
+    font-size: 15px;
+  }
+
+  #copyBtn {
+    width: 100%;
+  }
+
+  .loader {
+    width: 30px;
+    height: 30px;
+    border-width: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 1.5rem 1rem;
+  }
+
+  .search__title {
+    font-size: 28px;
+  }
+
+  .response-box h3 {
+    font-size: 18px;
+  }
+
+  .response-box p {
+    font-size: 14px;
+  }
+
+  #micBtn img {
+    width: 28px;
+    height: 28px;
+  }
+
+  #copyBtn {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .typed-input input {
+    font-size: 15px;
+  }
+
+  .typed-input button {
+    font-size: 15px;
+  }
+}

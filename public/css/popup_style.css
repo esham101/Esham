@@ -1,4 +1,3 @@
-/* Popup Styles */
 .popup {
     position: fixed;
     top: 50%;
@@ -171,3 +170,70 @@ button.submit-btn:hover {
     display: flex;
     gap: 10px;
 }
+
+@media (max-width: 768px) {
+    .popup {
+      width: 95%;
+      height: 85vh;
+      padding: 15px;
+    }
+  
+    .add-land-btn {
+      right: 15px;
+      font-size: 14px;
+      padding: 10px 16px;
+    }
+  
+    label[for="titleDeed"],
+    label[for="landImage"] {
+      font-size: 14px;
+      padding: 10px 16px;
+    }
+  
+    button.submit-btn {
+      font-size: 14px;
+      padding: 10px 16px;
+    }
+  
+    .popup-content {
+      padding-right: 3px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .popup {
+      height: 90vh;
+      padding: 12px;
+    }
+  
+    #closePopup {
+      font-size: 18px;
+      top: 8px;
+      right: 8px;
+    }
+  
+    .add-land-btn {
+      font-size: 13px;
+      padding: 8px 14px;
+    }
+  
+    label[for="titleDeed"],
+    label[for="landImage"] {
+      font-size: 13px;
+      padding: 8px 14px;
+    }
+  
+    button.submit-btn {
+      font-size: 13px;
+      padding: 10px 14px;
+    }
+  
+    .file-buttons {
+      flex-direction: column;
+    }
+  
+    form {
+      gap: 10px;
+    }
+  }
+  
